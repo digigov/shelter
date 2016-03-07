@@ -17,6 +17,9 @@ import moment from 'moment';
 import Store from 'react-native-store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Camera from 'react-native-camera';
+import InputType from '../components/InputType';
+import InputNote from '../components/InputNote';
+import Dialog from '../components/Dialog';
 import { verifyVictimId, verifyTaiwanId } from '../lib/verification';
 
 const styles = StyleSheet.create({
@@ -45,7 +48,6 @@ export default class extends Component {
     isVictimId: false,
     isShowNote: false,
     dataSource: ds.cloneWithRows([]),
-    language: '',
   };
 
   componentWillReceiveProps(nextProps) {
@@ -174,84 +176,29 @@ export default class extends Component {
     }}>下方已無更多紀錄</Text> : null;
   };
 
-  renderModel = () => {
+  renderDialog = () => {
     const {
       inputType,
       inputNote,
       isShowNote,
     } = this.state;
 
-    if (isShowNote) {
-      return (
-        <View
-          style={{
-            flex: 1,
-            padding: 10,
-          }}
-        >
-          <TextInput
-            multiline={true}
-            placeholder="細節（選填）"
-            style={{
-              flex: 1,
-              fontSize: 14,
-              padding: 5,
-              borderWidth: 1,
-              borderColor: '#E5ECEF',
-            }}
-            onChangeText={(inputNote) => this.setState({ inputNote })}
-            value={inputNote}
-          />
-        </View>
-      );
-    } else {
-      return (
-        <View>
-          <Picker
-            selectedValue={inputType}
-            onValueChange={(inputType) => this.setState({ inputType })}
-            sytle={{
-              height: 40,
-            }}
-          >
-            <Picker.Item label="物資" value="物資" />
-            <Picker.Item label="餐飲" value="餐飲" />
-            <Picker.Item label="充電" value="充電" />
-            <Picker.Item label="回報" value="回報" />
-            <Picker.Item label="協尋" value="協尋" />
-            <Picker.Item label="求助" value="求助" />
-            <Picker.Item label="諮詢" value="諮詢" />
-            <Picker.Item label="醫療" value="醫療" />
-            <Picker.Item label="其他" value="其他" />
-          </Picker>
-          <TouchableOpacity onPress={() => this.setState({
-            isShowNote: true,
-            inputNoteTemp: inputNote,
-          })}>
-            <View
-              style={{
-                flexDirection: 'row',
-                borderBottomColor: '#DBDCDE',
-                borderBottomWidth: 1,
-                borderTopColor: '#DBDCDE',
-                borderTopWidth: 1,
-                backgroundColor: '#F6F7F9',
-                padding: 10,
-              }}>
-              <Text style={{ fontSize: 18 }}>細節：</Text>
-              <Text
-                numberOfLines={1}
-                style={{
-                  flex: 1,
-                  fontSize: 18,
-                  overflow: 'hidden',
-                }}
-              >{inputNote}</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      );
-    }
+    return (
+      <View style={{
+        flex: 1,
+      }}>
+        { !isShowNote && <InputType
+          value={inputType}
+          onChange={(inputType) => this.setState({ inputType })}
+        /> }
+        <InputNote
+          value={inputNote}
+          onChange={(inputNote) => this.setState({ inputNote })}
+          isShowEditer={isShowNote}
+          onEditer={() => this.setState({ isShowNote: true })}
+        />
+      </View>
+    );
   };
 
   renderRow = (item) => {
@@ -281,7 +228,7 @@ export default class extends Component {
               fontSize: 18,
               overflow: 'hidden',
             }}
-          >{item.note}123456789sdfghjkl12345678fghjk</Text>
+          >{item.note}</Text>
           <Text style={{
             flex: 1,
             fontSize: 12,
@@ -343,37 +290,16 @@ export default class extends Component {
           dataSource={dataSource}
           renderRow={this.renderRow}
         />
-        <Modal animated={true} visible={isModalVisible}>
-          <View style={{
-            flex: 1,
-            backgroundColor: '#fff',
-          }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingTop: 20,
-                borderBottomColor: '#DBDCDE',
-                borderBottomWidth: 1,
-                backgroundColor: '#F6F7F9',
-              }}>
-              <TouchableOpacity
-                style={{ padding: 10 }}
-                onPress={this.onInsertCancel}
-              >
-                <Text style={{ fontSize: 18, color: '#0076FF' }}>取消</Text>
-              </TouchableOpacity>
-              <Text style={{ fontSize: 18, padding: 10 }}>新增紀錄</Text>
-              <TouchableOpacity
-                style={{ padding: 10 }}
-                onPress={this.onInsertSubmit}
-              >
-                <Text style={{ fontSize: 18, color: '#0076FF' }}>{ isShowNote ? '完成' : '新增' }</Text>
-              </TouchableOpacity>
-            </View>
-            { this.renderModel() }
-          </View>
-        </Modal>
+        <Dialog
+          isShow={isModalVisible}
+          title="新增紀錄"
+          leftText="取消"
+          onLeftPress={this.onInsertCancel}
+          rightText={ isShowNote ? '完成' : '新增' }
+          onRightPress={this.onInsertSubmit}
+        >
+          { this.renderDialog() }
+        </Dialog>
       </View>
     );
   }

@@ -768,6 +768,7 @@
 				INFOPLIST_FILE = victim/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = g0v.victim;
 				PRODUCT_NAME = victim;
 			};
 			name = Debug;
@@ -787,6 +788,7 @@
 				INFOPLIST_FILE = victim/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = g0v.victim;
 				PRODUCT_NAME = victim;
 			};
 			name = Release;

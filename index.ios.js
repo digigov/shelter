@@ -19,6 +19,7 @@ import {
 } from 'react-native-router-flux';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import NavLeftButton from './components/NavLeftButton';
 
 import ScanView from './pages/scan';
 import SearchView from './pages/search';
@@ -51,20 +52,6 @@ class TabIcon extends Component {
 
 class Victim extends Component {
 
-  renderScanButton() {
-    return (
-      <Icon.Button
-        onPress={Actions.searchScan}
-        name="ios-barcode-outline"
-        backgroundColor="#16a085"
-        height={46}
-        size={24}
-      >
-        <Text style={{color: '#FEFEFE'}}>掃描</Text>
-      </Icon.Button>
-    );
-  }
-
   render() {
     return (
       <Router hideNavBar={true} name="root">
@@ -84,11 +71,24 @@ class Victim extends Component {
                   name="searchInput"
                   title="查詢"
                   type="switch"
-                  renderRightButton={this.renderScanButton}
+                  renderRightButton={() => {
+                    return (
+                      <Icon.Button
+                        onPress={Actions.searchScan}
+                        name="ios-barcode-outline"
+                        backgroundColor="transparent"
+                        height={46}
+                        size={24}
+                      >
+                        <Text style={{color: '#FEFEFE'}}>掃描</Text>
+                      </Icon.Button>
+                    );
+                  }}
                   component={SearchView} />
                 <Route
                   name="searchScan"
                   title="查詢掃描"
+                  renderLeftButton={() => <NavLeftButton onPress={Actions.pop} icon="chevron-left" />}
                   component={ScanView} />
               </Router>
             </Route>
@@ -108,6 +108,7 @@ class Victim extends Component {
                 <Route
                   name="batchScan"
                   title="批次掃描"
+                  renderLeftButton={() => <NavLeftButton onPress={Actions.pop} icon="chevron-left" />}
                   component={ScanView} />
               </Router>
             </Route>
@@ -123,10 +124,24 @@ class Victim extends Component {
                   name="registerInput"
                   title="登錄"
                   type="switch"
+                  renderRightButton={() => {
+                    return (
+                      <Icon.Button
+                        onPress={Actions.batchScan}
+                        name="ios-barcode-outline"
+                        backgroundColor="#16a085"
+                        height={46}
+                        size={24}
+                      >
+                        <Text style={{color: '#FEFEFE'}}>掃描</Text>
+                      </Icon.Button>
+                    );
+                  }}
                   component={RegisterView} />
                 <Route
                   name="registerScan"
                   title="登錄掃描"
+                  renderLeftButton={() => <NavLeftButton onPress={Actions.pop} icon="chevron-left" />}
                   component={ScanView} />
               </Router>
             </Route>
