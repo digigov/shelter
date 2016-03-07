@@ -9,7 +9,7 @@ const {
   TouchableOpacity,
 } = React;
 
-export default function({ isShowEditer, onEditer, value, onChange }) {
+module.exports = function({ isShowEditer, onEditer, value, onChange }) {
   return isShowEditer ? (
     <TextInput
       multiline={true}

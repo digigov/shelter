@@ -8,7 +8,7 @@ const {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default function({ onPress, icon, text }) {
+module.exports = function({ onPress, icon, text }) {
   return (
     <TouchableOpacity style={{
       flexDirection: 'row',

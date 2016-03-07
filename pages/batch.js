@@ -13,15 +13,19 @@ import React, {
   Dimensions,
 } from 'react-native';
 
+import {
+  Button,
+  Dialog,
+  InputType,
+  InputNote,
+} from '../components';
+
 import { Actions } from 'react-native-router-flux';
 
 import moment from 'moment';
 import Store from 'react-native-store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Camera from 'react-native-camera';
-import InputType from '../components/InputType';
-import InputNote from '../components/InputNote';
-import Dialog from '../components/Dialog';
 import { verifyVictimId, verifyTaiwanId } from '../lib/verification';
 
 const record = Store.model('record');
@@ -61,27 +65,10 @@ export default class extends Component {
           isShowEditer={false}
           onEditer={() => this.setState({ isShowNote: true, inputNoteTemp: inputNote })}
         />
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderWidth: 1,
-            borderColor: '#1abc9c',
-            backgroundColor: '#16a085',
-            margin: 8,
-            paddingTop: 3,
-            paddingBottom: 1,
-          }}
-          onPress={() => Actions.batchScan({ inputType, inputNote })}
-        >
-          <Icon
-            name="ios-barcode-outline"
-            color="#FEFEFE"
-            size={24}
-          />
-          <Text style={{ paddingBottom: 3, paddingLeft: 5, color: '#FEFEFE' }}>開始</Text>
-        </TouchableOpacity>
+        <Button
+          label="開始"
+          icon="ios-barcode-outline"
+          onPress={() => Actions.batchScan({ inputType, inputNote })} />
         <Dialog
           isShow={isShowNote}
           title="編輯細節"

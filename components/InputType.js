@@ -6,7 +6,7 @@ const {
   Picker,
 } = React;
 
-export default function({ value, onChange }) {
+module.exports = function({ value, onChange }) {
   return (
     <Picker
       style={{ margin: 0 }}

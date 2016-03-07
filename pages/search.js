@@ -17,9 +17,12 @@ import moment from 'moment';
 import Store from 'react-native-store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Camera from 'react-native-camera';
-import InputType from '../components/InputType';
-import InputNote from '../components/InputNote';
-import Dialog from '../components/Dialog';
+import {
+  Dialog,
+  InputId,
+  InputType,
+  InputNote,
+} from '../components'
 import { verifyVictimId, verifyTaiwanId } from '../lib/verification';
 
 const styles = StyleSheet.create({
@@ -59,10 +62,6 @@ export default class extends Component {
     }
   }
 
-  onCleanPress = () => {
-    this.onInputChange('');
-  };
-
   onInputChange = (inputId) => {
     let isTaiwanId = false;
     let isVictimId = false;
@@ -83,7 +82,6 @@ export default class extends Component {
     } else {
       this.setState({ dataSource: ds.cloneWithRows([]) })
     }
-
 
     this.setState({ inputId, isTaiwanId, isVictimId });
   };
@@ -146,18 +144,12 @@ export default class extends Component {
         }}>新增一筆新記錄</Text>
       </TouchableOpacity>;
     } else {
-      const textStyle = {
-        fontSize: 24,
-        textAlign: 'center',
-        marginTop: 10,
-      };
-
       return (
         <View>
-          <Text style={textStyle}>請輸入正確的</Text>
-          <Text style={textStyle}>災民證號</Text>
+          <Text style={{ fontSize: 12, textAlign: 'center', marginTop: 10 }}>請輸入正確的</Text>
+          <Text style={{ fontSize: 24, textAlign: 'center', marginTop: 10 }}>災民證字號</Text>
           <Text style={{ fontSize: 12, textAlign: 'center', marginTop: 10 }}>或</Text>
-          <Text style={textStyle}>身分證證號</Text>
+          <Text style={{ fontSize: 24, textAlign: 'center', marginTop: 10 }}>身分證字號</Text>
         </View>
       );
     }
@@ -252,35 +244,10 @@ export default class extends Component {
 
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            height: 40,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <TextInput
-            style={{
-              flex: 1,
-              borderColor: 'gray',
-              borderWidth: 1,
-              textAlign: 'center',
-            }}
-            placeholder="請輸入證件字號"
-            autoFocus={true}
-            value={inputId}
-            onChangeText={this.onInputChange}
-          />
-          <Icon.Button
-            onPress={this.onCleanPress}
-            name="ios-close-outline"
-            backgroundColor="#F5FCFF"
-            color="#000"
-            width={36}
-            size={24}
-          />
-        </View>
+        <InputId
+          value={inputId}
+          onChange={this.onInputChange}
+        />
         <ListView
           style={{
             flex: 1,

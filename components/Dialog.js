@@ -9,7 +9,7 @@ const {
   TouchableOpacity,
 } = React;
 
-export default function({ isShow, leftText, onLeftPress, rightText, onRightPress, title, children }) {
+module.exports = function({ isShow, leftText, onLeftPress, rightText, onRightPress, title, children }) {
   return (
     <Modal animated={true} visible={isShow}>
       <View style={{

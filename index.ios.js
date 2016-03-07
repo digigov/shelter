@@ -127,7 +127,7 @@ class Victim extends Component {
                   renderRightButton={() => {
                     return (
                       <Icon.Button
-                        onPress={Actions.batchScan}
+                        onPress={Actions.registerScan}
                         name="ios-barcode-outline"
                         backgroundColor="#16a085"
                         height={46}
