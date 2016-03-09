@@ -17,13 +17,16 @@ import moment from 'moment';
 import Store from 'react-native-store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Camera from 'react-native-camera';
+import { getUniqueID } from 'react-native-device-info';
+import uid from '../lib/uid';
+import { verifyVictimId, verifyTaiwanId } from '../lib/verification';
+
 import {
   Dialog,
   InputId,
   InputType,
   InputNote,
 } from '../components'
-import { verifyVictimId, verifyTaiwanId } from '../lib/verification';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +40,9 @@ const styles = StyleSheet.create({
 });
 
 const record = Store.model('record');
-const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+const ds = new ListView.DataSource({
+  rowHasChanged: (r1, r2) => true,
+});
 
 export default class extends Component {
 
@@ -46,12 +51,14 @@ export default class extends Component {
     inputType: '其他',
     inputNote: '',
     inputNoteTemp: '',
-    isModalVisible: false,
+    isInsertVisible: false,
     isTaiwanId: false,
     isVictimId: false,
     isShowNote: false,
     dataSource: ds.cloneWithRows([]),
   };
+
+  dataSource = [];
 
   componentWillReceiveProps(nextProps) {
     if (
@@ -65,22 +72,26 @@ export default class extends Component {
   onInputChange = (inputId) => {
     let isTaiwanId = false;
     let isVictimId = false;
+    const { dataSource } = this.state;
     inputId = inputId.toUpperCase();
 
     if (verifyTaiwanId(inputId)) {
       isTaiwanId = true;
 
-      record.find({where: {taiwanId: inputId}}).then(results => {
-        this.setState({ dataSource: ds.cloneWithRows(results || []) });
+      record.find({where: {taiwanId: inputId}, order: {createdAt: 'DESC'}}).then(results => {
+        this.dataSource = results || [];
+        this.setState({ dataSource: dataSource.cloneWithRows(this.dataSource) });
       });
     } else if (verifyVictimId(inputId)) {
       isVictimId = true;
 
-      record.find({where: {victimId: inputId}}).then(results => {
-        this.setState({ dataSource: ds.cloneWithRows(results || []) });
+      record.find({where: {victimId: inputId}, order: {createdAt: 'DESC'}}).then(results => {
+        this.dataSource = results || [];
+        this.setState({ dataSource: dataSource.cloneWithRows(this.dataSource) });
       });
     } else {
-      this.setState({ dataSource: ds.cloneWithRows([]) })
+      this.dataSource = [];
+      this.setState({ dataSource: dataSource.cloneWithRows(this.dataSource) })
     }
 
     this.setState({ inputId, isTaiwanId, isVictimId });
@@ -88,7 +99,7 @@ export default class extends Component {
 
   onInsertCancel = () => {
     if (!this.state.isShowNote) {
-      this.setState({ isModalVisible: false });
+      this.setState({ isInsertVisible: false });
     } else {
       this.setState({ isShowNote: false, inputNote: this.state.inputNoteTemp });
     }
@@ -101,18 +112,27 @@ export default class extends Component {
       inputId,
       inputType,
       inputNote,
+      dataSource,
     } = this.state;
 
     if (!this.state.isShowNote) {
-      record.add({
+      const obj = {
+        uid: uid(),
+        deviceId: getUniqueID(),
         taiwanId: isTaiwanId ? inputId : '',
         victimId: isVictimId ? inputId : '',
         type: inputType,
         note: inputNote,
-        createdAt: moment().toISOString(),
-      });
+        createdAt: new Date().getTime(),
+      };
 
-      this.setState({ isModalVisible: false });
+      record.add(obj);
+
+      this.dataSource.unshift(obj);
+      this.setState({ 
+        dataSource: dataSource.cloneWithRows(this.dataSource),
+        isInsertVisible: false,
+      });
     } else {
       this.setState({ isShowNote: false });
     }
@@ -126,7 +146,7 @@ export default class extends Component {
 
     if (isTaiwanId || isVictimId) {
       return <TouchableOpacity
-        onPress={() => this.setState({ isModalVisible: true })}
+        onPress={() => this.setState({ isInsertVisible: true })}
         style={{
           height: 42,
           flexDirection: 'row',
@@ -239,7 +259,7 @@ export default class extends Component {
       isTaiwanId,
       isShowNote,
       dataSource,
-      isModalVisible,
+      isInsertVisible,
     } = this.state;
 
     return (
@@ -258,7 +278,7 @@ export default class extends Component {
           renderRow={this.renderRow}
         />
         <Dialog
-          isShow={isModalVisible}
+          isShow={isInsertVisible}
           title="新增紀錄"
           leftText="取消"
           onLeftPress={this.onInsertCancel}
