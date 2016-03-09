@@ -1,6 +1,7 @@
 package com.victim;
 
 import com.facebook.react.ReactActivity;
+import com.eguma.barcodescanner.BarcodeScanner;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.chirag.RNMail.RNMail;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -40,6 +41,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+        new BarcodeScanner(),
         new RNDeviceInfo(),
         new RNMail(),
         new VectorIconsPackage(),

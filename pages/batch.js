@@ -6,7 +6,6 @@ import React, {
   TextInput,
   StyleSheet,
   ListView,
-  Modal,
   Picker,
   TouchableOpacity,
   Component,

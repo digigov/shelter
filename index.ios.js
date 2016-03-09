@@ -28,18 +28,12 @@ import RegisterView from './pages/register';
 import TabBar from './pages/tabbar'
 
 const styles = StyleSheet.create({
-  navigation: {
-    backgroundColor: '#16a085',
-  },
   scan: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
   },
-  title: {
-    color: '#fefefe',
-  }
 });
 
 class Victim extends Component {
@@ -142,8 +136,6 @@ class Victim extends Component {
               name="export"
               title="匯出"
               schema="tab"
-              titleStyle={styles.title}
-              navigationBarStyle={styles.navigation}
               component={ExportView}
             />
           </Router>

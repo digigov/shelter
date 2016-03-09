@@ -49,6 +49,8 @@ export default class extends Component {
   dataSource = [];
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.route.name !== 'search') this.setState({ isInsertVisible: false });
+
     if (
       nextProps.inputId !== this.props.inputId ||
       nextProps.inputIdTimestamp !== this.props.inputIdTimestamp
