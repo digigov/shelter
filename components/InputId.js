@@ -5,6 +5,7 @@ import React from 'react-native';
 const {
   View,
   TextInput,
+  TouchableOpacity,
 } = React;
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -32,14 +33,20 @@ module.exports = function({ value, onChange, label, ...otherProps }) {
         onChangeText={onChange}
         {...otherProps}
       />
-      <Icon.Button
+      <TouchableOpacity
         onPress={() => onChange('')}
-        name="ios-close-outline"
-        backgroundColor="#F5FCFF"
-        color="#000"
-        width={36}
-        size={24}
-      />
+        style={{
+          paddingLeft: 10,
+          paddingRight: 10,
+        }}>
+        <Icon
+          name="ios-close-outline"
+          backgroundColor="#F5FCFF"
+          color="#000"
+          width={36}
+          size={24}
+        />
+      </TouchableOpacity>
     </View>
   );
 };

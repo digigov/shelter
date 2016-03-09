@@ -6,4 +6,5 @@ module.exports = {
   NavLeftButton: require('./NavLeftButton'),
   Dialog: require('./Dialog'),
   Button: require('./Button'),
+  RecordRow: require('./RecordRow'),
 };

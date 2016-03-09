@@ -15,20 +15,34 @@ import React, {
 import Camera from 'react-native-camera';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
+import Record from '../lib/Record';
 import { verifyVictimId, verifyTaiwanId } from '../lib/verification';
 
-export default class extends Component {
+import {
+  InputId,
+  RecordRow,
+} from '../components'
 
-  hasRead = false;
+const ds = new ListView.DataSource({
+  rowHasChanged: (r1, r2) => true,
+});
+
+export default class extends Component {
 
   state = {
     inputId: '',
     isTaiwanId: false,
     isVictimId: false,
+    dataSource: ds.cloneWithRows([]),
   };
 
-  componentWillMount() {
-    // alert(this.props.route.name);
+  hasRead = false;
+
+  dataSource = [];
+
+  updateDataSource(data) {
+    this.dataSource = data;
+    this.setState({ dataSource: this.state.dataSource.cloneWithRows(this.dataSource) });
   }
 
   onBarCodeRead = (e) => {
@@ -54,6 +68,24 @@ export default class extends Component {
     }
   };
 
+  handleInsert({ taiwanId, victimId }) {
+    const {
+      inputType,
+      inputNote,
+    } = this.props;
+
+    Record
+      .insert({ taiwanId, victimId, type: inputType, note: inputNote })
+      .then(obj => {
+        this.dataSource.unshift(obj);
+
+        this.setState({ 
+          dataSource: this.state.dataSource.cloneWithRows(this.dataSource),
+          isInsertVisible: false,
+        });
+      });
+  };
+
   onInputChange = (inputId) => {
     let isTaiwanId = false;
     let isVictimId = false;
@@ -61,53 +93,28 @@ export default class extends Component {
 
     if (verifyTaiwanId(inputId)) {
       isTaiwanId = true;
+      this.handleInsert({ taiwanId: inputId });
     } else if (verifyVictimId(inputId)) {
       isVictimId = true;
+      this.handleInsert({ victimId: inputId });
     }
 
     this.setState({ inputId, isTaiwanId, isVictimId });
   };
 
-  renderInput = () => {
-    const {
-      inputId,
-    } = this.state;
+  onRemove = (data) => {
+    Record.removeById(data._id);
 
-    return (
-      <View
-        style={{
-          margin: 3,
-          height: 40,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <TextInput
-          style={{
-            flex: 1,
-            borderColor: 'gray',
-            borderWidth: 1,
-            textAlign: 'center',
-          }}
-          placeholder="請輸入證件字號"
-          autoFocus={true}
-          value={inputId}
-          onChangeText={this.onInputChange}
-        />
-        <Icon.Button
-          name="code-download"
-          backgroundColor="#F5FCFF"
-          color="#000"
-          width={36}
-          size={24}
-        />
-      </View>
-    );
+    this.updateDataSource(this.dataSource.filter(item => item._id !== data._id));
   };
 
   render() {
     const routeName = this.props.route.name;
+
+    const {
+      inputId,
+      dataSource,
+    } = this.state;
 
     return (
       <View style={{
@@ -125,7 +132,19 @@ export default class extends Component {
           onBarCodeRead={this.onBarCodeRead}
         >
         </Camera>
-        { routeName === 'batchScan' && this.renderInput() }
+        { routeName === 'batchScan' && 
+          <InputId
+            value={inputId}
+            onChange={this.onInputChange}
+          />
+        }
+        { routeName === 'batchScan' && 
+          <ListView
+            style={{ flex: 1 }}
+            dataSource={dataSource}
+            renderRow={(item) => <RecordRow data={item} onRemove={this.onRemove} />}
+          />
+        }
       </View>
     );
   }

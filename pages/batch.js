@@ -38,6 +38,7 @@ export default class extends Component {
     inputNote: '',
     inputNoteTemp: '',
     isShowNote: false,
+    dataSource: ds.cloneWithRows([]),
   };
 
   render() {

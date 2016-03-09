@@ -13,12 +13,10 @@ import React, {
   Dimensions,
 } from 'react-native';
 
-import moment from 'moment';
 import Store from 'react-native-store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Camera from 'react-native-camera';
-import { getUniqueID } from 'react-native-device-info';
-import uid from '../lib/uid';
+import Record from '../lib/Record';
 import { verifyVictimId, verifyTaiwanId } from '../lib/verification';
 
 import {
@@ -26,18 +24,8 @@ import {
   InputId,
   InputType,
   InputNote,
+  RecordRow,
 } from '../components'
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
-    paddingTop: 64,
-    paddingBottom: 50,
-  },
-});
 
 const record = Store.model('record');
 const ds = new ListView.DataSource({
@@ -69,29 +57,26 @@ export default class extends Component {
     }
   }
 
+  updateDataSource(data) {
+    this.dataSource = data;
+    this.setState({ dataSource: this.state.dataSource.cloneWithRows(this.dataSource) });
+  }
+
   onInputChange = (inputId) => {
     let isTaiwanId = false;
     let isVictimId = false;
-    const { dataSource } = this.state;
     inputId = inputId.toUpperCase();
 
     if (verifyTaiwanId(inputId)) {
       isTaiwanId = true;
 
-      record.find({where: {taiwanId: inputId}, order: {createdAt: 'DESC'}}).then(results => {
-        this.dataSource = results || [];
-        this.setState({ dataSource: dataSource.cloneWithRows(this.dataSource) });
-      });
+      Record.find({taiwanId: inputId}).then(results => this.updateDataSource(results || []));
     } else if (verifyVictimId(inputId)) {
       isVictimId = true;
 
-      record.find({where: {victimId: inputId}, order: {createdAt: 'DESC'}}).then(results => {
-        this.dataSource = results || [];
-        this.setState({ dataSource: dataSource.cloneWithRows(this.dataSource) });
-      });
+      Record.find({victimId: inputId}).then(results => this.updateDataSource(results || []));
     } else {
-      this.dataSource = [];
-      this.setState({ dataSource: dataSource.cloneWithRows(this.dataSource) })
+      this.updateDataSource([]);
     }
 
     this.setState({ inputId, isTaiwanId, isVictimId });
@@ -116,26 +101,29 @@ export default class extends Component {
     } = this.state;
 
     if (!this.state.isShowNote) {
-      const obj = {
-        uid: uid(),
-        deviceId: getUniqueID(),
-        taiwanId: isTaiwanId ? inputId : '',
-        victimId: isVictimId ? inputId : '',
-        type: inputType,
-        note: inputNote,
-        createdAt: new Date().getTime(),
-      };
-
-      record.add(obj);
-
-      this.dataSource.unshift(obj);
-      this.setState({ 
-        dataSource: dataSource.cloneWithRows(this.dataSource),
-        isInsertVisible: false,
-      });
+      Record
+        .insert({
+          taiwanId: isTaiwanId ? inputId : '',
+          victimId: isVictimId ? inputId : '',
+          type: inputType,
+          note: inputNote,
+        })
+        .then(obj => {
+          this.dataSource.unshift(obj);
+          this.setState({ 
+            dataSource: dataSource.cloneWithRows(this.dataSource),
+            isInsertVisible: false,
+          });
+        })
     } else {
       this.setState({ isShowNote: false });
     }
+  };
+
+  onRemove = (data) => {
+    Record.removeById(data._id);
+
+    this.updateDataSource(this.dataSource.filter(item => item._id !== data._id));
   };
 
   renderHeader = () => {
@@ -213,45 +201,6 @@ export default class extends Component {
     );
   };
 
-  renderRow = (item) => {
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          padding: 5,
-        }}
-      >
-        <Text style={{
-          fontSize: 26,
-          padding: 6,
-          paddingLeft: 8,
-          paddingTop: 8,
-          borderColor: '#131313',
-          borderWidth: 1,
-        }}>{item.type}</Text>
-        <View style={{
-          flex: 1,
-          padding: 2,
-          paddingLeft: 10,
-        }}>
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: 18,
-              overflow: 'hidden',
-            }}
-          >{item.note}</Text>
-          <Text style={{
-            flex: 1,
-            fontSize: 12,
-            textAlign: 'right',
-            marginTop: 3,
-          }}>- {moment(item.createdAt).format('YYYY-MM-DD HH:mm')}</Text>
-        </View>
-      </View>
-    );
-  };
-
   render() {
     const {
       inputId,
@@ -263,7 +212,14 @@ export default class extends Component {
     } = this.state;
 
     return (
-      <View style={styles.container}>
+      <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        backgroundColor: '#F5FCFF',
+        paddingTop: 64,
+        paddingBottom: 50,
+      }}>
         <InputId
           value={inputId}
           onChange={this.onInputChange}
@@ -275,7 +231,7 @@ export default class extends Component {
           renderHeader={this.renderHeader}
           renderFooter={this.renderFooter}
           dataSource={dataSource}
-          renderRow={this.renderRow}
+          renderRow={(item) => <RecordRow data={item} onRemove={this.onRemove} />}
         />
         <Dialog
           isShow={isInsertVisible}
