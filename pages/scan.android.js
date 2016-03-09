@@ -58,6 +58,7 @@ export default class extends Component {
       break;
     case 'batchScan':
       this.onInputChange(e.data);
+      this.hasRead = false;
       break;
     case 'registerScan':
       Actions.registerInput({
@@ -90,6 +91,8 @@ export default class extends Component {
     let isTaiwanId = false;
     let isVictimId = false;
     inputId = inputId.toUpperCase();
+
+    if (inputId === this.state.inputId) return;
 
     if (verifyTaiwanId(inputId)) {
       isTaiwanId = true;
