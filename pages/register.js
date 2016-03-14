@@ -2,12 +2,14 @@
 
 import React, {
   View,
+  ScrollView,
   Text,
   TextInput,
   StyleSheet,
   ListView,
   Modal,
   Picker,
+  Alert,
   TouchableOpacity,
   Component,
   Dimensions,
@@ -25,6 +27,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { verifyVictimId, verifyTaiwanId } from '../lib/verification';
 
 const victim = Store.model('victim');
+
+const emptyVictim = {
+  inputVictimId: '',
+  inputTaiwanId: '',
+  inputName: '',
+  inputContact: '',
+  storeId: null
+};
 
 export default class extends Component {
 
@@ -55,21 +65,23 @@ export default class extends Component {
     if (verifyTaiwanId(inputId)) {
       victim.get({where: {taiwanId: inputId}}).then(reply => {
         this.setState(reply ? {
-          inputVictimId: reply[0].victimId,
-          inputName: reply[0].name,
-          inputContact: reply[0].contact,
-          storeId: reply[0]._id,
-        } : { storeId: null });
+          inputVictimId: reply[0].victimId || '',
+          inputTaiwanId: '',
+          inputName: reply[0].name || '',
+          inputContact: reply[0].contact || '',
+          storeId: reply[0]._id || null,
+        } : emptyVictim);
       });
       isTaiwanId = true;
     } else if (verifyVictimId(inputId)) {
       victim.get({where: {victimId: inputId}}).then(reply => {
         this.setState(reply ? {
-          inputTaiwanId: reply[0].taiwanId,
-          inputName: reply[0].name,
-          inputContact: reply[0].contact,
-          storeId: reply[0]._id,
-        } : { storeId: null });
+          inputVictimId: '',
+          inputTaiwanId: reply[0].taiwanId || '',
+          inputName: reply[0].name || '',
+          inputContact: reply[0].contact || '',
+          storeId: reply[0]._id || null,
+        } : emptyVictim);
       });
       isVictimId = true;
     }
@@ -100,7 +112,8 @@ export default class extends Component {
         name: inputName,
         contact: inputContact,
         updatedAt: moment().toISOString(),
-      }, storeId);
+      }, storeId)
+      .then(() => Alert.alert('更新完成', isVictimId ? inputId : inputVictimId));
     } else {
       victim.add({
         victimId: isVictimId ? inputId : inputVictimId,
@@ -108,6 +121,10 @@ export default class extends Component {
         name: inputName,
         contact: inputContact,
         updatedAt: moment().toISOString(),
+      })
+      .then(reply => {
+        this.setState({ storeId: reply._id });
+        Alert.alert('儲存完成', isVictimId ? inputId : inputVictimId)
       });
     }
   };
@@ -174,7 +191,7 @@ export default class extends Component {
     } = this.state;
 
     return (
-      <View style={{
+      <ScrollView style={{
         flex: 1,
         flexDirection: 'column',
         backgroundColor: '#F5FCFF',
@@ -186,7 +203,7 @@ export default class extends Component {
           onChange={this.onInputChange}
         />
         { this.renderInput() }
-      </View>
+      </ScrollView>
     );
   }
 }

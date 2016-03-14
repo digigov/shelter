@@ -858,6 +858,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = g0v.victim;
 				PRODUCT_NAME = victim;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -881,6 +882,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = g0v.victim;
 				PRODUCT_NAME = victim;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

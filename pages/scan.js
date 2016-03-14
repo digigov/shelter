@@ -28,17 +28,24 @@ const ds = new ListView.DataSource({
 });
 
 export default class extends Component {
-
   state = {
     inputId: '',
+    showId: '',
     isTaiwanId: false,
     isVictimId: false,
+    isShowCamera: true,
     dataSource: ds.cloneWithRows([]),
   };
 
   hasRead = false;
 
   dataSource = [];
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      isShowCamera: ['searchScan', 'batchScan', 'registerScan'].indexOf(nextProps.route.name) > -1
+    });
+  }
 
   updateDataSource(data) {
     this.dataSource = data;
@@ -58,6 +65,7 @@ export default class extends Component {
       break;
     case 'batchScan':
       this.onInputChange(e.data);
+      this.hasRead = false;
       break;
     case 'registerScan':
       Actions.registerInput({
@@ -80,9 +88,12 @@ export default class extends Component {
         this.dataSource.unshift(obj);
 
         this.setState({ 
+          showId: taiwanId || victimId,
           dataSource: this.state.dataSource.cloneWithRows(this.dataSource),
           isInsertVisible: false,
         });
+
+        setTimeout(() => this.setState({ showId: '' }), 1000);
       });
   };
 
@@ -90,6 +101,8 @@ export default class extends Component {
     let isTaiwanId = false;
     let isVictimId = false;
     inputId = inputId.toUpperCase();
+
+    if (inputId === this.state.inputId) return;
 
     if (verifyTaiwanId(inputId)) {
       isTaiwanId = true;
@@ -108,12 +121,21 @@ export default class extends Component {
     this.updateDataSource(this.dataSource.filter(item => item._id !== data._id));
   };
 
+  onKeyPress = (e) => {
+    if (e.nativeEvent.key === 'Enter') {
+      this.onInputChange('');
+      setTimeout(() => this.refs.input.focus(), 100);
+    }
+  };
+
   render() {
     const routeName = this.props.route.name;
 
     const {
       inputId,
+      showId,
       dataSource,
+      isShowCamera,
     } = this.state;
 
     return (
@@ -122,20 +144,47 @@ export default class extends Component {
         backgroundColor: '#fff',
         paddingTop: 64,
       }}>
-        <Camera
-          style={{
-            justifyContent: 'flex-end',
+        { isShowCamera &&
+          <Camera
+            style={{
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              height: 100,
+            }}
+            captureMode={Camera.constants.CaptureMode.code}
+            aspect={Camera.constants.Aspect.fill}
+            orientation={Camera.constants.Orientation.portrait}
+            captureAudio={false}
+            keepAwake={true}
+            onBarCodeRead={this.onBarCodeRead}
+          />
+        }
+        { showId !== '' && (
+          <View style={{
+            position: 'absolute',
+            margin: 5,
+            marginTop: 69,
+            top: 0,
+            right: 0,
+            left: 0,
+            height: 90,
+            justifyContent: 'center',
             alignItems: 'center',
-            height: 140,
-          }}
-          aspect={Camera.constants.Aspect.Fill}
-          onBarCodeRead={this.onBarCodeRead}
-        >
-        </Camera>
+            backgroundColor: '#FEFEFD',
+            borderWidth: 5,
+            borderColor: 'gray',
+          }}>
+            <Text style={{
+              fontSize: 20,
+            }}>{showId}</Text>
+          </View>
+        )}
         { routeName === 'batchScan' && 
           <InputId
+            ref="input"
             value={inputId}
             onChange={this.onInputChange}
+            onKeyPress={this.onKeyPress}
           />
         }
         { routeName === 'batchScan' && 

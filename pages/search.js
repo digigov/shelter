@@ -39,7 +39,7 @@ export default class extends Component {
     inputType: '其他',
     inputNote: '',
     inputNoteTemp: '',
-    isInsertVisible: false,
+    isInsertShow: false,
     isTaiwanId: false,
     isVictimId: false,
     isShowNote: false,
@@ -84,7 +84,7 @@ export default class extends Component {
 
   onInsertCancel = () => {
     if (!this.state.isShowNote) {
-      this.setState({ isInsertVisible: false });
+      this.setState({ isInsertShow: false });
     } else {
       this.setState({ isShowNote: false, inputNote: this.state.inputNoteTemp });
     }
@@ -112,7 +112,7 @@ export default class extends Component {
           this.dataSource.unshift(obj);
           this.setState({ 
             dataSource: dataSource.cloneWithRows(this.dataSource),
-            isInsertVisible: false,
+            isInsertShow: false,
           });
         })
     } else {
@@ -134,7 +134,7 @@ export default class extends Component {
 
     if (isTaiwanId || isVictimId) {
       return <TouchableOpacity
-        onPress={() => this.setState({ isInsertVisible: true })}
+        onPress={() => this.setState({ isInsertShow: true, inputType: '其他', inputNote: '' })}
         style={{
           height: 42,
           flexDirection: 'row',
@@ -149,7 +149,7 @@ export default class extends Component {
         />
         <Text style={{
           fontSize: 24,
-        }}>新增一筆新記錄</Text>
+        }}>新增一筆新紀錄</Text>
       </TouchableOpacity>;
     } else {
       return (
@@ -208,7 +208,7 @@ export default class extends Component {
       isTaiwanId,
       isShowNote,
       dataSource,
-      isInsertVisible,
+      isInsertShow,
     } = this.state;
 
     return (
@@ -234,7 +234,7 @@ export default class extends Component {
           renderRow={(item) => <RecordRow data={item} onRemove={this.onRemove} />}
         />
         <Dialog
-          isShow={isInsertVisible}
+          isShow={isInsertShow}
           title="新增紀錄"
           leftText="取消"
           onLeftPress={this.onInsertCancel}

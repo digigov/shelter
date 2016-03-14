@@ -15,7 +15,6 @@ import {
   Schema,
   Animations,
   Actions,
-  TabBar,
 } from 'react-native-router-flux';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -26,6 +25,7 @@ import SearchView from './pages/search';
 import BatchView from './pages/batch';
 import ExportView from './pages/export';
 import RegisterView from './pages/register';
+import TabBar from './pages/tabbar'
 
 const styles = StyleSheet.create({
   navigation: {
@@ -42,20 +42,22 @@ const styles = StyleSheet.create({
   }
 });
 
-class TabIcon extends Component {
-  render(){
-    return (
-      <Text style={{color: this.props.selected ? 'red' :'black'}}>{this.props.title}</Text>
-    );
-  }
-}
-
 class Victim extends Component {
 
   render() {
     return (
       <Router hideNavBar={true} name="root">
-        <Schema name="tab" type="switch" icon={TabIcon} />
+        <Schema
+          name="tab"
+          type="reset"
+          titleStyle={styles.title}
+          navigationBarStyle={styles.navigation}
+        />
+        <Schema
+          name="scan"
+          type="push"
+          renderLeftButton={() => <NavLeftButton onPress={Actions.pop} icon="chevron-left" />}
+          component={ScanView} />
         <Route name="tabbar">
           <Router footer={TabBar} showNavigationBar={false} defaultRoute="search">
             <Route
@@ -63,8 +65,6 @@ class Victim extends Component {
               name="search"
               title="查詢"
               schema="tab"
-              titleStyle={styles.title}
-              navigationBarStyle={styles.navigation}
             >
               <Router>
                 <Route
@@ -88,16 +88,13 @@ class Victim extends Component {
                 <Route
                   name="searchScan"
                   title="查詢掃描"
-                  renderLeftButton={() => <NavLeftButton onPress={Actions.pop} icon="chevron-left" />}
-                  component={ScanView} />
+                  schema="scan" />
               </Router>
             </Route>
             <Route
               name="batch"
               title="批次"
               schema="tab"
-              titleStyle={styles.title}
-              navigationBarStyle={styles.navigation}
             >
               <Router>
                 <Route
@@ -108,16 +105,13 @@ class Victim extends Component {
                 <Route
                   name="batchScan"
                   title="批次掃描"
-                  renderLeftButton={() => <NavLeftButton onPress={Actions.pop} icon="chevron-left" />}
-                  component={ScanView} />
+                  schema="scan" />
               </Router>
             </Route>
             <Route
               name="register"
               title="登錄"
               schema="tab"
-              titleStyle={styles.title}
-              navigationBarStyle={styles.navigation}
             >
               <Router>
                 <Route
@@ -141,8 +135,7 @@ class Victim extends Component {
                 <Route
                   name="registerScan"
                   title="登錄掃描"
-                  renderLeftButton={() => <NavLeftButton onPress={Actions.pop} icon="chevron-left" />}
-                  component={ScanView} />
+                  schema="scan" />
               </Router>
             </Route>
             <Route

@@ -102,53 +102,81 @@ export default class extends Component {
         paddingBottom: 50,
       }}>
         <Text style={{
-         paddingTop: 10,
-         paddingLeft: 10, 
-         fontSize: 18,
-        }}>災民紀錄筆數：{recordLength}</Text>
-        <Button
-          icon="ios-cloud-upload-outline"
-          label="匯出災民紀錄"
-          onPress={this.onExportRecord} />
+          paddingTop: 10,
+          paddingLeft: 10, 
+          fontSize: 18,
+        }}>災民「紀錄」筆數：{recordLength}</Text>
+        <View style={{
+          flexDirection: 'row',
+        }}>
+          <Button
+            style={{ flex: 2 }}
+            labelStyle={{ fontSize: 14 }}
+            icon="ios-cloud-upload-outline"
+            label="匯出"
+            onPress={this.onExportRecord} />
+          <Button
+            style={{ flex: 2 }}
+            labelStyle={{ fontSize: 14 }}
+            icon="ios-cloud-download-outline"
+            label="匯入" />
+          <Button
+            style={{
+              flex: 3,
+              borderColor: '#e74c3c',
+              backgroundColor: '#c0392b',
+            }}
+            labelStyle={{ fontSize: 14 }}
+            icon="ios-trash-outline"
+            label="清除本機"
+            onPress={() => {
+              Alert.alert('確定清除紀錄？', null, [
+                {text: '取消'},
+                {text: '刪除', onPress: () => {
+                  record.destroy();
+                  this.setState({ recordLength: 0 });
+                }},
+              ]);
+            }} />
+        </View>
         <Text style={{
-         paddingLeft: 10,
-         paddingTop: 10,
-         fontSize: 18,
-        }}>災民登錄登錄：{victimLength}</Text>
-        <Button
-          icon="ios-cloud-upload-outline"
-          label="匯出登錄數據"
-          onPress={this.onExportVictim} />
-        <Button
-          icon="ios-cloud-download-outline"
-          label="匯入災民紀錄" />
-        <Button
-          icon="ios-cloud-download-outline"
-          label="匯入登錄數據" />
-        <Button
-          icon="ios-trash-outline"
-          label="清除災民紀錄"
-          onPress={() => {
-            Alert.alert('確定清除紀錄？', null, [
-              {text: '取消'},
-              {text: '刪除', onPress: () => {
-                record.destroy();
-                this.setState({ recordLength: 0 });
-              }},
-            ]);
-          }} />
-        <Button
-          icon="ios-trash-outline"
-          label="清除登錄數據"
-          onPress={() => {
-            Alert.alert('確定清除登錄？', null, [
-              {text: '取消'},
-              {text: '刪除', onPress: () => {
-                victim.destroy();
-                this.setState({ victimLength: 0 });
-              }},
-            ]);
-          }} />
+          paddingLeft: 10,
+          paddingTop: 10,
+          fontSize: 18,
+        }}>災民「登錄」筆數：{victimLength}</Text>
+        <View style={{
+          flexDirection: 'row',
+        }}>
+          <Button
+            style={{ flex: 2 }}
+            labelStyle={{ fontSize: 14 }}
+            icon="ios-cloud-upload-outline"
+            label="匯出"
+            onPress={this.onExportVictim} />
+          <Button
+            style={{ flex: 2 }}
+            labelStyle={{ fontSize: 14 }}
+            icon="ios-cloud-download-outline"
+            label="匯入" />
+          <Button
+            style={{
+              flex: 3,
+              borderColor: '#e74c3c',
+              backgroundColor: '#c0392b',
+            }}
+            labelStyle={{ fontSize: 14 }}
+            icon="ios-trash-outline"
+            label="清除本機"
+            onPress={() => {
+              Alert.alert('確定清除登錄？', null, [
+                {text: '取消'},
+                {text: '刪除', onPress: () => {
+                  victim.destroy();
+                  this.setState({ victimLength: 0 });
+                }},
+              ]);
+            }} />
+        </View>
       </ScrollView>
     );
   }

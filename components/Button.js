@@ -9,10 +9,10 @@ const {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-module.exports = function({ onPress, label, icon, ...otherProps }) {
+module.exports = function({ onPress, label, icon, style, labelStyle, ...otherProps }) {
   return (
     <TouchableOpacity
-      style={{
+      style={[{
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -22,7 +22,7 @@ module.exports = function({ onPress, label, icon, ...otherProps }) {
         margin: 8,
         paddingTop: 6,
         paddingBottom: 4,
-      }}
+      }, style]}
       onPress={onPress}
       {...otherProps}
     >
@@ -31,12 +31,12 @@ module.exports = function({ onPress, label, icon, ...otherProps }) {
         color="#FEFEFE"
         size={28}
       /> }
-      <Text style={{
+      <Text style={[{
         paddingBottom: 3,
         paddingLeft: 5,
         color: '#FEFEFE',
         fontSize: 20,
-      }}>{label}</Text>
+      }, labelStyle]}>{label}</Text>
     </TouchableOpacity>
   );
 };
