@@ -30,10 +30,12 @@ module.exports = function({ onPress, label, icon, style, labelStyle, ...otherPro
         name={icon}
         color="#FEFEFE"
         size={28}
+        style={{
+          marginRight: 10,
+        }}
       /> }
       <Text style={[{
         paddingBottom: 3,
-        paddingLeft: 5,
         color: '#FEFEFE',
         fontSize: 20,
       }, labelStyle]}>{label}</Text>

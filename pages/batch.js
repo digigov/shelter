@@ -24,7 +24,6 @@ import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 import Store from 'react-native-store';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Camera from 'react-native-camera';
 import { verifyVictimId, verifyTaiwanId } from '../lib/verification';
 
 const record = Store.model('record');

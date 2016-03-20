@@ -55,6 +55,8 @@ export default class extends Component {
   onBarCodeRead = (e) => {
     if (this.hasRead) return;
 
+    console.log(e);
+
     this.hasRead = true;
     switch(this.props.route.name) {
     case 'searchScan':

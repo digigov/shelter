@@ -102,8 +102,8 @@ export default class extends Component {
         paddingBottom: 50,
       }}>
         <Text style={{
-          paddingTop: 10,
-          paddingLeft: 10, 
+          marginTop: 10,
+          marginLeft: 10, 
           fontSize: 18,
         }}>災民「紀錄」筆數：{recordLength}</Text>
         <View style={{
@@ -140,8 +140,8 @@ export default class extends Component {
             }} />
         </View>
         <Text style={{
-          paddingLeft: 10,
-          paddingTop: 10,
+          marginLeft: 10,
+          marginTop: 10,
           fontSize: 18,
         }}>災民「登錄」筆數：{victimLength}</Text>
         <View style={{
