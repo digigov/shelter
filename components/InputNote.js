@@ -26,18 +26,18 @@ module.exports = class extends Component {
   dataSource = [];
 
   componentDidMount() {
-    Record.find({}).then(results => {
-      this.dataSource = _.uniq(_.map(results || [], item => item.note));
-    });
+    // Record.find({}).then(results => {
+    //   this.dataSource = _.uniq(_.map(results || [], item => item.note));
+    // });
   }
 
   onInputChange = (value) => {
     const { onChange } = this.props;
     const { dataSource } = this.state;
 
-    this.setState({
-      dataSource: ds.cloneWithRows(value ? _.filter(this.dataSource, text => _.includes(text, value)): []),
-    });
+    // this.setState({
+    //   dataSource: ds.cloneWithRows(value ? _.filter(this.dataSource, text => _.includes(text, value)): []),
+    // });
 
     onChange && onChange(value);
   };

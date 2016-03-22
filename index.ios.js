@@ -142,10 +142,16 @@ class Victim extends Component {
               name="export"
               title="匯出"
               schema="tab"
-              titleStyle={styles.title}
-              navigationBarStyle={styles.navigation}
-              component={ExportView}
-            />
+            >
+              <Router>
+                <Route
+                  name="exportTools"
+                  title="匯出"
+                  type="switch"
+                  component={ExportView}
+                />
+              </Router>
+            </Route>
           </Router>
         </Route>
       </Router>
