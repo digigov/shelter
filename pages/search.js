@@ -8,6 +8,7 @@ import React, {
   ListView,
   Modal,
   Picker,
+  Alert,
   TouchableOpacity,
   Component,
   Dimensions,
@@ -27,7 +28,8 @@ import {
   RecordRow,
 } from '../components'
 
-const record = Store.model('record');
+import drills from '../data/2016drills.json';
+
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => true,
 });
@@ -69,6 +71,9 @@ export default class extends Component {
 
     if (verifyTaiwanId(inputId)) {
       isTaiwanId = true;
+
+      const idx = _.findIndex(drills, o => o[0] === inputId);
+      if (idx < 0) Alert.alert('注意！', '身份證字號不在北北基桃聯合防災演習名單中.');
 
       Record.find({taiwanId: inputId}).then(results => this.updateDataSource(results || []));
     } else if (verifyVictimId(inputId)) {

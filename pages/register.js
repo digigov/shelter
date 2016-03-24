@@ -26,6 +26,8 @@ import Store from 'react-native-store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { verifyVictimId, verifyTaiwanId } from '../lib/verification';
 
+import drills from '../data/2016drills.json';
+
 const victim = Store.model('victim');
 
 const emptyVictim = {
@@ -64,13 +66,22 @@ export default class extends Component {
 
     if (verifyTaiwanId(inputId)) {
       victim.get({where: {taiwanId: inputId}}).then(reply => {
+        const idx = _.findIndex(drills, o => o[0] === inputId);
+        if (idx < 0) Alert.alert('注意！', '身份證字號不在北北基桃聯合防災演習名單中.');
+
         this.setState(reply ? {
           inputVictimId: reply[0].victimId || '',
           inputTaiwanId: '',
           inputName: reply[0].name || '',
           inputContact: reply[0].contact || '',
           storeId: reply[0]._id || null,
-        } : emptyVictim);
+        } : {
+          inputVictimId: '',
+          inputTaiwanId: '',
+          inputName: drills[idx] && drills[idx][1] || '',
+          inputContact: drills[idx] && drills[idx][2] || '',
+          storeId: null
+        });
       });
       isTaiwanId = true;
     } else if (verifyVictimId(inputId)) {
@@ -129,6 +140,21 @@ export default class extends Component {
     }
   };
 
+  onInputTaiwanIdChange = (inputTaiwanId) => {
+    if (/^([A-Z])([12])(\d{8})$/gi.exec(inputTaiwanId)) {
+      const idx = _.findIndex(drills, o => o[0] === inputId);
+      if (idx < 0) Alert.alert('注意！', '身份證字號不在北北基桃聯合防災演習名單中.');
+      else {
+        this.setState({
+          inputName: drills[idx][1],
+          inputContact: drills[idx][2],
+        });
+      }
+    }
+
+    this.setState({ inputTaiwanId });
+  };
+
   renderInput = () => {
     const {
       inputId,
@@ -146,7 +172,7 @@ export default class extends Component {
           {isVictimId && <Input
             label="身份證字號"
             value={inputTaiwanId}
-            onChange={inputTaiwanId => this.setState({ inputTaiwanId })}
+            onChange={this.onInputTaiwanIdChange}
           />}
           {isTaiwanId && <Input
             label="災民證字號"

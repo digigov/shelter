@@ -10,7 +10,6 @@
     "lodash": "^4.6.1",
     "moment": "^2.11.2",
     "react-native": "^0.20.0",
-    "react-native-button": "^1.4.2",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-device-info": "^0.8.4",
     "react-native-mail": "^0.2.4",

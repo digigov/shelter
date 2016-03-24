@@ -46,7 +46,7 @@ export default class extends Component {
   };
 
   componentDidMount() {
-    record.find({where: {deviceId: getUniqueID()}}).then(results => {
+    record.find().then(results => {
       this.record = results || [];
       this.setState({ recordLength: this.record.length });
     });
@@ -133,7 +133,7 @@ export default class extends Component {
               Alert.alert('確定清除紀錄？', null, [
                 {text: '取消'},
                 {text: '刪除', onPress: () => {
-                  record.destroy();
+                  record.remove();
                   this.setState({ recordLength: 0 });
                 }},
               ]);
@@ -171,7 +171,7 @@ export default class extends Component {
               Alert.alert('確定清除登錄？', null, [
                 {text: '取消'},
                 {text: '刪除', onPress: () => {
-                  victim.destroy();
+                  victim.remove();
                   this.setState({ victimLength: 0 });
                 }},
               ]);

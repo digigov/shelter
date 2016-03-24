@@ -7,4 +7,5 @@ module.exports = {
   Dialog: require('./Dialog'),
   Button: require('./Button'),
   RecordRow: require('./RecordRow'),
+  ScanRow: require('./ScanRow'),
 };

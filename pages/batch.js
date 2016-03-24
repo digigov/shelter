@@ -28,7 +28,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Camera from 'react-native-camera';
 import { verifyVictimId, verifyTaiwanId } from '../lib/verification';
 
-const record = Store.model('record');
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class extends Component {

@@ -8,6 +8,7 @@ import React, {
   TouchableOpacity,
   Text,
   TextInput,
+  Alert,
   View,
   ListView,
 } from 'react-native';
@@ -20,8 +21,10 @@ import { verifyVictimId, verifyTaiwanId } from '../lib/verification';
 
 import {
   InputId,
-  RecordRow,
+  ScanRow,
 } from '../components'
+
+import drills from '../data/2016drills.json';
 
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => true,
@@ -106,6 +109,10 @@ export default class extends Component {
 
     if (verifyTaiwanId(inputId)) {
       isTaiwanId = true;
+
+      const idx = _.findIndex(drills, o => o[0] === inputId);
+      if (idx < 0) Alert.alert('注意！', '身份證字號不在北北基桃聯合防災演習名單中.');
+
       this.handleInsert({ taiwanId: inputId });
     } else if (verifyVictimId(inputId)) {
       isVictimId = true;
@@ -191,7 +198,7 @@ export default class extends Component {
           <ListView
             style={{ flex: 1 }}
             dataSource={dataSource}
-            renderRow={(item) => <RecordRow data={item} onRemove={this.onRemove} />}
+            renderRow={(item) => <ScanRow data={item} onRemove={this.onRemove} />}
           />
         }
       </View>
