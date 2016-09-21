@@ -9,8 +9,7 @@ import map from 'lodash/map';
 import range from 'lodash/range';
 import keyBy from 'lodash/keyBy';
 import mapValues from 'lodash/mapValues';
-import keys from 'lodash/keys';
-import { getPrefixOfTaiwanId } from 'TaiwanId';
+import { getPrefix } from 'VictimId';
 import color from 'color';
 import { Icon } from 'component';
 
@@ -93,7 +92,9 @@ export default class IdentificationKeyboard extends Component {
         input = prevInput + keyValue;
     }
 
-    const propose = getPrefixOfTaiwanId(input);
+    if (input.length > 9) return;
+
+    const propose = getPrefix(input);
 
     let prefix = false;
     if (propose !== false) {

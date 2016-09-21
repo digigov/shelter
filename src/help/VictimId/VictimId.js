@@ -1,5 +1,5 @@
 /**
- * @providesModule TaiwanId
+ * @providesModule VictimId
  */
 import parseInt from 'lodash/parseInt';
 import filter from 'lodash/filter';
@@ -71,7 +71,7 @@ export function verifyTaiwanId(value) {
   return total % 10 === 0 ? id : false;
 }
 
-export function getPrefixOfTaiwanId(value) {
+export function getPrefix(value) {
   const id = /^([12])(\d{8})$/gi.exec(value);
 
   if (!id) return false;

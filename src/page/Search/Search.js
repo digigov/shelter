@@ -4,7 +4,7 @@ import {
   View,
   Text,
 } from 'react-native';
-import { TaiwanIdKeyboard } from 'component';
+import { VictimIdKeyboard } from 'component';
 
 const sh = StyleSheet.create({
   viewport: {
@@ -15,7 +15,7 @@ const sh = StyleSheet.create({
 function Search() {
   return (
     <View style={sh.viewport}>
-      <TaiwanIdKeyboard />
+      <VictimIdKeyboard />
     </View>
   );
 }

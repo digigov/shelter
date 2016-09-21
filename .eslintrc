@@ -15,8 +15,10 @@
       "ImageSourcePropType",
       "react-native-cropper",
       "react-native-bridge-firebase",
+      "VictimId",
       "component",
-      "color"
+      "color",
+      "size"
     ]
   },
   "rules": {
