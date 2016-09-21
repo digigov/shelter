@@ -17,7 +17,6 @@ const Touchable = Platform.select({
 
 const sh = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 10,
@@ -51,13 +50,13 @@ export default class Item extends Component {
   render() {
     const { label, tip, children, isFirst, onPress } = this.props;
     return (
-      <Touchable onPress={onPress} disabled={!onPress}>
-        <View style={[sh.container, !isFirst && sh.border]}>
+      <View style={!isFirst && sh.border}>
+        <Touchable onPress={onPress} disabled={!onPress} style={sh.container}>
           <Label style={sh.label}>{label}</Label>
           {tip && <Text>{tip}</Text>}
           {children && <View>{children}</View>}
-        </View>
-      </Touchable>
+        </Touchable>
+      </View>
     );
   }
 }

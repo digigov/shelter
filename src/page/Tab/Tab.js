@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   Navigator,
   StyleSheet,
@@ -34,9 +34,19 @@ const tabs = [
   { id: 'center' },
 ];
 
+const pages = {
+  search: Search,
+  rapids: Rapids,
+  center: Center,
+};
+
 export default class Enter extends Component {
 
   static displayName = 'Enter';
+
+  static propTypes = {
+    nav: PropTypes.objectOf(PropTypes.func),
+  }
 
   onTabSelect = (id) => {
     const tab = find(tabs, o => o.id === id);
@@ -45,24 +55,15 @@ export default class Enter extends Component {
 
   navigator = null;
 
-  renderScene = (route, navigator) => {
-    let container;
+  renderScene = (route) => {
+    const { nav } = this.props;
+    const Page = pages[route.id];
 
-    switch (route.id) {
-      case 'search':
-        container = <Search navigator={navigator} />;
-        break;
-      case 'rapids':
-        container = <Rapids navigator={navigator} />;
-        break;
-      case 'center':
-        container = <Center navigator={navigator} />;
-        break;
-      default:
-        throw new Error('Not found tab');
-    }
-
-    return (<View style={sh.container}>{container}</View>);
+    return (
+      <View style={sh.container}>
+        <Page nav={nav} />
+      </View>
+    );
   }
 
   render() {

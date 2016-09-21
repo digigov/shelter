@@ -1,17 +1,12 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  TouchableHighlight,
-  Text,
-} from 'react-native';
+import React, { PropTypes, Component } from 'react';
+import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import { Icon } from 'component';
 import map from 'lodash/map';
 import range from 'lodash/range';
 import keyBy from 'lodash/keyBy';
 import mapValues from 'lodash/mapValues';
 import { getPrefix } from 'VictimId';
 import color from 'color';
-import { Icon } from 'component';
 
 const BUTTON_SIZE = 70;
 const BUTTON_SPACING = 15;
@@ -65,6 +60,14 @@ export default class IdentificationKeyboard extends Component {
 
   static displayName = 'IdentificationKeyboard';
 
+  static propTypes = {
+    onChange: PropTypes.func,
+  }
+
+  static defaultProps = {
+    onChange: () => {},
+  }
+
   state = {
     input: '',
     prefix: false,
@@ -79,17 +82,19 @@ export default class IdentificationKeyboard extends Component {
   }
 
   onButtonPress = (keyValue) => {
+    const { onChange } = this.props;
     const { input: prevInput } = this.state;
 
     let input;
-    switch (keyValue) {
-      case 'break':
-        input = prevInput.substr(0, prevInput.length - 1);
-        break;
-      case 'scan':
-        break;
-      default:
-        input = prevInput + keyValue;
+    if (keyValue === 'break') {
+      input = prevInput.substr(0, prevInput.length - 1);
+    } else if (keyValue === 'scan') {
+      console.log('scan');
+    } else if (/[A-Z]/gi.test(keyValue)) {
+      onChange(`${keyValue}${prevInput}`);
+      input = '';
+    } else {
+      input = prevInput + keyValue;
     }
 
     if (input.length > 9) return;

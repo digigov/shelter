@@ -15,7 +15,7 @@ const sh = StyleSheet.create({
   },
 });
 
-function Label({ children, textColor, style }) {
+function Label({ children, color: textColor, style }) {
   return (
     <View style={[sh.viewport, style]}>
       <Text
@@ -32,7 +32,7 @@ function Label({ children, textColor, style }) {
 Label.displayName = 'Label';
 
 Label.propTypes = {
-  textColor: ColorPropType,
+  color: ColorPropType,
   style: View.propTypes.style,
   children: PropTypes.string,
 };
