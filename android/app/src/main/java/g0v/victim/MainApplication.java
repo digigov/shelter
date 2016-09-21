@@ -1,4 +1,4 @@
-package com.victim;
+package g0v.victim;
 
 import android.app.Application;
 import android.util.Log;
