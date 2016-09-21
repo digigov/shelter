@@ -2,12 +2,16 @@
  * @providesModule component
  */
 
-import TabBar from './TabBar/TabBar';
 import Icon from './Icon/Icon';
+import Label from './Label/Label';
+import TabBar from './TabBar/TabBar';
 import TaiwanIdKeyboard from './TaiwanIdKeyboard/TaiwanIdKeyboard';
+import Title from './Title/Title';
 
 export {
-  TabBar,
   Icon,
+  Label,
+  TabBar,
   TaiwanIdKeyboard,
+  Title,
 };
