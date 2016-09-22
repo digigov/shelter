@@ -7,7 +7,7 @@ import size from 'size';
 const sh = StyleSheet.create({
   viewport: {
     flex: 1,
-    paddingTop: size.statusBar + size.navbar,
+    paddingTop: size.statusBar + (size.navbar / 2),
   },
 });
 
