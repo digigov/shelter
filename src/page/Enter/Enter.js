@@ -38,15 +38,12 @@ export default class Enter extends Component {
   renderScene = (route) => {
     const Page = pages[route.id];
 
-    return (
-      <Page nav={this.nav} route={route} />
-    );
+    return (<Page nav={this.nav} route={route} />);
   }
 
   render() {
     return (
       <Navigator
-        debugOverlay={false}
         style={sh.viewport}
         ref={navigator => { this.navigator = navigator; }}
         initialRoute={{ id: 'tab' }}

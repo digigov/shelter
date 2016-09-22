@@ -69,7 +69,6 @@ export default class Enter extends Component {
   render() {
     return (
       <Navigator
-        debugOverlay={false}
         style={sh.viewport}
         ref={navigator => { this.navigator = navigator; }}
         initialRoute={tabs[INITIAL_TAB]}

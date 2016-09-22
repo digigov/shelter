@@ -51,10 +51,12 @@ export default class Item extends Component {
     const { label, tip, children, isFirst, onPress } = this.props;
     return (
       <View style={!isFirst && sh.border}>
-        <Touchable onPress={onPress} disabled={!onPress} style={sh.container}>
-          <Label style={sh.label}>{label}</Label>
-          {tip && <Text>{tip}</Text>}
-          {children && <View>{children}</View>}
+        <Touchable onPress={onPress} disabled={!onPress}>
+          <View style={sh.container}>
+            <Label style={sh.label}>{label}</Label>
+            {tip && <Text>{tip}</Text>}
+            {children && <View>{children}</View>}
+          </View>
         </Touchable>
       </View>
     );
