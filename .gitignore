@@ -33,6 +33,7 @@ local.properties
 #
 node_modules/
 npm-debug.log
+yarn-error.log
 
 # BUCK
 buck-out/
@@ -42,11 +43,3 @@ android/keystores/debug.keystore
 
 # jest
 coverage/
-
-# Firebase
-ServiceAccount.json
-GoogleService-Info.plist
-google-services.json
-
-# CodePush
-Config.xcconfig
