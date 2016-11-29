@@ -1,0 +1,58 @@
+{
+  "name": "victim-server",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "export NODE_ENV=development; babel-node ./app.js",
+    "watch": "nodemon --exec npm run start",
+    "schema": "babel-node ./script/migration-schema.js",
+    "test": "eslint ./src; jest --coverage",
+    "test-watch": "jest --watch",
+    "eslint": "eslint ./src",
+    "migrate": "knex migrate:latest"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupTestFrameworkScriptFile": "<rootDir>/src/help/jest-setup.js"
+  },
+  "dependencies": {
+    "argon2": "^0.14.1",
+    "babel-core": "^6.17.0",
+    "babel-eslint": "^7.0.0",
+    "babel-jest": "^15.0.0",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-react-native": "^1.9.0",
+    "bookshelf": "^0.10.2",
+    "bookshelf-paranoia": "^0.9.0",
+    "chalk": "^1.1.3",
+    "cz-conventional-changelog": "^1.2.0",
+    "eslint": "^3.7.0",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.3.0",
+    "express": "^4.14.0",
+    "express-graphql": "^0.5.4",
+    "faker": "^3.1.0",
+    "graphql": "^0.7.1",
+    "graphql-relay": "^0.4.3",
+    "iconv-lite": "^0.4.13",
+    "jest": "^16.0.1",
+    "jest-matcher-utils": "^16.0.0",
+    "jsonwebtoken": "^7.1.9",
+    "knex": "^0.12.5",
+    "lodash": "^4.15.0",
+    "moment": "^2.14.1",
+    "moment-timezone": "^0.5.6",
+    "mysql": "^2.11.1",
+    "node-uuid": "^1.4.7",
+    "nodemon": "^1.10.2",
+    "query-string": "^4.2.3",
+    "redis": "2.6.2"
+  }
+}
