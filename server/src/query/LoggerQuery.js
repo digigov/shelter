@@ -15,8 +15,12 @@ export default {
 export const LoggerConnection = queryWithConnection(withUserAuth({
   type: new GraphQLList(GraphQLLoggerNode),
   args: {},
-  resolve: async () => {
+  resolve: async (payload, args) => {
     const model = new Logger();
+
+    const victimId = _.get(payload, 'id') || _.get(args, 'victimId.key');
+    if (victimId) model.where({ victimId });
+
     const logger = await model.fetchAll();
     return logger.toJSON();
   },
