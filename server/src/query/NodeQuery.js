@@ -4,9 +4,11 @@ import NotFoundError from '../error/NotFoundError';
 import GraphQLPrimary from '../type/GraphQLPrimary';
 import GraphQLNodeInterface from '../type/GraphQLNodeInterface';
 import VictimQuery from './VictimQuery';
+import LoggerQuery from './LoggerQuery';
 
 const query = {
   victim: VictimQuery,
+  logger: LoggerQuery,
 };
 
 export default {

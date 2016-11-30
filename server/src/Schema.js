@@ -5,6 +5,7 @@ import {
 
 import NodeQuery from './query/NodeQuery';
 import { VictimConnection } from './query/VictimQuery';
+import { LoggerConnection } from './query/LoggerQuery';
 
 import ReplaceVictimMutation from './mutation/ReplaceVictimMutation';
 
@@ -13,6 +14,7 @@ const Query = new GraphQLObjectType({
   fields: {
     node: NodeQuery,
     victim: VictimConnection,
+    logger: LoggerConnection,
   },
 });
 

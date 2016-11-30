@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { graphql } from 'graphql';
 import { toGlobalId } from 'graphql-relay';
+import faker from 'faker';
 import NotFoundError from '../../error/NotFoundError';
 import Schema from '../../Schema';
 import { query } from '../../model/Database';
@@ -22,6 +23,23 @@ describe('Note Query', () => {
     expect(result.data.node).toEqual({ id: toGlobalId('victim', id), cardNumber });
     expect(query).toHaveBeenLastQueriedWith(
       { table: 'victim', method: 'select', id, limit: 1 },
+    );
+  });
+
+  it('query logger', async () => {
+    const id = _.random(100, 999);
+    const action = faker.random.word();
+    const ql = `${QL} fragment node on LoggerNode { action }`;
+    const user = { user: {} };
+    const variable = { id: toGlobalId('logger', id) };
+
+    query.mockClear();
+    query.mockReturnValueOnce(Promise.resolve([{ id, action }]));
+    const result = await graphql(Schema, ql, {}, user, variable);
+    expect(result.errors).toBeUndefined();
+    expect(result.data.node).toEqual({ id: toGlobalId('logger', id), action });
+    expect(query).toHaveBeenLastQueriedWith(
+      { table: 'logger', method: 'select', id, limit: 1 },
     );
   });
 
