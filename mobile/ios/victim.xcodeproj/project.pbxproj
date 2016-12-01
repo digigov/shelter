@@ -27,7 +27,7 @@
 		022EF4731D82571200A98DB1 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 022EF4721D82570500A98DB1 /* libRNVectorIcons.a */; };
 		022EF4751D82578D00A98DB1 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 022EF4741D82578D00A98DB1 /* MaterialIcons.ttf */; };
 		022EF4761D82578D00A98DB1 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 022EF4741D82578D00A98DB1 /* MaterialIcons.ttf */; };
-		023147AC1D4C8B7C00B72AB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 023147AB1D4C8B7C00B72AB1 /* GoogleService-Info.plist */; };
+		024435C31DEF4A9D004DC945 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 024435C21DEF4A9D004DC945 /* GoogleService-Info.plist */; };
 		0246354F1D4A235F007290C9 /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0246354E1D4A2310007290C9 /* libRNSpinkit.a */; };
 		02507CCC1D53A7F500F3D935 /* libRNBridgeFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02507C8B1D536D2E00F3D935 /* libRNBridgeFirebase.a */; };
 		02772F2C1D66F71D0034F709 /* libRNCropper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02772F2B1D66EF320034F709 /* libRNCropper.a */; };
@@ -96,6 +96,55 @@
 			proxyType = 2;
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
+		};
+		024435A31DEF4A7D004DC945 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2D2A283A1D9B042B00D4039D;
+			remoteInfo = "RCTImage-tvOS";
+		};
+		024435A71DEF4A7D004DC945 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2D2A28471D9B043800D4039D;
+			remoteInfo = "RCTLinking-tvOS";
+		};
+		024435AB1DEF4A7D004DC945 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2D2A28541D9B044C00D4039D;
+			remoteInfo = "RCTNetwork-tvOS";
+		};
+		024435AF1DEF4A7D004DC945 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2D2A28611D9B046600D4039D;
+			remoteInfo = "RCTSettings-tvOS";
+		};
+		024435B31DEF4A7D004DC945 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2D2A287B1D9B048500D4039D;
+			remoteInfo = "RCTText-tvOS";
+		};
+		024435B81DEF4A7D004DC945 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2D2A28881D9B049200D4039D;
+			remoteInfo = "RCTWebSocket-tvOS";
+		};
+		024435BC1DEF4A7D004DC945 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2D2A28131D9B038B00D4039D;
+			remoteInfo = "React-tvOS";
 		};
 		0246354D1D4A2310007290C9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -198,7 +247,7 @@
 		020B40EC1D6EE2580006A68E /* FirebaseRemoteConfig.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseRemoteConfig.framework; path = "../Libraries/react-native-bridge-firebase/ios/Frameworks/FirebaseRemoteConfig.framework"; sourceTree = "<group>"; };
 		022EF45E1D82570500A98DB1 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		022EF4741D82578D00A98DB1 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		023147AB1D4C8B7C00B72AB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		024435C21DEF4A9D004DC945 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "victim/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		02507C861D536D2D00F3D935 /* RNBridgeFirebase.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNBridgeFirebase.xcodeproj; path = "../Libraries/react-native-bridge-firebase/ios/RNBridgeFirebase.xcodeproj"; sourceTree = "<group>"; };
 		02772F261D66EF320034F709 /* RNCropper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCropper.xcodeproj; path = "../Libraries/react-native-cropper/ios/RNCropper.xcodeproj"; sourceTree = "<group>"; };
 		02D658521D827D2000B559FC /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
@@ -289,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				00C302C01ABCB91800DB3ED1 /* libRCTImage.a */,
+				024435A41DEF4A7D004DC945 /* libRCTImage-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -297,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */,
+				024435AC1DEF4A7D004DC945 /* libRCTNetwork-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -370,6 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				139105C11AF99BAD00B5F7CC /* libRCTSettings.a */,
+				024435B01DEF4A7D004DC945 /* libRCTSettings-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -378,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				139FDEF41B06529B00C62182 /* libRCTWebSocket.a */,
+				024435B91DEF4A7D004DC945 /* libRCTWebSocket-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -391,7 +444,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				023147AB1D4C8B7C00B72AB1 /* GoogleService-Info.plist */,
+				024435C21DEF4A9D004DC945 /* GoogleService-Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				02D658521D827D2000B559FC /* logo.png */,
@@ -405,6 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				146834041AC3E56700842450 /* libReact.a */,
+				024435BD1DEF4A7D004DC945 /* libReact-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -433,6 +487,7 @@
 			isa = PBXGroup;
 			children = (
 				78C398B91ACF4ADC00677621 /* libRCTLinking.a */,
+				024435A81DEF4A7D004DC945 /* libRCTLinking-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -463,6 +518,7 @@
 			isa = PBXGroup;
 			children = (
 				832341B51AAA6A8300B99B32 /* libRCTText.a */,
+				024435B41DEF4A7D004DC945 /* libRCTText-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -679,6 +735,55 @@
 			remoteRef = 022EF4711D82570500A98DB1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		024435A41DEF4A7D004DC945 /* libRCTImage-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTImage-tvOS.a";
+			remoteRef = 024435A31DEF4A7D004DC945 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		024435A81DEF4A7D004DC945 /* libRCTLinking-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTLinking-tvOS.a";
+			remoteRef = 024435A71DEF4A7D004DC945 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		024435AC1DEF4A7D004DC945 /* libRCTNetwork-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTNetwork-tvOS.a";
+			remoteRef = 024435AB1DEF4A7D004DC945 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		024435B01DEF4A7D004DC945 /* libRCTSettings-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTSettings-tvOS.a";
+			remoteRef = 024435AF1DEF4A7D004DC945 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		024435B41DEF4A7D004DC945 /* libRCTText-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTText-tvOS.a";
+			remoteRef = 024435B31DEF4A7D004DC945 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		024435B91DEF4A7D004DC945 /* libRCTWebSocket-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTWebSocket-tvOS.a";
+			remoteRef = 024435B81DEF4A7D004DC945 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		024435BD1DEF4A7D004DC945 /* libReact-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libReact-tvOS.a";
+			remoteRef = 024435BC1DEF4A7D004DC945 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		0246354E1D4A2310007290C9 /* libRNSpinkit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -759,9 +864,9 @@
 			files = (
 				022EF4751D82578D00A98DB1 /* MaterialIcons.ttf in Resources */,
 				02D658531D827D2000B559FC /* logo.png in Resources */,
+				024435C31DEF4A9D004DC945 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				023147AC1D4C8B7C00B72AB1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

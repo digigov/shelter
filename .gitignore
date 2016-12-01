@@ -43,3 +43,6 @@ android/keystores/debug.keystore
 
 # jest
 coverage/
+
+# firebase
+GoogleService-Info.plist
