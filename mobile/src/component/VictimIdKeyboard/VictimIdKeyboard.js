@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, Text, TouchableHighlight, Alert } from 'react-native';
 import { Icon } from 'component';
 import map from 'lodash/map';
 import range from 'lodash/range';
@@ -49,6 +49,10 @@ const sh = StyleSheet.create({
     fontSize: 36,
     color: color.textAssist,
   },
+  tipText: {
+    fontSize: 32,
+    color: color.textAssist,
+  },
   break: {
     position: 'absolute',
     right: 0,
@@ -85,14 +89,13 @@ export default class IdentificationKeyboard extends Component {
     const { onChange } = this.props;
     const { input: prevInput } = this.state;
 
-    let input;
+    let input = '';
     if (keyValue === 'break') {
       input = prevInput.substr(0, prevInput.length - 1);
     } else if (keyValue === 'scan') {
-      console.log('scan');
+      Alert.alert('Info', '功能尚未開啟');
     } else if (/[A-Z]/gi.test(keyValue)) {
       onChange(`${keyValue}${prevInput}`);
-      input = '';
     } else {
       input = prevInput + keyValue;
     }
@@ -146,6 +149,7 @@ export default class IdentificationKeyboard extends Component {
         <View>
           <View style={sh.input}>
             <Text style={sh.inputText}>{input}</Text>
+            {!input && <Text style={sh.tipText}>請輸入證件字號</Text>}
           </View>
           <View style={sh.keyboard}>
             {prefix || this.numberKeyboard}
