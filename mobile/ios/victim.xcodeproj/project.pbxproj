@@ -13,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* victimTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* victimTests.m */; };
+		0208B5271E099F7300784E65 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0208B5101E099F4500784E65 /* libRCTAnimation.a */; };
 		020B40CF1D6E07F30006A68E /* GoogleIPhoneUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 020B40C51D6E07F30006A68E /* GoogleIPhoneUtilities.framework */; };
 		020B40D01D6E07F30006A68E /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 020B40C61D6E07F30006A68E /* GoogleUtilities.framework */; };
 		020B40D11D6E07F30006A68E /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 020B40C71D6E07F30006A68E /* FirebaseInstanceID.framework */; };
@@ -89,6 +90,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = victim;
+		};
+		0208B50F1E099F4500784E65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0208B5081E099F4500784E65 /* RCTAnimation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTAnimation;
+		};
+		0208B5111E099F4500784E65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0208B5081E099F4500784E65 /* RCTAnimation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2D2A28201D9B03D100D4039D;
+			remoteInfo = "RCTAnimation-tvOS";
 		};
 		022EF4711D82570500A98DB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -234,6 +249,7 @@
 		00E356EE1AD99517003FC87E /* victimTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = victimTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* victimTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = victimTests.m; sourceTree = "<group>"; };
+		0208B5081E099F4500784E65 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		020B40C51D6E07F30006A68E /* GoogleIPhoneUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleIPhoneUtilities.framework; path = "../Libraries/react-native-bridge-firebase/ios/Frameworks/GoogleIPhoneUtilities.framework"; sourceTree = "<group>"; };
 		020B40C61D6E07F30006A68E /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = "../Libraries/react-native-bridge-firebase/ios/Frameworks/GoogleUtilities.framework"; sourceTree = "<group>"; };
 		020B40C71D6E07F30006A68E /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = "../Libraries/react-native-bridge-firebase/ios/Frameworks/FirebaseInstanceID.framework"; sourceTree = "<group>"; };
@@ -283,6 +299,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0208B5271E099F7300784E65 /* libRCTAnimation.a in Frameworks */,
 				022EF4731D82571200A98DB1 /* libRNVectorIcons.a in Frameworks */,
 				02F520021D71FFD5000E34D3 /* FirebaseDatabase.framework in Frameworks */,
 				020B40ED1D6EE2580006A68E /* FirebaseRemoteConfig.framework in Frameworks */,
@@ -374,6 +391,15 @@
 				00E356F11AD99517003FC87E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0208B5091E099F4500784E65 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0208B5101E099F4500784E65 /* libRCTAnimation.a */,
+				0208B5121E099F4500784E65 /* libRCTAnimation-tvOS.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		022EF45F1D82570500A98DB1 /* Products */ = {
@@ -493,6 +519,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				0208B5081E099F4500784E65 /* RCTAnimation.xcodeproj */,
 				022EF45E1D82570500A98DB1 /* RNVectorIcons.xcodeproj */,
 				02772F261D66EF320034F709 /* RNCropper.xcodeproj */,
 				02507C861D536D2D00F3D935 /* RNBridgeFirebase.xcodeproj */,
@@ -630,6 +657,10 @@
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
 				{
+					ProductGroup = 0208B5091E099F4500784E65 /* Products */;
+					ProjectRef = 0208B5081E099F4500784E65 /* RCTAnimation.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
 					ProjectRef = 00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */;
 				},
@@ -724,6 +755,20 @@
 			fileType = archive.ar;
 			path = libRCTVibration.a;
 			remoteRef = 00C302E31ABCB9EE00DB3ED1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0208B5101E099F4500784E65 /* libRCTAnimation.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTAnimation.a;
+			remoteRef = 0208B50F1E099F4500784E65 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0208B5121E099F4500784E65 /* libRCTAnimation-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTAnimation-tvOS.a";
+			remoteRef = 0208B5111E099F4500784E65 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		022EF4721D82570500A98DB1 /* libRNVectorIcons.a */ = {
