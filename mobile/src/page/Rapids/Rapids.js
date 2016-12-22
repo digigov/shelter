@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
-import { Margin, Title, IconButton, Item } from 'component';
+import { StyleSheet, Modal, ScrollView, View, Alert, AsyncStorage } from 'react-native';
+import { Margin, IconButton, Item } from 'component';
+import isArray from 'lodash/isArray';
+import range from 'lodash/range';
 import size from 'size';
+import EventPanel from '../EventPanel/EventPanel';
 
 const sh = StyleSheet.create({
   viewport: {
@@ -14,48 +17,79 @@ export default class Rapids extends Component {
 
   static displayName = 'Rapids';
 
-  onItemPress = () => {
+  state = {
+    panelVisible: false,
+    rapidsSet: [],
+    rapidsIdx: 0,
+  }
 
+  async componentWillMount() {
+    try {
+      const rapidsSet = await AsyncStorage.getItem('RapidsSet');
+      const data = JSON.parse(rapidsSet);
+      if (isArray(data)) this.setState({ rapidsSet: data });
+    } catch (error) {
+      this.setState({ rapidsSet: [] });
+    }
+  }
+
+  onItemPress = (idx) => {
+    const { rapidsIdx } = this.state;
+    this.setState({
+      rapidsIdx: idx,
+      panelVisible: true,
+      type: rapidsIdx[idx] ? rapidsIdx[idx].type : null,
+      note: rapidsIdx[idx] ? rapidsIdx[idx].note : null,
+    });
+  };
+
+  onAddPress = (type) => Alert.alert('info', type);
+
+  onCancelPress = () => this.setState({ panelVisible: false });
+
+  onSavePress = (type, note) => {
+    const { rapidsSet, rapidsIdx } = this.state;
+    rapidsSet[rapidsIdx] = { type, note };
+    this.setState({ rapidsSet, panelVisible: false });
+    AsyncStorage.setItem('RapidsSet', JSON.stringify(rapidsSet));
   }
 
   render() {
+    const { panelVisible, rapidsSet, type, note } = this.state;
+
     return (
       <View style={sh.viewport}>
-        <Margin>
-          <Title>類別</Title>
-          <ScrollView>
-            <Item label="個資" onPress={() => this.onItemPress('個資')} isFirst>
-              <IconButton name="add" />
-            </Item>
-            <Item label="物資" onPress={() => this.onItemPress('物資')}>
-              <IconButton name="add" />
-            </Item>
-            <Item label="餐飲" onPress={() => this.onItemPress('餐飲')}>
-              <IconButton name="add" />
-            </Item>
-            <Item label="充電" onPress={() => this.onItemPress('充電')}>
-              <IconButton name="add" />
-            </Item>
-            <Item label="回報" onPress={() => this.onItemPress('回報')}>
-              <IconButton name="add" />
-            </Item>
-            <Item label="協尋" onPress={() => this.onItemPress('協尋')}>
-              <IconButton name="add" />
-            </Item>
-            <Item label="求助" onPress={() => this.onItemPress('求助')}>
-              <IconButton name="add" />
-            </Item>
-            <Item label="諮詢" onPress={() => this.onItemPress('諮詢')}>
-              <IconButton name="add" />
-            </Item>
-            <Item label="醫療" onPress={() => this.onItemPress('醫療')}>
-              <IconButton name="add" />
-            </Item>
-            <Item label="其他" onPress={() => this.onItemPress('其他')}>
-              <IconButton name="add" />
-            </Item>
-          </ScrollView>
-        </Margin>
+        <ScrollView>
+          <Margin>
+            {range(7).map((idx) => {
+              const isSet = !!rapidsSet[idx];
+              return (
+                <Item
+                  key={idx}
+                  label={isSet ? rapidsSet[idx].type : '添加'}
+                  tip={isSet ? rapidsSet[idx].note : '_'}
+                  onPress={() => this.onItemPress(idx)}
+                  isFirst={idx === 0}
+                >
+                  <IconButton
+                    name={rapidsSet[idx] ? 'chevron-right' : 'add'}
+                    onPress={() => (
+                      isSet ? this.onAddPress(rapidsSet[idx]) : this.onItemPress(idx)
+                    )}
+                  />
+                </Item>
+              );
+            })}
+          </Margin>
+        </ScrollView>
+        <Modal visible={panelVisible} animationType="slide">
+          <EventPanel
+            type={type}
+            note={note}
+            onCancel={this.onCancelPress}
+            onSave={this.onSavePress}
+          />
+        </Modal>
       </View>
     );
   }

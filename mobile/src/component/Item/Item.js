@@ -26,8 +26,11 @@ const sh = StyleSheet.create({
     borderTopColor: color.border,
     borderTopWidth: 1,
   },
-  label: {
+  content: {
     flex: 1,
+  },
+  label: {
+    marginBottom: 2,
   },
 });
 
@@ -53,8 +56,10 @@ export default class Item extends Component {
       <View style={!isFirst && sh.border}>
         <Touchable onPress={onPress} disabled={!onPress}>
           <View style={sh.container}>
-            <Label style={sh.label}>{label}</Label>
-            {tip && <Text>{tip}</Text>}
+            <View style={sh.content}>
+              <Label style={sh.label}>{label}</Label>
+              {tip && <Text>{tip}</Text>}
+            </View>
             {children && <View>{children}</View>}
           </View>
         </Touchable>
