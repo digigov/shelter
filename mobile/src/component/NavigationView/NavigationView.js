@@ -31,6 +31,8 @@ const sh = StyleSheet.create({
   },
   container: {
     height: size.navbar,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   navbarLeft: {
     position: 'absolute',

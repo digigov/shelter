@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { StyleSheet, Modal, ScrollView, View, Alert, AsyncStorage } from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import { StyleSheet, Modal, ScrollView, View, AsyncStorage } from 'react-native';
 import { Margin, IconButton, Item } from 'component';
 import isArray from 'lodash/isArray';
 import range from 'lodash/range';
@@ -16,6 +16,10 @@ const sh = StyleSheet.create({
 export default class Rapids extends Component {
 
   static displayName = 'Rapids';
+
+  static propTypes = {
+    nav: PropTypes.objectOf(PropTypes.func),
+  }
 
   state = {
     panelVisible: false,
@@ -43,7 +47,7 @@ export default class Rapids extends Component {
     });
   };
 
-  onAddPress = (type) => Alert.alert('info', type);
+  onAddPress = (type) => this.props.nav.push('swirls', type);
 
   onCancelPress = () => this.setState({ panelVisible: false });
 

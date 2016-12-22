@@ -4,6 +4,7 @@ import color from 'color';
 
 import Tab from '../Tab/Tab';
 import Single from '../Single/Single';
+import Swirls from '../Swirls/Swirls';
 
 const sh = StyleSheet.create({
   viewport: {
@@ -16,11 +17,13 @@ const sh = StyleSheet.create({
 const pages = {
   tab: Tab,
   single: Single,
+  swirls: Swirls,
 };
 
 const defaultRoute = {
   tab: { id: 'tab' },
   single: { id: 'single' },
+  swirls: { id: 'swirls' },
 };
 
 export default class Enter extends Component {
