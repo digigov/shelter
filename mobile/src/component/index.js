@@ -4,6 +4,7 @@
 
 import Icon from './Icon/Icon';
 import IconButton from './IconButton/IconButton';
+import KeyboardAvoidingView from './KeyboardAvoidingView/KeyboardAvoidingView';
 import TextButton from './TextButton/TextButton';
 import NextButton from './NextButton/NextButton';
 import Item from './Item/Item';
@@ -16,6 +17,7 @@ import VictimIdKeyboard from './VictimIdKeyboard/VictimIdKeyboard';
 
 export {
   Icon,
+  KeyboardAvoidingView,
   IconButton,
   TextButton,
   NextButton,

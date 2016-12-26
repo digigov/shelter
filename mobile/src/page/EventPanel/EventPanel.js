@@ -1,6 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { Navigator, StyleSheet, View, ScrollView, TextInput } from 'react-native';
-import { Margin, Item, IconButton, TextButton, NextButton, Label } from 'component';
+import {
+  Margin,
+  Item,
+  IconButton,
+  TextButton,
+  NextButton,
+  Label,
+  KeyboardAvoidingView,
+} from 'component';
 import color from 'color';
 import size from 'size';
 import category from '../../assist/category';
@@ -68,19 +76,21 @@ export default class EventPanel extends Component {
         <View style={sh.navbar}>
           <Label>{`${route}細節補充`}</Label>
         </View>
-        <Margin style={sh.viewport}>
-          <TextInput
-            multiline
-            autoFocus
-            style={sh.input}
-            value={input}
-            onChangeText={this.onChange}
-          />
-        </Margin>
-        <Margin style={sh.button}>
-          <TextButton onPress={navigator.pop}>上一步</TextButton>
-          <NextButton onPress={() => this.onSavePress(route)}>儲存</NextButton>
-        </Margin>
+        <KeyboardAvoidingView>
+          <Margin style={sh.viewport}>
+            <TextInput
+              multiline
+              autoFocus
+              style={sh.input}
+              value={input}
+              onChangeText={this.onChange}
+            />
+          </Margin>
+          <Margin style={sh.button}>
+            <TextButton onPress={navigator.pop}>上一步</TextButton>
+            <NextButton onPress={() => this.onSavePress(route)}>儲存</NextButton>
+          </Margin>
+        </KeyboardAvoidingView>
       </View>
     ) : (
       <View style={sh.viewport}>

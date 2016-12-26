@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Navigator, StyleSheet } from 'react-native';
+import CodePush from 'react-native-code-push';
 import color from 'color';
 
 import Tab from '../Tab/Tab';
@@ -29,6 +30,10 @@ const defaultRoute = {
 export default class Enter extends Component {
 
   static displayName = 'Enter';
+
+  componentDidMount() {
+    if (!__DEV__) CodePush.notifyAppReady();
+  }
 
   navigator = null;
 
