@@ -1,5 +1,6 @@
 package com.react.bridge.firebase;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
@@ -60,7 +61,7 @@ public class RNBridgeFirebaseModule extends RNBridgeFirebase implements Activity
   }
 
   @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+  public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
     for (RNBridgeFirebase module : getModule())
       module.onActivityResult(requestCode, resultCode, data);
   }

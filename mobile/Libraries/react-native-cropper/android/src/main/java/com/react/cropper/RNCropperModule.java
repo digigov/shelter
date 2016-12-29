@@ -1,6 +1,7 @@
 
 package com.react.cropper;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -140,7 +141,7 @@ public class RNCropperModule extends ReactContextBaseJavaModule implements Activ
   }
 
   @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+  public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
     switch (requestCode) {
       case IMAGE_PICKER_REQUEST:
         onImagePickerResult(resultCode, data);
