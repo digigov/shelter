@@ -8,7 +8,6 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 import { Label } from 'component';
-import color from 'color';
 
 const Touchable = Platform.select({
   ios: () => TouchableOpacity,
@@ -22,15 +21,8 @@ const sh = StyleSheet.create({
     paddingVertical: 10,
     overflow: 'hidden',
   },
-  border: {
-    borderTopColor: color.border,
-    borderTopWidth: 1,
-  },
   content: {
     flex: 1,
-  },
-  label: {
-    marginBottom: 2,
   },
 });
 
@@ -42,7 +34,7 @@ export default class Item extends Component {
     label: PropTypes.string,
     tip: PropTypes.string,
     children: PropTypes.node,
-    isFirst: PropTypes.bool,
+    style: View.propTypes.style,
     onPress: PropTypes.func,
   }
 
@@ -51,19 +43,18 @@ export default class Item extends Component {
   }
 
   render() {
-    const { label, tip, children, isFirst, onPress } = this.props;
+    const { label, tip, children, style, onPress } = this.props;
+
     return (
-      <View style={!isFirst && sh.border}>
-        <Touchable onPress={onPress} disabled={!onPress}>
-          <View style={sh.container}>
-            <View style={sh.content}>
-              <Label style={sh.label}>{label}</Label>
-              {tip && <Text>{tip}</Text>}
-            </View>
-            {children && <View>{children}</View>}
+      <Touchable onPress={onPress} disabled={!onPress}>
+        <View style={[sh.container, style]}>
+          <View style={sh.content}>
+            <Label style={sh.label}>{label}</Label>
+            {tip && <Text>{tip}</Text>}
           </View>
-        </Touchable>
-      </View>
+          {children && <View>{children}</View>}
+        </View>
+      </Touchable>
     );
   }
 }

@@ -3,7 +3,7 @@
  */
 export default {
   primary: '#DA4E66',
-  primaryAssist: '#9F918E',
+  primaryAssist: '#BFF2D6',
   secondary: '#63C3C3',
   secondaryAssist: '',
   highlight: '#FFFFFF',

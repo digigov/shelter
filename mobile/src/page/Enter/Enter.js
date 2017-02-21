@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Navigator, StyleSheet } from 'react-native';
+import _ from 'lodash';
 import CodePush from 'react-native-code-push';
 import color from 'color';
 
-import Tab from '../Tab/Tab';
-import Single from '../Single/Single';
-import Swirls from '../Swirls/Swirls';
+import Menu from '../Menu/Menu';
 
 const sh = StyleSheet.create({
   viewport: {
@@ -15,50 +14,41 @@ const sh = StyleSheet.create({
   },
 });
 
-const pages = {
-  tab: Tab,
-  single: Single,
-  swirls: Swirls,
-};
-
-const defaultRoute = {
-  tab: { id: 'tab' },
-  single: { id: 'single' },
-  swirls: { id: 'swirls' },
-};
-
 export default class Enter extends Component {
 
   static displayName = 'Enter';
+
+  static pages = {
+    menu: Menu,
+  }
+
+  static defaultRoute = {
+  }
 
   componentDidMount() {
     if (!__DEV__) CodePush.notifyAppReady();
   }
 
-  navigator = null;
+  configureScene = (route) => ({
+    ...route.sceneConfigs || _.get(
+      Enter, `defaultScenes[${route.id}].sceneConfigs`, Navigator.SceneConfigs.FloatFromRight
+    ),
+    gestures: {},
+  });
 
-  nav = {
-    push: (id, route) => this.navigator.push({ ...defaultRoute[id], ...route }),
-    pop: () => this.navigator.pop(),
-    replace: (id, route) => this.navigator.replace({ ...defaultRoute[id], ...route }),
-  }
+  renderScene = (route, navigator) => {
+    const Page = Enter.pages[route.id];
 
-  renderScene = (route) => {
-    const Page = pages[route.id];
-
-    return (<Page nav={this.nav} route={route} />);
+    return (<Page route={route} navigator={navigator} />);
   }
 
   render() {
     return (
       <Navigator
         style={sh.viewport}
-        ref={navigator => { this.navigator = navigator; }}
-        initialRoute={{ id: 'tab' }}
+        initialRoute={{ id: 'menu' }}
         renderScene={this.renderScene}
-        configureScene={() => ({
-          ...Navigator.SceneConfigs.HorizontalSwipeJump,
-        })}
+        configureScene={this.configureScene}
       />
     );
   }
