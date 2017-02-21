@@ -5,6 +5,7 @@ import CodePush from 'react-native-code-push';
 import color from 'color';
 
 import Menu from '../Menu/Menu';
+import Panel from '../Panel/Panel';
 
 const sh = StyleSheet.create({
   viewport: {
@@ -20,6 +21,7 @@ export default class Enter extends Component {
 
   static pages = {
     menu: Menu,
+    panel: Panel,
   }
 
   static defaultRoute = {

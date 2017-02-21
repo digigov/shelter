@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { Margin, Item, Title } from '../../component/';
-import _ from 'lodash';
 import color from '../../assist/color';
 import size from '../../assist/size';
 
@@ -38,11 +37,13 @@ export default class Menu extends Component {
 
   static displayName = 'Menu';
 
-  onCheckInPress = () => {};
+  static propTypes = {
+    navigator: PropTypes.shape(),
+  }
+
+  onSignInPress = (action) => this.props.navigator.push({ id: 'panel', action });
 
   onRequestVictimIdPress = () => {};
-
-  onSignInPress = () => {};
 
   render() {
     return (
@@ -54,7 +55,7 @@ export default class Menu extends Component {
             <Item
               label="登錄災民資料"
               labelColor={color.background}
-              onPress={this.onCheckInPress}
+              onPress={() => this.onSignInPress('登錄災民')}
             />
             <View style={sh.hr} />
             <Item
@@ -67,10 +68,10 @@ export default class Menu extends Component {
         <ScrollView style={sh.viewport}>
           <Margin>
             <View style={sh.item}>
-              <Item label="領取物資登記" onPress={() => this.onSignInPress('物資')} />
+              <Item label="領取物資登記" onPress={() => this.onSignInPress('領取物資')} />
             </View>
             <View style={sh.item}>
-              <Item label="領取餐食登記" onPress={() => this.onSignInPress('餐食')} />
+              <Item label="領取餐食登記" onPress={() => this.onSignInPress('領取餐食')} />
             </View>
           </Margin>
         </ScrollView>

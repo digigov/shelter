@@ -45,9 +45,14 @@ const sh = StyleSheet.create({
     fontSize: 36,
     color: color.textAssist,
   },
-  tipText: {
-    fontSize: 28,
+  preholder: {
+    fontSize: 32,
     color: color.textAssist,
+  },
+  tip: {
+    fontSize: 16,
+    color: color.textAssist,
+    marginTop: 5,
   },
 });
 
@@ -95,9 +100,11 @@ export default class VictimIdKeyboard extends Component {
     const prefixKeyboard = map(getPrefix(input), ({ key }) => this.prefixKeyboard[key]);
 
     if (prefixKeyboard.length % 3 > 0) {
-      range(3, prefixKeyboard.length % 3).forEach((key) => prefixKeyboard.push(<View key={key} style={sh.button} />));
+      range(3, prefixKeyboard.length % 3).forEach(
+        (key) => prefixKeyboard.push(<View key={key} style={sh.button} />)
+      );
     }
-    
+
     this.setState({ input, prefixKeyboard });
   }
 
@@ -138,8 +145,8 @@ export default class VictimIdKeyboard extends Component {
       <View style={sh.viewport}>
         <View style={sh.input}>
           <Text style={sh.inputText}>{input}</Text>
-          {!input && <Text style={sh.tipText}>請輸入證件字號後九碼</Text>}
-          {!input && <Text style={sh.tipText}>災民證 or 身分證字號</Text>}
+          {!input && <Text style={sh.preholder}>災民證 或 身分證</Text>}
+          {!input && <Text style={sh.tip}>請輸入證件字號後九位數字</Text>}
         </View>
         <View style={sh.keyboard}>
           {isPrefix && prefixKeyboard.length ?

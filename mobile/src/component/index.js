@@ -2,6 +2,7 @@
  * @providesModule component
  */
 
+import BackButton from './BackButton/BackButton';
 import Icon from './Icon/Icon';
 import IconButton from './IconButton/IconButton';
 import KeyboardAvoidingView from './KeyboardAvoidingView/KeyboardAvoidingView';
@@ -16,6 +17,7 @@ import Title from './Title/Title';
 import VictimIdKeyboard from './VictimIdKeyboard/VictimIdKeyboard';
 
 export {
+  BackButton,
   Icon,
   KeyboardAvoidingView,
   IconButton,
