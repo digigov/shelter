@@ -72,9 +72,9 @@ export function verifyTaiwanId(value) {
 }
 
 export function getPrefix(value) {
-  const id = /^([12])(\d{8})$/gi.exec(value);
+  const id = /^([123])(\d{8})$/gi.exec(value);
 
-  if (!id) return false;
+  if (!id) return [];
 
   const total = parseInt(id[1][0]) * 8 +
                 parseInt(id[2][0]) * 7 +

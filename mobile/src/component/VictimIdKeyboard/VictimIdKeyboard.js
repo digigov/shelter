@@ -5,43 +5,39 @@ import map from 'lodash/map';
 import range from 'lodash/range';
 import keyBy from 'lodash/keyBy';
 import mapValues from 'lodash/mapValues';
+import chunk from 'lodash/chunk';
 import { getPrefix } from 'VictimId';
 import color from 'color';
-
-const BUTTON_SIZE = 70;
-const BUTTON_SPACING = 15;
 
 const sh = StyleSheet.create({
   viewport: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   keyboard: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    width: BUTTON_SIZE * 3 + BUTTON_SPACING * 4,
-    height: BUTTON_SIZE * 4 + BUTTON_SPACING * 4,
-    paddingLeft: BUTTON_SPACING,
-    paddingTop: BUTTON_SPACING,
+    borderRightWidth: 1,
+    borderRightColor: color.textAssist,
+    borderBottomWidth: 1,
+    borderBottomColor: color.textAssist,
   },
   button: {
-    width: BUTTON_SIZE,
-    height: BUTTON_SIZE,
-    borderRadius: 35,
-    borderWidth: 1,
-    borderColor: color.textAssist,
+    flex: 1,
+    height: 70,
+    borderLeftWidth: 1,
+    borderLeftColor: color.textAssist,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: BUTTON_SPACING,
-    marginBottom: BUTTON_SPACING,
+  },
+  buttonGroup: {
+    borderTopWidth: 1,
+    borderTopColor: color.textAssist,
+    flexDirection: 'row',
   },
   buttonText: {
     fontSize: 32,
     color: color.textAssist,
   },
   input: {
-    height: 60,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -50,19 +46,14 @@ const sh = StyleSheet.create({
     color: color.textAssist,
   },
   tipText: {
-    fontSize: 32,
+    fontSize: 28,
     color: color.textAssist,
-  },
-  break: {
-    position: 'absolute',
-    right: 0,
-    bottom: -BUTTON_SPACING,
   },
 });
 
-export default class IdentificationKeyboard extends Component {
+export default class VictimIdKeyboard extends Component {
 
-  static displayName = 'IdentificationKeyboard';
+  static displayName = 'VictimIdKeyboard';
 
   static propTypes = {
     onChange: PropTypes.func,
@@ -74,15 +65,14 @@ export default class IdentificationKeyboard extends Component {
 
   state = {
     input: '',
-    prefix: false,
+    prefixKeyboard: [],
   }
 
   componentWillMount() {
-    const { numberKeyboard, prefixKeyboard, renderKeyBoard } = this;
+    const { numberKeyboard, prefixKeyboard, renderButton } = this;
 
-    this.numberKeyboard = map(numberKeyboard, renderKeyBoard);
-    this.prefixKeyboard = mapValues(prefixKeyboard, v => renderKeyBoard(String.fromCharCode(v)));
-    this.breakKeyboard = this.renderKeyBoard('break');
+    this.numberKeyboard = map(numberKeyboard, renderButton);
+    this.prefixKeyboard = mapValues(prefixKeyboard, v => renderButton(String.fromCharCode(v)));
   }
 
   onButtonPress = (keyValue) => {
@@ -102,21 +92,19 @@ export default class IdentificationKeyboard extends Component {
 
     if (input.length > 9) return;
 
-    const propose = getPrefix(input);
+    const prefixKeyboard = map(getPrefix(input), ({ key }) => this.prefixKeyboard[key]);
 
-    let prefix = false;
-    if (propose !== false) {
-      prefix = map(propose, ({ key }) => this.prefixKeyboard[key]);
+    if (prefixKeyboard.length % 3 > 0) {
+      range(3, prefixKeyboard.length % 3).forEach((key) => prefixKeyboard.push(<View key={key} style={sh.button} />));
     }
-
-    this.setState({ input, prefix });
+    
+    this.setState({ input, prefixKeyboard });
   }
 
-  numberKeyboard = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'scan', '0'];
+  numberKeyboard = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   prefixKeyboard = keyBy(range(65, 91), v => String.fromCharCode(v));
-  breakKeyboard = undefined;
 
-  renderKeyBoard = (key) => {
+  renderButton = (key) => {
     let display;
     switch (key) {
       case 'break':
@@ -142,20 +130,35 @@ export default class IdentificationKeyboard extends Component {
   }
 
   render() {
-    const { input, prefix } = this.state;
+    const { input, prefixKeyboard } = this.state;
+
+    const isPrefix = input && input.length >= 9;
 
     return (
       <View style={sh.viewport}>
-        <View>
-          <View style={sh.input}>
-            <Text style={sh.inputText}>{input}</Text>
-            {!input && <Text style={sh.tipText}>請輸入證件字號</Text>}
-          </View>
-          <View style={sh.keyboard}>
-            {prefix || this.numberKeyboard}
-          </View>
-          <View style={sh.break}>
-            {this.breakKeyboard}
+        <View style={sh.input}>
+          <Text style={sh.inputText}>{input}</Text>
+          {!input && <Text style={sh.tipText}>請輸入證件字號後九碼</Text>}
+          {!input && <Text style={sh.tipText}>災民證 or 身分證字號</Text>}
+        </View>
+        <View style={sh.keyboard}>
+          {isPrefix && prefixKeyboard.length ?
+            map(chunk(prefixKeyboard, 3), (buttons, idx) => (
+              <View style={sh.buttonGroup} key={idx}>{buttons}</View>
+            ))
+          :
+            map(chunk(this.numberKeyboard, 3), (buttons, idx) => (
+              <View style={sh.buttonGroup} key={idx}>{buttons}</View>
+            ))
+          }
+          <View style={sh.buttonGroup} key="toolbar">
+            {this.renderButton('scan')}
+            {isPrefix && prefixKeyboard.length ?
+              <View style={sh.button} />
+            :
+              this.renderButton('0')
+            }
+            {this.renderButton('break')}
           </View>
         </View>
       </View>
