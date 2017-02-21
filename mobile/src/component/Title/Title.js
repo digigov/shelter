@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import ColorPropType from 'ColorPropType';
 import color from 'color';
 
 const sh = StyleSheet.create({
@@ -16,10 +17,10 @@ const sh = StyleSheet.create({
   },
 });
 
-function Title({ subtitle, children, style }) {
+function Title({ subtitle, color: textColor, children, style }) {
   return (
     <View style={style}>
-      <Text style={sh.title}>{children}</Text>
+      <Text style={[sh.title, { color: textColor }]}>{children}</Text>
       {subtitle && <Text style={sh.subtitle}>{subtitle}</Text>}
     </View>
   );
@@ -28,6 +29,7 @@ function Title({ subtitle, children, style }) {
 Title.displayName = 'Title';
 
 Title.propTypes = {
+  color: ColorPropType,
   style: View.propTypes.style,
   subtitle: PropTypes.string,
   children: PropTypes.string,

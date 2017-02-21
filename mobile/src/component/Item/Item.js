@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TouchableNativeFeedback,
 } from 'react-native';
-import { Label } from 'component';
+import Label from '../Label/Label';
 
 const Touchable = Platform.select({
   ios: () => TouchableOpacity,
@@ -32,6 +32,7 @@ export default class Item extends Component {
 
   static propTypes = {
     label: PropTypes.string,
+    labelColor: Label.propTypes.color,
     tip: PropTypes.string,
     children: PropTypes.node,
     style: View.propTypes.style,
@@ -43,13 +44,13 @@ export default class Item extends Component {
   }
 
   render() {
-    const { label, tip, children, style, onPress } = this.props;
+    const { label, labelColor, tip, children, style, onPress } = this.props;
 
     return (
       <Touchable onPress={onPress} disabled={!onPress}>
         <View style={[sh.container, style]}>
           <View style={sh.content}>
-            <Label style={sh.label}>{label}</Label>
+            <Label style={sh.label} color={labelColor}>{label}</Label>
             {tip && <Text>{tip}</Text>}
           </View>
           {children && <View>{children}</View>}

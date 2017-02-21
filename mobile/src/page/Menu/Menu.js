@@ -12,6 +12,8 @@ const sh = StyleSheet.create({
   checkin: {
     backgroundColor: color.primaryAssist,
     paddingBottom: 5,
+    borderBottomWidth: 3,
+    borderBottomColor: color.primary,
   },
   title: {
     marginTop: size.statusBar + (size.navbar / 2),
@@ -44,25 +46,35 @@ export default class Menu extends Component {
 
   render() {
     return (
-      <ScrollView style={sh.viewport}>
+      <View style={sh.viewport}>
         <View style={sh.checkin}>
           <Margin>
-            <Title style={sh.title}>臺北市社會局</Title>
+            <Title style={sh.title} color={color.background}>臺北市社會局</Title>
             <View style={sh.header} />
-            <Item label="登錄災民資料" onPress={this.onCheckInPress} />
+            <Item
+              label="登錄災民資料"
+              labelColor={color.background}
+              onPress={this.onCheckInPress}
+            />
             <View style={sh.hr} />
-            <Item label="配發臨時證號" onPress={this.onRequestVictimIdPress} />
+            <Item
+              label="配發臨時證號"
+              labelColor={color.background}
+              onPress={this.onRequestVictimIdPress}
+            />
           </Margin>
         </View>
-        <Margin>
-          <View style={sh.item}>
-            <Item label="領取物資登記" onPress={() => this.onSignInPress('物資')} />
-          </View>
-          <View style={sh.item}>
-            <Item label="領取餐食登記" onPress={() => this.onSignInPress('餐食')} />
-          </View>
-        </Margin>
-      </ScrollView>
+        <ScrollView style={sh.viewport}>
+          <Margin>
+            <View style={sh.item}>
+              <Item label="領取物資登記" onPress={() => this.onSignInPress('物資')} />
+            </View>
+            <View style={sh.item}>
+              <Item label="領取餐食登記" onPress={() => this.onSignInPress('餐食')} />
+            </View>
+          </Margin>
+        </ScrollView>
+      </View>
     );
   }
 }
