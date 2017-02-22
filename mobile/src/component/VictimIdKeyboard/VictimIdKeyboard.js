@@ -97,7 +97,7 @@ export default class VictimIdKeyboard extends Component {
 
     if (input.length > 9) return;
 
-    const prefixKeyboard = map(getPrefix(input), ({ key }) => this.prefixKeyboard[key]);
+    const prefixKeyboard = map(getPrefix(input), (char) => this.prefixKeyboard[char]);
 
     if (prefixKeyboard.length % 3 > 0) {
       range(3, prefixKeyboard.length % 3).forEach(
