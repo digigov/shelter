@@ -8,12 +8,10 @@
  */
 
 #import "AppDelegate.h"
+#import <CodePush/CodePush.h>
 
-#import "RCTBundleURLProvider.h"
-#import "RCTRootView.h"
-
-#import "CodePush.h"
-#import "RNBridgeFirebase.h"
+#import <React/RCTBundleURLProvider.h>
+#import <React/RCTRootView.h>
 
 @implementation AppDelegate
 
@@ -21,11 +19,12 @@
 {
   NSURL *jsCodeLocation;
 
-  #ifdef DEBUG
+  
+#ifdef DEBUG
     jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
-  #else
+#else
     jsCodeLocation = [CodePush bundleURL];
-  #endif
+#endif
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"victim"
@@ -38,28 +37,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-
   return YES;
-}
-
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
-    [RNBridgeFirebase didRegisterUserNotificationSettings:notificationSettings];
-}
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    [RNBridgeFirebase didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
-}
-
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
-{
-    [RNBridgeFirebase didFailToRegisterForRemoteNotificationsWithError:error];
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
-{
-    [RNBridgeFirebase didReceiveRemoteNotification:notification];
 }
 
 @end

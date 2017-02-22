@@ -6,12 +6,7 @@ import {
   InteractionManager,
 } from 'react-native';
 import CodePush from 'react-native-code-push';
-import Spinner from 'react-native-spinkit';
-import { Message } from 'react-native-bridge-firebase';
-import Analytics from './model/Analytics';
-
 import Enter from './page/Enter/Enter';
-
 import color from 'color';
 
 const sh = StyleSheet.create({
@@ -45,8 +40,6 @@ export default class extends Component {
   };
 
   componentWillMount() {
-    Message.registerDevice();
-
     InteractionManager.runAfterInteractions(async () => {
       try {
         if (__DEV__) return this.setState({ isSync: false });
@@ -115,10 +108,6 @@ export default class extends Component {
     });
   }
 
-  componentDidMount() {
-    Analytics.logAppOpen();
-  }
-
   render() {
     const { isSync, syncText } = this.state;
 
@@ -126,7 +115,6 @@ export default class extends Component {
       <View style={sh.viewport}>
         {isSync ?
           <View style={sh.progress}>
-            <Spinner isVisible size={100} type="9CubeGrid" color={color.background} />
             <Text style={sh.progressText}>{syncText}</Text>
           </View>
           :
@@ -138,11 +126,3 @@ export default class extends Component {
     );
   }
 }
-
-Message.addEventListener(Message.EVENT.REGISTERED, (data) => {
-  console.log('REGISTERED', data);
-});
-
-Message.addEventListener(Message.EVENT.REMOTE_NOTIFICATION, (data) => {
-  console.log('REMOTE_NOTIFICATION', data);
-});

@@ -2,55 +2,51 @@ package g0v.victim;
 
 import android.app.Application;
 import android.util.Log;
-import android.support.multidex.MultiDexApplication;
 
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
-import com.microsoft.codepush.react.CodePush;
-import com.react.rnspinkit.RNSpinkitPackage;
-import com.react.bridge.firebase.RNBridgeFirebasePackage;
-import com.react.cropper.RNCropperPackage;
+import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends MultiDexApplication implements ReactApplication {
+public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    protected boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
 
     @Override
     protected String getJSBundleFile() {
-        return CodePush.getJSBundleFile();
+      return CodePush.getJSBundleFile();
     }
 
-    // @Override
-    // protected String getJSMainModuleName() {
-    //   return "IntegrationTests/index.android";
-    // }
+    @Override
+    public boolean getUseDeveloperSupport() {
+      return BuildConfig.DEBUG;
+    }
 
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-          new VectorIconsPackage(),
-          new RNSpinkitPackage(),
-          new RNBridgeFirebasePackage(),
-          new RNCropperPackage(),
-          new CodePush(BuildConfig.CODEPUSH_KEY, MainApplication.this, BuildConfig.DEBUG)
+            new VectorIconsPackage(),
+            new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG)
       );
     }
   };
 
   @Override
   public ReactNativeHost getReactNativeHost() {
-      return mReactNativeHost;
+    return mReactNativeHost;
+  }
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    SoLoader.init(this, /* native exopackage */ false);
   }
 }

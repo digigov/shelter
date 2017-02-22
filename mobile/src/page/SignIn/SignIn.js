@@ -3,8 +3,6 @@ import { StyleSheet, View, ScrollView, KeyboardAvoidingView, Alert } from 'react
 import { IconButton, Title, Label, Margin, NextButton, Input, Textarea } from '../../component';
 import size from '../../assist/size';
 
-console.log(112233, Input);
-
 const sh = StyleSheet.create({
   viewport: {
     flex: 1,
