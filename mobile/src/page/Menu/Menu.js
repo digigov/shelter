@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
+import { StyleSheet, ScrollView, View, Text } from 'react-native';
 import { Margin, Item, Title } from '../../component/';
 import { generateVictimId } from '../../help/VictimId/VictimId';
 import color from '../../assist/color';
 import size from '../../assist/size';
+import info from '../../../package.json';
 
 const sh = StyleSheet.create({
   viewport: {
@@ -31,6 +32,13 @@ const sh = StyleSheet.create({
   item: {
     borderBottomColor: color.border,
     borderBottomWidth: 1,
+  },
+  version: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  versionText: {
+    color: color.primaryAssist,
   },
 });
 
@@ -66,6 +74,9 @@ export default class Menu extends Component {
               labelColor={color.background}
               onPress={this.onRequestVictimIdPress}
             />
+            <View style={sh.version}>
+              <Text style={sh.versionText}>{info.version}</Text>
+            </View>
           </Margin>
         </View>
         <ScrollView style={sh.viewport}>
