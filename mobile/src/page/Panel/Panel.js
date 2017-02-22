@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { VictimIdKeyboard, BackButton, Label } from 'component';
+import { VictimIdKeyboard, BackButton } from '../../component';
 import size from '../../assist/size';
 
 const sh = StyleSheet.create({
@@ -23,12 +23,17 @@ export default class Panel extends Component {
 
   onBack = () => this.props.navigator.pop();
 
+  onChange = (victimId) => {
+    const { navigator, route: { action } } = this.props;
+    navigator.push({ id: 'signin', action, victimId });
+  }
+
   render() {
     const { route: { action } } = this.props;
 
     return (
       <View style={sh.viewport}>
-        <BackButton label={action} onPress={this.onBack} />
+        <BackButton onPress={this.onBack}>{action}</BackButton>
         <VictimIdKeyboard onChange={this.onChange} />
       </View>
     );

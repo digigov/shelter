@@ -9,10 +9,10 @@ const sh = StyleSheet.create({
     flex: 1,
   },
   checkin: {
-    backgroundColor: color.primaryAssist,
+    backgroundColor: color.primary,
     paddingBottom: 5,
     borderBottomWidth: 3,
-    borderBottomColor: color.primary,
+    borderBottomColor: color.primaryAssist,
   },
   title: {
     marginTop: size.statusBar + (size.navbar / 2),

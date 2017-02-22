@@ -14,12 +14,12 @@ const sh = StyleSheet.create({
   },
 });
 
-function Component({ label, style, onPress }) {
+function Component({ children, style, onPress }) {
   return (
     <TouchableOpacity onPress={onPress} disabled={!onPress}>
       <View style={[sh.viewport, style]}>
         <Icon name="chevron-left" size={size.font.label} />
-        <Label style={sh.label}>{label}</Label>
+        {children && <Label style={sh.label}>{children}</Label>}
       </View>
     </TouchableOpacity>
   );
@@ -28,7 +28,7 @@ function Component({ label, style, onPress }) {
 Component.displayName = 'BackButton';
 
 Component.propTypes = {
-  label: PropTypes.string,
+  children: PropTypes.string,
   style: View.propTypes.style,
   onPress: PropTypes.func,
 };

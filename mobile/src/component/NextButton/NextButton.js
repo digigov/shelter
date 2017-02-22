@@ -6,6 +6,10 @@ import size from 'size';
 
 const sh = StyleSheet.create({
   viewport: {
+    alignItems: 'flex-end',
+    paddingVertical: 15,
+  },
+  button: {
     borderWidth: 1,
     borderColor: color.primary,
     borderRadius: size.font.label,
@@ -23,12 +27,14 @@ const sh = StyleSheet.create({
 
 function NextButton({ children, icon, style, onPress }) {
   return (
-    <TouchableOpacity onPress={onPress} disabled={!onPress}>
-      <View style={[sh.viewport, style]}>
-        <Label style={sh.label} color={color.primary}>{children || '下一步'}</Label>
-        <Icon name={icon || 'chevron-right'} color={color.primary} size={size.font.label} />
-      </View>
-    </TouchableOpacity>
+    <View style={sh.viewport}>
+      <TouchableOpacity onPress={onPress} disabled={!onPress}>
+        <View style={[sh.button, style]}>
+          <Label style={sh.label} color={color.primary}>{children || '下一步'}</Label>
+          <Icon name={icon || 'chevron-right'} color={color.primary} size={size.font.label} />
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 }
 

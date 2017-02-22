@@ -2,8 +2,8 @@
  * @providesModule color
  */
 export default {
-  primary: '#BFF2D6',
-  primaryAssist: '#4DA26F',
+  primary: '#4DA26F',
+  primaryAssist: '#BFF2D6',
   secondary: '#63C3C3',
   secondaryAssist: '',
   highlight: '#FFFFFF',

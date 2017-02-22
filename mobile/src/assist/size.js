@@ -6,6 +6,7 @@ import { Platform } from 'react-native';
 
 export default {
   margin: 30,
+  input: 40,
   maxWidth: 340,
   font: {
     title: 36,
