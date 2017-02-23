@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { StyleSheet, ScrollView, View, Text } from 'react-native';
 import { Margin, Item, Title } from '../../component/';
-import { generateVictimId } from '../../help/VictimId/VictimId';
+import { generate } from '../../help/VictimId/VictimId';
 import color from '../../assist/color';
 import size from '../../assist/size';
 import info from '../../../package.json';
@@ -53,7 +53,7 @@ export default class Menu extends Component {
   onSignInPress = (action) => this.props.navigator.push({ id: 'panel', action });
 
   onRequestVictimIdPress = () => this.props.navigator.push(
-    { id: 'signin', action: '登錄災民', victimId: generateVictimId() }
+    { id: 'signin', action: '登錄災民', victimId: generate() }
   );
 
   render() {

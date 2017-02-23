@@ -35,14 +35,14 @@ const charNum = {
   33: 'Z',
 };
 
-export function verifyTaiwanId(value) {
+export function verify(value) {
   const id = /^([A-Z])([123])(\d{8})$/gi.exec(value);
 
   if (!id) return false;
 
   const num = parseInt(findKey(charNum, (char) => char === id[1][0]));
 
-  const total = (num / 10) * 1 +
+  const total = Math.floor(num / 10) * 1 +
                 (num % 10) * 9 +
                 parseInt(id[2][0]) * 8 +
                 parseInt(id[3][0]) * 7 +
@@ -57,12 +57,12 @@ export function verifyTaiwanId(value) {
   return total % 10 === 0 ? id : false;
 }
 
-export function generateVictimId() {
+export function generate() {
   const id = ['A', 3, random(9), random(9), random(9), random(9), random(9), random(9), random(9)];
 
   const num = parseInt(findKey(charNum, (char) => char === id[0]));
 
-  const total = (num / 10) * 1 +
+  const total = Math.floor(num / 10) * 1 +
                 (num % 10) * 9 +
                 parseInt(id[1], 10) * 8 +
                 parseInt(id[2], 10) * 7 +
@@ -78,7 +78,7 @@ export function generateVictimId() {
   return id.join('');
 }
 
-export function getPrefix(value) {
+export function prefix(value) {
   const id = /^([123])(\d{8})$/gi.exec(value);
 
   if (!id) return [];

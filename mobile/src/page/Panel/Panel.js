@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { VictimIdKeyboard, BackButton } from '../../component';
+import { Keyboard, BackButton } from '../../component';
 import size from '../../assist/size';
 
 const sh = StyleSheet.create({
@@ -34,7 +34,7 @@ export default class Panel extends Component {
     return (
       <View style={sh.viewport}>
         <BackButton onPress={this.onBack}>{action}</BackButton>
-        <VictimIdKeyboard onChange={this.onChange} />
+        <Keyboard onChange={this.onChange} />
       </View>
     );
   }

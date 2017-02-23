@@ -16,7 +16,8 @@ import TabBar from './TabBar/TabBar';
 import Textarea from './Textarea/Textarea';
 import TextButton from './TextButton/TextButton';
 import Title from './Title/Title';
-import VictimIdKeyboard from './VictimIdKeyboard/VictimIdKeyboard';
+import Keyboard from './Keyboard/Keyboard';
+import Scanner from './Scanner/Scanner';
 
 export {
   BackButton,
@@ -33,5 +34,6 @@ export {
   Textarea,
   TextButton,
   Title,
-  VictimIdKeyboard,
+  Keyboard,
+  Scanner,
 };

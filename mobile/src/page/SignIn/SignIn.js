@@ -11,6 +11,7 @@ const sh = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     paddingVertical: 5,
   },
   inputBox: {

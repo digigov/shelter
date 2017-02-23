@@ -1,13 +1,16 @@
 import React, { PropTypes, Component } from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, Alert } from 'react-native';
-import { Icon } from 'component';
+import { StyleSheet, View, Text, TouchableHighlight, Alert, Modal } from 'react-native';
 import map from 'lodash/map';
 import range from 'lodash/range';
 import keyBy from 'lodash/keyBy';
 import mapValues from 'lodash/mapValues';
 import chunk from 'lodash/chunk';
-import { getPrefix } from 'VictimId';
-import color from 'color';
+import { verify, prefix } from 'VictimId';
+import Scanner from '../Scanner/Scanner';
+import Icon from '../Icon/Icon';
+import IconButton from '../IconButton/IconButton';
+import color from '../../assist/color';
+import size from '../../assist/size';
 
 const sh = StyleSheet.create({
   viewport: {
@@ -54,11 +57,16 @@ const sh = StyleSheet.create({
     color: color.textAssist,
     marginTop: 5,
   },
+  hideScanButton: {
+    position: 'absolute',
+    right: size.margin * 1.5,
+    top: size.margin * 1.5 + size.statusBar,
+  },
 });
 
-export default class VictimIdKeyboard extends Component {
+export default class extends Component {
 
-  static displayName = 'VictimIdKeyboard';
+  static displayName = 'Keyboard';
 
   static propTypes = {
     onChange: PropTypes.func,
@@ -70,6 +78,7 @@ export default class VictimIdKeyboard extends Component {
 
   state = {
     input: '',
+    isShowScan: false,
     prefixKeyboard: [],
   }
 
@@ -88,7 +97,7 @@ export default class VictimIdKeyboard extends Component {
     if (keyValue === 'break') {
       input = prevInput.substr(0, prevInput.length - 1);
     } else if (keyValue === 'scan') {
-      Alert.alert('Info', '功能尚未開啟');
+      this.setState({ isShowScan: true });
     } else if (/[A-Z]/gi.test(keyValue)) {
       onChange(`${keyValue}${prevInput}`);
     } else {
@@ -97,7 +106,7 @@ export default class VictimIdKeyboard extends Component {
 
     if (input.length > 9) return;
 
-    const prefixKeyboard = map(getPrefix(input), (char) => this.prefixKeyboard[char]);
+    const prefixKeyboard = map(prefix(input), (char) => this.prefixKeyboard[char]);
 
     if (prefixKeyboard.length % 3 > 0) {
       range(3, prefixKeyboard.length % 3).forEach(
@@ -107,6 +116,17 @@ export default class VictimIdKeyboard extends Component {
 
     this.setState({ input, prefixKeyboard });
   }
+
+  onBarCodeRead = (obj) => {
+    this.setState({ isShowScan: false });
+    if (!verify(obj.data)) {
+      return setTimeout(() => Alert.alert('格式錯誤', obj.data), 500);
+    }
+
+    this.props.onChange(obj.data);
+  }
+
+  onHideScanPress = () => this.setState({ isShowScan: false });
 
   numberKeyboard = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   prefixKeyboard = keyBy(range(65, 91), v => String.fromCharCode(v));
@@ -137,7 +157,7 @@ export default class VictimIdKeyboard extends Component {
   }
 
   render() {
-    const { input, prefixKeyboard } = this.state;
+    const { input, torch, isShowScan, prefixKeyboard } = this.state;
 
     const isPrefix = input && input.length >= 9;
 
@@ -158,7 +178,7 @@ export default class VictimIdKeyboard extends Component {
               <View style={sh.buttonGroup} key={idx}>{buttons}</View>
             ))
           }
-          <View style={sh.buttonGroup} key="toolbar">
+          <View style={sh.buttonGroup} key="break">
             {this.renderButton('scan')}
             {isPrefix && prefixKeyboard.length ?
               <View style={sh.button} />
@@ -168,6 +188,14 @@ export default class VictimIdKeyboard extends Component {
             {this.renderButton('break')}
           </View>
         </View>
+        <Modal visible={isShowScan}>
+          <Scanner ratio={1/0.3} onBarCodeRead={this.onBarCodeRead} />
+          <IconButton
+            name="clear"
+            style={sh.hideScanButton}
+            onPress={this.onHideScanPress}
+          />
+        </Modal>
       </View>
     );
   }
