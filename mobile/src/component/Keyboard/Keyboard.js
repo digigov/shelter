@@ -188,7 +188,7 @@ export default class extends Component {
             {this.renderButton('break')}
           </View>
         </View>
-        <Modal visible={isShowScan}>
+        <Modal visible={isShowScan} onRequestClose={this.onHideScanPress}>
           <Scanner ratio={1/0.3} onBarCodeRead={this.onBarCodeRead} />
           <IconButton
             name="clear"

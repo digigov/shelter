@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navigator, StyleSheet } from 'react-native';
+import { Navigator, StyleSheet, BackAndroid } from 'react-native';
 import _ from 'lodash';
 import CodePush from 'react-native-code-push';
 import color from 'color';
@@ -30,8 +30,19 @@ export default class Enter extends Component {
     signin: { sceneConfigs: Navigator.SceneConfigs.FloatFromBottom },
   }
 
+  navigator = null;
+
   componentDidMount() {
     if (!__DEV__) CodePush.notifyAppReady();
+
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      if (this.navigator && this.navigator.getCurrentRoutes().length > 1) {
+        this.navigator.pop();
+        return true;
+      }
+
+      return false;
+    });
   }
 
   configureScene = (route) => ({
@@ -51,6 +62,7 @@ export default class Enter extends Component {
     return (
       <Navigator
         style={sh.viewport}
+        ref={(navigator) => this.navigator = navigator}
         initialRoute={{ id: 'menu' }}
         renderScene={this.renderScene}
         configureScene={this.configureScene}
