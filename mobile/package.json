@@ -3,6 +3,7 @@
 	"version": "2.1.0",
 	"private": true,
 	"scripts": {
+		"build-icon": "node src/component/Icon/build.js; svg2ttf src/component/Icon/CustomIcons.svg src/component/Icon/CustomIcons.ttf",
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"test": "jest"
 	},
@@ -12,7 +13,8 @@
 		"react-native": "0.41.2",
 		"react-native-camera": "^0.6.0",
 		"react-native-code-push": "^1.17.0-beta",
-		"react-native-vector-icons": "^4.0.0"
+		"svg2ttf": "^4.0.2",
+		"svgicons2svgfont": "^5.0.0"
 	},
 	"devDependencies": {
 		"babel-jest": "19.0.0",

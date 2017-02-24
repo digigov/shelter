@@ -135,7 +135,7 @@ export default class extends Component {
     let display;
     switch (key) {
       case 'break':
-        display = <Icon name="replay" size={30} color={color.textAssist} />;
+        display = <Icon name="backspace" size={30} color={color.textAssist} />;
         break;
       case 'scan':
         display = <Icon name="filter-center-focus" size={30} color={color.textAssist} />;
