@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Navigator, StyleSheet, BackAndroid } from 'react-native';
 import _ from 'lodash';
 import CodePush from 'react-native-code-push';
-import color from 'color';
+import color from '../../assist/color';
 
 import Menu from '../Menu/Menu';
 import Panel from '../Panel/Panel';
@@ -30,8 +30,6 @@ export default class Enter extends Component {
     signin: { sceneConfigs: Navigator.SceneConfigs.FloatFromBottom },
   }
 
-  navigator = null;
-
   componentDidMount() {
     if (!__DEV__) CodePush.notifyAppReady();
 
@@ -45,12 +43,14 @@ export default class Enter extends Component {
     });
   }
 
-  configureScene = (route) => ({
+  configureScene = route => ({
     ...route.sceneConfigs || _.get(
-      Enter, `defaultRoute[${route.id}].sceneConfigs`, Navigator.SceneConfigs.FloatFromRight
+      Enter, `defaultRoute[${route.id}].sceneConfigs`, Navigator.SceneConfigs.FloatFromRight,
     ),
     gestures: {},
   });
+
+  navigator = null;
 
   renderScene = (route, navigator) => {
     const Page = Enter.pages[route.id];
@@ -62,7 +62,7 @@ export default class Enter extends Component {
     return (
       <Navigator
         style={sh.viewport}
-        ref={(navigator) => this.navigator = navigator}
+        ref={(navigator) => { this.navigator = navigator; }}
         initialRoute={{ id: 'menu' }}
         renderScene={this.renderScene}
         configureScene={this.configureScene}

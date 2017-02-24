@@ -1,8 +1,9 @@
+/* eslint no-console: 0 */
+
 const fs = require('fs');
 // const svg2ttf = require('svg2ttf');
 const svgicons2svgfont = require('svgicons2svgfont');
 const custom = require('./custom');
-const forEach = require('lodash/forEach');
 
 const fontStream = svgicons2svgfont({
   fontName: 'CustomIcons',

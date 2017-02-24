@@ -47,13 +47,13 @@ export default class Menu extends Component {
   static displayName = 'Menu';
 
   static propTypes = {
-    navigator: PropTypes.shape(),
+    navigator: PropTypes.shape().isRequired,
   }
 
-  onSignInPress = (action) => this.props.navigator.push({ id: 'panel', action });
+  onSignInPress = action => this.props.navigator.push({ id: 'panel', action });
 
   onRequestVictimIdPress = () => this.props.navigator.push(
-    { id: 'signin', action: '登錄災民', victimId: generate() }
+    { id: 'signin', action: '登錄災民', victimId: generate() },
   );
 
   render() {

@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  InteractionManager,
-} from 'react-native';
+import { StyleSheet, Text, View, InteractionManager } from 'react-native';
 import CodePush from 'react-native-code-push';
 import Enter from './page/Enter/Enter';
-import color from 'color';
+import color from './assist/color';
 
 const sh = StyleSheet.create({
   viewport: {
@@ -89,19 +84,15 @@ export default class extends Component {
                 break;
               case CodePush.SyncStatus.SYNC_IN_PROGRESS:
               default:
-                console.log(status);
             }
           },
           ({ receivedBytes, totalBytes }) => {
-            const percentage = Math.round(receivedBytes / totalBytes * 100);
-            this.setState({
-              syncText: `更新資料中 ${percentage}%`,
-            });
-          }
+            const percentage = Math.round((receivedBytes / totalBytes) * 100);
+            this.setState({ syncText: `更新資料中 ${percentage}%` });
+          },
         );
       } catch (error) {
         this.setState({ isSync: false });
-        console.error(error);
       }
 
       return false;

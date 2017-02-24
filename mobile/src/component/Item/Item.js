@@ -1,13 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  StyleSheet,
-  Platform,
-  View,
-  Text,
-  TouchableOpacity,
-  TouchableNativeFeedback,
-} from 'react-native';
+import { StyleSheet, Platform, View, Text, TouchableOpacity, TouchableNativeFeedback } from 'react-native';
 import Label from '../Label/Label';
+import color from '../../assist/color';
 
 const Touchable = Platform.select({
   ios: () => TouchableOpacity,
@@ -31,7 +25,7 @@ export default class Item extends Component {
   static displayName = 'Item';
 
   static propTypes = {
-    label: PropTypes.string,
+    label: PropTypes.string.isRequired,
     labelColor: Label.propTypes.color,
     tip: PropTypes.string,
     children: PropTypes.node,
@@ -41,6 +35,11 @@ export default class Item extends Component {
 
   static defaultProps = {
     isFirst: false,
+    labelColor: color.text,
+    tip: null,
+    children: null,
+    style: null,
+    onPress: null,
   }
 
   render() {

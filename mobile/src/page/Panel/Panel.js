@@ -15,10 +15,10 @@ export default class Panel extends Component {
   static displayName = 'Panel';
 
   static propTypes = {
-    navigator: PropTypes.shape(),
+    navigator: PropTypes.shape().isRequired,
     route: PropTypes.shape({
       action: PropTypes.string,
-    }),
+    }).isRequired,
   }
 
   onBack = () => this.props.navigator.pop();

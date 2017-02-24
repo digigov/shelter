@@ -1,4 +1,4 @@
-/* eslint quote-props: ["error", "always""] */
+/* eslint quote-props: ["error", "always"] */
 
 module.exports = {
   '3d-rotation': 59469,
@@ -932,5 +932,5 @@ module.exports = {
   'youtube-searched-for': 59642,
   'zoom-in': 59647,
   'zoom-out': 59648,
-  'zoom-out-map': 58731
+  'zoom-out-map': 58731,
 };

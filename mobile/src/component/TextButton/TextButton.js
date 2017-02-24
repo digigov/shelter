@@ -1,7 +1,9 @@
+/* eslint import/no-unresolved: [2, { ignore: ["ColorPropType"] }] */
+
 import React, { PropTypes } from 'react';
 import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
-import color from 'color';
-import size from 'size';
+import color from '../../assist/color';
+import size from '../../assist/size';
 
 const sh = StyleSheet.create({
   viewport: {
@@ -13,23 +15,27 @@ const sh = StyleSheet.create({
   },
 });
 
-function TextButton({ children, style, onPress }) {
+function Component({ children, style, onPress, ...props }) {
   return (
     <TouchableOpacity onPress={onPress} disabled={!onPress}>
       <View style={[sh.viewport, style]}>
-        <Text style={sh.text}>{children}</Text>
+        <Text {...props} style={sh.text} >{children}</Text>
       </View>
     </TouchableOpacity>
   );
 }
 
-TextButton.displayName = 'TextButton';
+Component.displayName = 'TextButton';
 
-TextButton.propTypes = {
-  children: PropTypes.string,
-  color: PropTypes.string,
+Component.propTypes = {
+  children: PropTypes.string.isRequired,
   style: View.propTypes.style,
   onPress: PropTypes.func,
 };
 
-export default TextButton;
+Component.defaultProps = {
+  style: null,
+  onPress: null,
+};
+
+export default Component;

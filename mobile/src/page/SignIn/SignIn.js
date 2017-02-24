@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, View, ScrollView, KeyboardAvoidingView, Alert } from 'react-native';
+import { StyleSheet, ScrollView, KeyboardAvoidingView, Alert } from 'react-native';
 import { IconButton, Title, Label, Margin, NextButton, Input, Textarea } from '../../component';
 import size from '../../assist/size';
 
@@ -24,15 +24,17 @@ export default class Panel extends Component {
   static displayName = 'Panel';
 
   static propTypes = {
-    navigator: PropTypes.shape(),
+    navigator: PropTypes.shape().isRequired,
     route: PropTypes.shape({
       action: PropTypes.string,
       victimId: PropTypes.string,
-    }),
+    }).isRequired,
   }
 
   state = {
-    victimId: null,
+    fullname: '',
+    phoneNumber: '',
+    detail: '',
   }
 
   onBack = () => this.props.navigator.pop();
@@ -45,12 +47,19 @@ export default class Panel extends Component {
       [{
         text: 'OK',
         onPress: () => this.props.navigator.pop(),
-      }]
+      }],
     );
   }
 
+  onFullnameChange = fullname => this.setState({ fullname });
+
+  onPhoneNumberChange = phoneNumber => this.setState({ phoneNumber });
+
+  onDetailChange = detail => this.setState({ detail });
+
   renderInput = () => {
     const { route: { action, victimId } } = this.props;
+    const { fullname, phoneNumber, detail } = this.state;
 
     if (action === '登錄災民') {
       return (
@@ -58,9 +67,9 @@ export default class Panel extends Component {
           <Margin style={sh.inputBox}>
             <Title>{victimId}</Title>
             <Label>姓名</Label>
-            <Input autoFocus />
-            <Label >聯絡電話</Label>
-            <Input keyboardType="phone-pad" />
+            <Input autoFocus value={fullname} onChange={this.onFullnameChange} />
+            <Label>聯絡電話</Label>
+            <Input keyboardType="phone-pad" value={phoneNumber} onChange={this.onPhoneNumberChange} />
           </Margin>
         </ScrollView>
       );
@@ -70,7 +79,7 @@ export default class Panel extends Component {
       <Margin style={sh.inputBox}>
         <Title>{victimId}</Title>
         <Label>細節補充（選填）</Label>
-        <Textarea autoFocus />
+        <Textarea autoFocus value={detail} onChange={this.onDetailChange} />
       </Margin>
     );
   }

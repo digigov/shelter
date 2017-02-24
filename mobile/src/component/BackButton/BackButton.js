@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Icon, Label } from 'component';
-import size from 'size';
+import Icon from '../Icon/Icon';
+import Label from '../Label/Label';
+import size from '../../assist/size';
 
 const sh = StyleSheet.create({
   viewport: {
@@ -31,6 +32,12 @@ Component.propTypes = {
   children: PropTypes.string,
   style: View.propTypes.style,
   onPress: PropTypes.func,
+};
+
+Component.defaultProps = {
+  children: null,
+  style: null,
+  onPress: null,
 };
 
 export default Component;

@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import { StyleSheet, TouchableOpacity, View, Animated } from 'react-native';
+import { StyleSheet, View, Animated } from 'react-native';
 import Camera from 'react-native-camera';
-import Icon from '../Icon/Icon';
 import IconButton from '../IconButton/IconButton';
 import color from '../../assist/color';
 import size from '../../assist/size';
@@ -97,7 +96,7 @@ export default class extends Component {
 
   static propTypes = {
     ratio: PropTypes.number,
-    onBarCodeRead: PropTypes.func,
+    onBarCodeRead: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -112,18 +111,9 @@ export default class extends Component {
     scannerHeight: 50,
   }
 
-  scanline = new Animated.Value(0);
-
   componentDidMount = () => this.scanlineAnimated();
 
-  scanlineAnimated = () => {
-    this.scanline.setValue(0);
-    Animated
-      .timing(this.scanline, { toValue: 1, duration: 1000 })
-      .start(() => this.scanlineAnimated());
-  }
-
-  onLayout = ({ nativeEvent: { layout: { width, height }}}) => {
+  onLayout = ({ nativeEvent: { layout: { width, height } } }) => {
     const scanner = width - (size.margin * 1.5 * 2);
 
     this.setState({
@@ -143,6 +133,15 @@ export default class extends Component {
     });
   }
 
+  scanlineAnimated = () => {
+    this.scanline.setValue(0);
+    Animated
+      .timing(this.scanline, { toValue: 1, duration: 1000 })
+      .start(() => this.scanlineAnimated());
+  }
+
+  scanline = new Animated.Value(0);
+
   render() {
     const { onBarCodeRead } = this.props;
     const { torch, width, height, scannerWidth, scannerHeight } = this.state;
@@ -155,15 +154,46 @@ export default class extends Component {
           torchMode={torch}
           onBarCodeRead={onBarCodeRead}
         />
-        <View style={[sh.maskCover, sh.maskCoverTop, { width, height: (height - scannerHeight) / 2 }]} />
-        <View style={[sh.maskCover, sh.maskCoverBottom, { width, height: (height - scannerHeight) / 2 }]} />
-        <View style={[sh.marginCover, sh.marginCoverLeft, { height: scannerHeight, top: (height - scannerHeight) / 2 }]} />
-        <View style={[sh.marginCover, sh.marginCoverRight, { height: scannerHeight, top: (height - scannerHeight) / 2 }]} />
-        <View style={[sh.scanner, { width: scannerWidth, height: scannerHeight, top: (height - scannerHeight) / 2 }]}>
-          <Animated.View style={[sh.scanline, { opacity: this.scanline.interpolate({
-            inputRange: [0, 0.2, 0.6, 1],
-            outputRange: [0, 1, 0.4, 1],
-          }) }]} />
+        <View
+          style={[
+            sh.maskCover,
+            sh.maskCoverTop,
+            { width, height: (height - scannerHeight) / 2 },
+          ]}
+        />
+        <View
+          style={[
+            sh.maskCover,
+            sh.maskCoverBottom,
+            { width, height: (height - scannerHeight) / 2 },
+          ]}
+        />
+        <View
+          style={[
+            sh.marginCover,
+            sh.marginCoverLeft,
+            { height: scannerHeight, top: (height - scannerHeight) / 2 },
+          ]}
+        />
+        <View
+          style={[
+            sh.marginCover,
+            sh.marginCoverRight,
+            { height: scannerHeight, top: (height - scannerHeight) / 2 },
+          ]}
+        />
+        <View
+          style={[
+            sh.scanner,
+            { width: scannerWidth, height: scannerHeight, top: (height - scannerHeight) / 2 },
+          ]}
+        >
+          <Animated.View
+            style={[sh.scanline, { opacity: this.scanline.interpolate({
+              inputRange: [0, 0.2, 0.6, 1],
+              outputRange: [0, 1, 0.4, 1],
+            }) }]}
+          />
           <View style={sh.scanlineBottom} />
           <View style={[sh.aligner, sh.alignerTopLeft]} />
           <View style={[sh.aligner, sh.alignerTopRight]} />

@@ -35,8 +35,12 @@ Component.displayName = 'Textarea';
 
 Component.propTypes = {
   style: View.propTypes.style,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+Component.defaultProps = {
+  style: null,
 };
 
 export default Component;

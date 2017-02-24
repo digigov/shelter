@@ -5,7 +5,7 @@ import range from 'lodash/range';
 import keyBy from 'lodash/keyBy';
 import mapValues from 'lodash/mapValues';
 import chunk from 'lodash/chunk';
-import { verify, prefix } from 'VictimId';
+import { verify, prefix } from '../../help/VictimId/VictimId';
 import Scanner from '../Scanner/Scanner';
 import Icon from '../Icon/Icon';
 import IconButton from '../IconButton/IconButton';
@@ -60,7 +60,7 @@ const sh = StyleSheet.create({
   hideScanButton: {
     position: 'absolute',
     right: size.margin * 1.5,
-    top: size.margin * 1.5 + size.statusBar,
+    top: (size.margin * 1.5) + size.statusBar,
   },
 });
 
@@ -106,11 +106,11 @@ export default class extends Component {
 
     if (input.length > 9) return;
 
-    const prefixKeyboard = map(prefix(input), (char) => this.prefixKeyboard[char]);
+    const prefixKeyboard = map(prefix(input), char => this.prefixKeyboard[char]);
 
     if (prefixKeyboard.length % 3 > 0) {
       range(3, prefixKeyboard.length % 3).forEach(
-        (key) => prefixKeyboard.push(<View key={key} style={sh.button} />)
+        key => prefixKeyboard.push(<View key={key} style={sh.button} />),
       );
     }
 
@@ -120,10 +120,10 @@ export default class extends Component {
   onBarCodeRead = (obj) => {
     this.setState({ isShowScan: false });
     if (!verify(obj.data)) {
-      return setTimeout(() => Alert.alert('格式錯誤', obj.data), 500);
+      setTimeout(() => Alert.alert('格式錯誤', obj.data), 500);
+    } else {
+      this.props.onChange(obj.data);
     }
-
-    this.props.onChange(obj.data);
   }
 
   onHideScanPress = () => this.setState({ isShowScan: false });
@@ -157,7 +157,7 @@ export default class extends Component {
   }
 
   render() {
-    const { input, torch, isShowScan, prefixKeyboard } = this.state;
+    const { input, isShowScan, prefixKeyboard } = this.state;
 
     const isPrefix = input && input.length >= 9;
 
@@ -189,7 +189,7 @@ export default class extends Component {
           </View>
         </View>
         <Modal visible={isShowScan} onRequestClose={this.onHideScanPress}>
-          <Scanner ratio={1/0.3} onBarCodeRead={this.onBarCodeRead} />
+          <Scanner ratio={1 / 0.3} onBarCodeRead={this.onBarCodeRead} />
           <IconButton
             name="clear"
             style={sh.hideScanButton}

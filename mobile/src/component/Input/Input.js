@@ -51,8 +51,13 @@ Component.displayName = 'Input';
 Component.propTypes = {
   style: View.propTypes.style,
   icon: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+Component.defaultProps = {
+  style: null,
+  icon: null,
 };
 
 export default Component;

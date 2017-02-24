@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import ColorPropType from 'ColorPropType';
-import color from 'color';
+import color from '../../assist/color';
 
 const sh = StyleSheet.create({
   viewport: {
@@ -15,7 +14,7 @@ const sh = StyleSheet.create({
   },
 });
 
-function Label({ children, color: textColor, style }) {
+function Component({ children, color: textColor, style }) {
   return (
     <View style={[sh.viewport, style]}>
       <Text
@@ -29,12 +28,17 @@ function Label({ children, color: textColor, style }) {
   );
 }
 
-Label.displayName = 'Label';
+Component.displayName = 'Label';
 
-Label.propTypes = {
-  color: ColorPropType,
+Component.propTypes = {
+  color: PropTypes.string,
   style: View.propTypes.style,
-  children: PropTypes.string,
+  children: PropTypes.string.isRequired,
 };
 
-export default Label;
+Component.defaultProps = {
+  color: color.text,
+  style: null,
+};
+
+export default Component;
