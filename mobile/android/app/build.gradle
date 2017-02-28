@@ -97,6 +97,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        buildConfigField "String", "CODEPUSH_KEY", '"uZfunMYhFVPlnF6NdcoFrVAeOW8V4J6-r6Deb"'
     }
     signingConfigs {
         release {
@@ -119,6 +120,7 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
+            buildConfigField "String", "CODEPUSH_KEY", '"cgYTI50dG8m4WsltAkMLpDKLqDtX4J6-r6Deb"'
         }
     }
     // applicationVariants are e.g. debug, release
