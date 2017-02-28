@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Alert, View, InteractionManager } from 'react-native';
 import CodePush from 'react-native-code-push';
+import Analytics from './help/Analytics/Analytics';
 import Enter from './page/Enter/Enter';
 import color from './assist/color';
 

@@ -14,6 +14,9 @@
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* victimTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* victimTests.m */; };
 		02276C1E1E5DD7F30006E9CF /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 02276C1D1E5DD7F30006E9CF /* icon.png */; };
+		027ABF731E652DD800CA0BD6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 027ABF721E652DD800CA0BD6 /* SystemConfiguration.framework */; };
+		027ABF751E652DE600CA0BD6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 027ABF741E652DE600CA0BD6 /* CoreData.framework */; };
+		027ABF771E652DF400CA0BD6 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 027ABF761E652DF400CA0BD6 /* libsqlite3.0.tbd */; };
 		02E7A3D51E5F570900500D4B /* CustomIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02E7A3D41E5F570900500D4B /* CustomIcons.ttf */; };
 		02E7A3D71E5F571D00500D4B /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02E7A3D61E5F571D00500D4B /* MaterialIcons.ttf */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
@@ -39,6 +42,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* victimTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* victimTests.m */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		60930BCDE3784E68910353FE /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07312BBFF5C045EF87D954A0 /* libRCTCamera.a */; };
+		66E37C3CE41548BDA27A73F3 /* libRCTGoogleAnalyticsBridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF8ED64B48F64CDDA7FA3F41 /* libRCTGoogleAnalyticsBridge.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		B45A2BA770354DF49D7B1B8D /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43C97D9703DA414C8A65DF88 /* libCodePush.a */; };
 		FF1C3D802C3E4EF896F13BC1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 98FC6E56AF354B69A8C3FBDA /* libz.tbd */; };
@@ -100,6 +104,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = CodePush;
+		};
+		027ABF5B1E652D7100CA0BD6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5905DCC6D3D94B0686814C8A /* RCTGoogleAnalyticsBridge.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A79185C61C30694E001236A6;
+			remoteInfo = RCTGoogleAnalyticsBridge;
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -262,6 +273,9 @@
 		00E356F21AD99517003FC87E /* victimTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = victimTests.m; sourceTree = "<group>"; };
 		02276C1C1E5D9B5D0006E9CF /* victim.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = victim.entitlements; path = victim/victim.entitlements; sourceTree = "<group>"; };
 		02276C1D1E5DD7F30006E9CF /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		027ABF721E652DD800CA0BD6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		027ABF741E652DE600CA0BD6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		027ABF761E652DF400CA0BD6 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		02E7A3D41E5F570900500D4B /* CustomIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = CustomIcons.ttf; path = ../src/component/Icon/CustomIcons.ttf; sourceTree = "<group>"; };
 		02E7A3D61E5F571D00500D4B /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = ../src/component/Icon/MaterialIcons.ttf; sourceTree = "<group>"; };
 		07312BBFF5C045EF87D954A0 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
@@ -278,12 +292,14 @@
 		2D02E47B1E0B4A5D006451C7 /* victim-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "victim-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* victim-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "victim-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43C97D9703DA414C8A65DF88 /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
+		5905DCC6D3D94B0686814C8A /* RCTGoogleAnalyticsBridge.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTGoogleAnalyticsBridge.xcodeproj; path = "../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/RCTGoogleAnalyticsBridge.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		76E6F6787E99412CBEE23AEE /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8C06268F193247DD831252F2 /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		98FC6E56AF354B69A8C3FBDA /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		EF8ED64B48F64CDDA7FA3F41 /* libRCTGoogleAnalyticsBridge.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTGoogleAnalyticsBridge.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -313,6 +329,10 @@
 				B45A2BA770354DF49D7B1B8D /* libCodePush.a in Frameworks */,
 				FF1C3D802C3E4EF896F13BC1 /* libz.tbd in Frameworks */,
 				60930BCDE3784E68910353FE /* libRCTCamera.a in Frameworks */,
+				66E37C3CE41548BDA27A73F3 /* libRCTGoogleAnalyticsBridge.a in Frameworks */,
+				027ABF771E652DF400CA0BD6 /* libsqlite3.0.tbd in Frameworks */,
+				027ABF751E652DE600CA0BD6 /* CoreData.framework in Frameworks */,
+				027ABF731E652DD800CA0BD6 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,9 +436,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		027ABF521E652D7100CA0BD6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				027ABF5C1E652D7100CA0BD6 /* libRCTGoogleAnalyticsBridge.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		04EE941B1D4A49B9A3DD6054 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				027ABF761E652DF400CA0BD6 /* libsqlite3.0.tbd */,
+				027ABF741E652DE600CA0BD6 /* CoreData.framework */,
+				027ABF721E652DD800CA0BD6 /* SystemConfiguration.framework */,
 				98FC6E56AF354B69A8C3FBDA /* libz.tbd */,
 			);
 			name = Frameworks;
@@ -507,6 +538,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				8C06268F193247DD831252F2 /* CodePush.xcodeproj */,
 				76E6F6787E99412CBEE23AEE /* RCTCamera.xcodeproj */,
+				5905DCC6D3D94B0686814C8A /* RCTGoogleAnalyticsBridge.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -694,6 +726,10 @@
 					ProjectRef = 00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */;
 				},
 				{
+					ProductGroup = 027ABF521E652D7100CA0BD6 /* Products */;
+					ProjectRef = 5905DCC6D3D94B0686814C8A /* RCTGoogleAnalyticsBridge.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302BC1ABCB91800DB3ED1 /* Products */;
 					ProjectRef = 00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */;
 				},
@@ -784,6 +820,13 @@
 			fileType = archive.ar;
 			path = libCodePush.a;
 			remoteRef = 02276BD61E5D98F00006E9CF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		027ABF5C1E652D7100CA0BD6 /* libRCTGoogleAnalyticsBridge.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTGoogleAnalyticsBridge.a;
+			remoteRef = 027ABF5B1E652D7100CA0BD6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		139105C11AF99BAD00B5F7CC /* libRCTSettings.a */ = {
@@ -1070,7 +1113,10 @@
 				INFOPLIST_FILE = victimTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1088,7 +1134,10 @@
 				INFOPLIST_FILE = victimTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1160,7 +1209,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "victim-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1187,7 +1239,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "victim-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1213,7 +1268,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "victim-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.victim-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1235,7 +1293,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "victim-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.victim-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;

@@ -3474,6 +3474,10 @@ react-native-code-push@^1.17.0-beta:
     inquirer "1.1.2"
     plist "1.2.0"
 
+react-native-google-analytics-bridge@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-google-analytics-bridge/-/react-native-google-analytics-bridge-5.0.1.tgz#b4b4eb00e1316d1aaa9f02304912355f8a5797e2"
+
 react-native@0.41.2:
   version "0.41.2"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.41.2.tgz#c6f486b8450a9909e6fed2dfd2c2af946563bf4f"
