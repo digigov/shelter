@@ -1,55 +1,41 @@
-import _ from 'lodash';
 import { graphql } from 'graphql';
-import { toGlobalId } from 'graphql-relay';
+import { query } from 'knex';
 import faker from 'faker';
+import { generate, prefix } from 'taiwanid';
+import { toGlobalId } from 'graphql-tower';
 import NotFoundError from '../../error/NotFoundError';
 import Schema from '../../Schema';
-import { query } from '../../model/Database';
 
-const QL = 'query ($id: Primary!) { node (id: $id) { id ...node } }';
+const QL = 'query ($id: ID!) { node (id: $id) { id ...node } }';
 
 describe('Note Query', () => {
   it('query victim', async () => {
-    const id = _.random(100, 999);
-    const cardNumber = `${_.random(100, 999)}`;
-    const ql = `${QL} fragment node on VictimNode { cardNumber }`;
-    const user = { user: {} };
-    const variable = { id: toGlobalId('victim', id) };
+    const victimId = generate();
+    const fullname = faker.random.word();
+    const id = `${prefix[victimId[0]]}${victimId.substr(1)}`;
+
+    const ql = `${QL} fragment node on Victim { fullname }`;
+    const variable = { id: toGlobalId('Victim', id) };
 
     query.mockClear();
-    query.mockReturnValueOnce(Promise.resolve([{ id, cardNumber }]));
-    const result = await graphql(Schema, ql, {}, user, variable);
-    expect(result.errors).toBeUndefined();
-    expect(result.data.node).toEqual({ id: toGlobalId('victim', id), cardNumber });
+    query.mockReturnValueOnce(Promise.resolve([{ id, fullname }]));
+    const result1 = await graphql(Schema, ql, {}, {}, variable);
+    expect(result1.errors).toBeUndefined();
+    expect(result1.data.node).toEqual({ id: toGlobalId('Victim', id), fullname });
     expect(query).toHaveBeenLastQueriedWith(
       { table: 'victim', method: 'select', id, limit: 1 },
     );
-  });
 
-  it('query logger', async () => {
-    const id = _.random(100, 999);
-    const action = faker.random.word();
-    const ql = `${QL} fragment node on LoggerNode { action }`;
-    const user = { user: {} };
-    const variable = { id: toGlobalId('logger', id) };
-
-    query.mockClear();
-    query.mockReturnValueOnce(Promise.resolve([{ id, action }]));
-    const result = await graphql(Schema, ql, {}, user, variable);
-    expect(result.errors).toBeUndefined();
-    expect(result.data.node).toEqual({ id: toGlobalId('logger', id), action });
-    expect(query).toHaveBeenLastQueriedWith(
-      { table: 'logger', method: 'select', id, limit: 1 },
-    );
+    const result2 = await graphql(Schema, ql, {}, {}, variable);
+    expect(result2).toEqualError(new NotFoundError('找不到災民資料'));
   });
 
   it('query when not found', async () => {
-    const id = _.random(100, 999);
-    const ql = 'query ($id: Primary!) { node (id: $id) { id } }';
-    const variable = { id: toGlobalId('not', id) };
+    const Type = faker.random.word();
+    const ql = `${QL} fragment node on Victim { fullname }`;
 
     query.mockClear();
-    const result = await graphql(Schema, ql, undefined, {}, variable);
+    const result = await graphql(Schema, ql, {}, {}, { id: toGlobalId(Type, 1) });
     expect(result).toEqualError(new NotFoundError());
   });
 });

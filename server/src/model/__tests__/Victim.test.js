@@ -1,6 +1,6 @@
 import _ from 'lodash';
+import { query } from 'knex';
 import Victim from '../Victim';
-import { query } from '../../model/Database';
 import NotFoundError from '../../error/NotFoundError';
 
 const id = _.random(100, 999);
@@ -12,16 +12,19 @@ describe('Victim model', () => {
     query.mockReturnValueOnce(Promise.resolve([{ id, cardNumber }]));
     const reply = await Victim.fetch(id);
     expect(reply.id).toBe(id);
-    expect(query).toHaveBeenQueriedWith([
-      { method: 'select', table: 'victim', id, limit: 1 },
-    ]);
+    expect(query).toHaveBeenQueriedWith([{
+      method: 'select',
+      table: 'victim',
+      id,
+      limit: 1,
+    }]);
   });
 
   it('fetch method when not found', async () => {
     query.mockClear();
     query.mockReturnValueOnce(Promise.resolve([]));
 
-    let error: Error;
+    let error;
     try {
       await Victim.fetch(id);
     } catch (e) { error = e; }

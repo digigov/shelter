@@ -1,27 +1,20 @@
-import {
-  GraphQLObjectType,
-  GraphQLSchema,
-} from 'graphql';
-
+import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 import NodeQuery from './query/NodeQuery';
-import { VictimConnection } from './query/VictimQuery';
-import { LoggerConnection } from './query/LoggerQuery';
-
-import ReplaceVictimMutation from './mutation/ReplaceVictimMutation';
+import VictimQuery from './query/VictimQuery';
+import CheckinVictimMutation from './mutation/CheckinVictimMutation';
 
 const Query = new GraphQLObjectType({
   name: 'Query',
   fields: {
     node: NodeQuery,
-    victim: VictimConnection,
-    logger: LoggerConnection,
+    victim: VictimQuery,
   },
 });
 
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    replaceVictim: ReplaceVictimMutation,
+    checkinVictim: CheckinVictimMutation,
   },
 });
 

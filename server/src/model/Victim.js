@@ -5,7 +5,7 @@ export default Model.extend({
   tableName: 'victim',
   hasTimestamps: true,
   softDelete: true,
-  json: ['rule'],
+  archive: ['phoneNumber'],
 }, {
   fetch: async function fetch(id) {
     const reply = await new this({ id }).fetch();

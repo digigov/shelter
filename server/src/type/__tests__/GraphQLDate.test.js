@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import faker from 'faker';
 import { Kind } from 'graphql';
 import GraphQLDate from '../GraphQLDate';
 
@@ -10,13 +11,14 @@ describe('GraphQLDate Type', () => {
   it('serialize', async () => {
     expect(GraphQLDate.serialize(iso8601)).toBe(iso8601);
     expect(GraphQLDate.serialize(timestamp)).toBe(iso8601);
-    expect(() => GraphQLDate.serialize('xyz')).toThrowError(TypeError);
   });
 
   it('parseValue', async () => {
     expect(GraphQLDate.parseValue(iso8601).toJSON()).toBe(iso8601);
     expect(GraphQLDate.parseValue(timestamp).toJSON()).toBe(iso8601);
-    expect(() => GraphQLDate.parseValue('xyz')).toThrowError(TypeError);
+
+    const value = faker.lorem.word();
+    expect(() => GraphQLDate.parseValue(value)).toThrowError(TypeError);
   });
 
   it('parseLiteral', async () => {
@@ -32,22 +34,17 @@ describe('GraphQLDate Type', () => {
       loc: { start: 0, end: 10 },
     }).toJSON()).toBe(iso8601);
 
-    expect(GraphQLDate.parseLiteral({
-      kind: _.sample(_.omit(Kind, ['STRING', 'INT'])),
-      value: timestamp,
-      loc: { start: 0, end: 10 },
-    })).toBeNull();
-
-    expect(GraphQLDate.parseLiteral({
+    const value = faker.lorem.word();
+    expect(() => GraphQLDate.parseLiteral({
       kind: Kind.STRING,
-      value: 'xyz',
+      value,
       loc: { start: 0, end: 10 },
-    })).toBeNull();
+    })).toThrowError(TypeError);
 
-    expect(GraphQLDate.parseLiteral({
+    expect(() => GraphQLDate.parseLiteral({
       kind: Kind.STRING,
       value: `2016-${_.random(13, 99)}-${_.random(32, 99)}`,
       loc: { start: 0, end: 10 },
-    })).toBeNull();
+    })).toThrowError(TypeError);
   });
 });

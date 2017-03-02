@@ -1,14 +1,16 @@
 import { GraphQLString, GraphQLObjectType } from 'graphql';
-import GraphQLPrimaryField from './GraphQLPrimaryField';
+import { GraphQLGlobalIdField } from 'graphql-tower';
 import GraphQLNodeInterface from './GraphQLNodeInterface';
-import { LoggerConnection } from '../query/LoggerQuery';
+import GraphQLVictimId from './GraphQLVictimId';
+import GraphQLPhoneNumber from './GraphQLPhoneNumber';
 
 export default new GraphQLObjectType({
-  name: 'VictimNode',
+  name: 'Victim',
   interfaces: [GraphQLNodeInterface],
   fields: () => ({
-    id: new GraphQLPrimaryField('victim'),
-    cardNumber: { type: GraphQLString },
-    logger: LoggerConnection,
+    id: new GraphQLGlobalIdField(),
+    victimId: { type: GraphQLVictimId },
+    fullname: { type: GraphQLString },
+    phoneNumber: { type: GraphQLPhoneNumber },
   }),
 });

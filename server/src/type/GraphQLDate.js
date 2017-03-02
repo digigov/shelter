@@ -1,6 +1,6 @@
-import { Kind, GraphQLScalarType } from 'graphql';
+import { GraphQLScalarType } from 'graphql';
 
-const parseDate = (value: mixed): ?Date => {
+const parseDate = (value) => {
   const date = new Date(value);
 
   if (!date.toJSON()) {
@@ -12,13 +12,7 @@ const parseDate = (value: mixed): ?Date => {
 
 export default new GraphQLScalarType({
   name: 'Date',
-  serialize: (value) => parseDate(value).toJSON(),
-  parseValue: (value) => parseDate(value),
-  parseLiteral: (ast) => {
-    if (ast.kind !== Kind.INT && ast.kind !== Kind.STRING) return null;
-
-    const date = new Date(ast.value);
-
-    return date.toJSON() ? date : null;
-  },
+  serialize: value => (value ? new Date(value).toJSON() : null),
+  parseValue: value => parseDate(value),
+  parseLiteral: ast => parseDate(ast.value),
 });

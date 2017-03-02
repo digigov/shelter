@@ -1,10 +1,10 @@
-import GraphQLPrimary from '../GraphQLPrimary';
 import GraphQLNodeInterface from '../GraphQLNodeInterface';
+import GraphQLVictimNode from '../GraphQLVictimNode';
 
 describe('GraphQLNodeInterface Type', () => {
   it('resolveType', async () => {
     expect(
-      GraphQLNodeInterface.resolveType({ type: GraphQLPrimary })
-    ).toBe(GraphQLPrimary);
+      GraphQLNodeInterface.resolveType({ type: GraphQLVictimNode })
+    ).toBe(GraphQLVictimNode);
   });
 });

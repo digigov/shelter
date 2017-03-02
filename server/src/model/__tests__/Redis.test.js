@@ -1,11 +1,7 @@
-/* eslint import/imports-first: 0 */
-
-jest.unmock('../Redis');
-
 import _ from 'lodash';
 import faker from 'faker';
-import Redis from '../Redis';
 import redis, { client } from 'redis';
+import Redis from '../Redis';
 
 const db = _.random(1, 5);
 const connector = new Redis({ db });

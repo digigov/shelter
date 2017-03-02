@@ -1,33 +1,33 @@
-import _ from 'lodash';
-import { GraphQLNonNull } from 'graphql';
+import { GraphQLID, GraphQLNonNull } from 'graphql';
+import { fromGlobalId } from 'graphql-tower';
 import NotFoundError from '../error/NotFoundError';
-import GraphQLPrimary from '../type/GraphQLPrimary';
 import GraphQLNodeInterface from '../type/GraphQLNodeInterface';
-import VictimQuery from './VictimQuery';
-import LoggerQuery from './LoggerQuery';
+import Victim from '../model/Victim';
+import GraphQLVictimNode from '../type/GraphQLVictimNode';
 
-const query = {
-  victim: VictimQuery,
-  logger: LoggerQuery,
+const model = {
+  Victim,
+};
+
+const type = {
+  Victim: GraphQLVictimNode,
 };
 
 export default {
   type: GraphQLNodeInterface,
   args: {
-    id: { type: new GraphQLNonNull(GraphQLPrimary) },
+    id: { type: new GraphQLNonNull(GraphQLID) },
   },
-  resolve: async (payload = {}, args, context) => {
-    const { key, type } = args.id;
+  resolve: async (payload = {}, args) => {
+    const id = fromGlobalId(args.id);
 
-    if (!query[type]) throw new NotFoundError();
+    if (!type[id.getType()]) throw new NotFoundError();
 
-    _.set(payload, `${type}Id`, key);
-
-    const result = await query[type].resolve(payload, args, context);
+    const result = await model[id.getType()].fetch(`${id}`);
 
     return {
-      ...result,
-      type: query[type].type,
+      ...result.toJSON(),
+      type: type[id.getType()],
     };
   },
 };

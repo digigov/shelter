@@ -1,14 +1,14 @@
 import knex from 'knex';
 import bookshelf from 'bookshelf';
 import paranoia from 'bookshelf-paranoia';
-import pretty from '../help/bookshelf-pretty';
+import archive from 'bookshelf-archive';
 import config from '../../knexfile';
 
 export const sql = knex(config);
 
 const orm = bookshelf(sql);
 orm.plugin(paranoia);
-orm.plugin(pretty);
+orm.plugin(archive);
 export default orm;
 
 export const Model = orm.Model;

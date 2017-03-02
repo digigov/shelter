@@ -1,10 +1,10 @@
 module.exports = {
-  client: 'mysql',
+  client: 'postgres',
   connection: {
     host: '127.0.0.1',
-    port: 33060,
-    user: 'root',
-    password: 'victim',
+    port: 5432,
+    user: 'postgres',
+    password: 'password',
     database: 'victim',
   },
   debug: true,

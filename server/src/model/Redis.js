@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import redis, { RedisClient } from 'redis';
+import redis from 'redis';
 
 export default class Redis {
 
-  cliest: RedisClient;
+  cliest = null;
 
   constructor(config) {
     this.client = redis.createClient({
