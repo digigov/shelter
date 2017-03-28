@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { Alert, View, InteractionManager, AsyncStorage } from 'react-native';
 import CodePush from 'react-native-code-push';
@@ -9,6 +10,7 @@ export default class extends Component {
 
   state = {
     uri: null,
+    citizen: [],
   };
 
   componentWillMount() {
@@ -31,6 +33,8 @@ export default class extends Component {
   async componentDidMount() {
     const uri = await AsyncStorage.getItem('@g0v.victim:uri');
     this.onClientChange(uri || '');
+    const citizen = JSON.parse(await AsyncStorage.getItem('@g0v.victim:citizen'));
+    if (_.isArray(citizen)) this.onCitizenChange(citizen);
   }
 
   onClientChange = async (uri) => {
@@ -38,8 +42,14 @@ export default class extends Component {
     await AsyncStorage.setItem('@g0v.victim:uri', uri);
   }
 
+  onCitizenChange = async (citizen) => {
+    console.log(111, citizen);
+    this.setState({ citizen });
+    await AsyncStorage.setItem('@g0v.victim:citizen', JSON.stringify(citizen));
+  }
+
   render() {
-    const { uri } = this.state;
+    const { uri, citizen } = this.state;
 
     if (uri === null) {
       return (<View />);
@@ -47,7 +57,11 @@ export default class extends Component {
 
     return (
       <Apollo uri={uri}>
-        <Enter onClientChange={this.onClientChange} />
+        <Enter
+          citizen={citizen}
+          onClientChange={this.onClientChange}
+          onCitizenChange={this.onCitizenChange}
+        />
       </Apollo>
     );
   }

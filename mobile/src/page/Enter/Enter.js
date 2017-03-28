@@ -22,7 +22,9 @@ export default class Enter extends Component {
   static displayName = 'Enter';
 
   static propTypes = {
+    citizen: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
     onClientChange: PropTypes.func.isRequired,
+    onCitizenChange: PropTypes.func.isRequired,
   }
 
   static pages = {
@@ -60,10 +62,17 @@ export default class Enter extends Component {
   navigator = null;
 
   renderScene = (route, navigator) => {
-    const { onClientChange } = this.props;
+    const { citizen, onClientChange, onCitizenChange } = this.props;
     const Page = Enter.pages[route.id];
 
-    return (<Page route={route} navigator={navigator} onClientChange={onClientChange} />);
+    return (
+      <Page
+        route={route}
+        navigator={navigator}
+        citizen={citizen}
+        onClientChange={onClientChange}
+        onCitizenChange={onCitizenChange}
+      />);
   }
 
   render() {

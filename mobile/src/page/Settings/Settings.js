@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
 import { StyleSheet, View, ScrollView, Text } from 'react-native';
-import { withApollo } from 'react-apollo';
+import { gql, withApollo } from 'react-apollo';
 import { NextButton, Label, Input, Item, IconButton, TextButton } from '../../component';
 import color from '../../assist/color';
 import size from '../../assist/size';
@@ -48,7 +48,9 @@ export class Component extends React.Component {
   static propTypes = {
     navigator: PropTypes.shape().isRequired,
     client: PropTypes.shape().isRequired,
+    citizen: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
     onClientChange: PropTypes.func.isRequired,
+    onCitizenChange: PropTypes.func.isRequired,
   }
 
   state = {
@@ -67,11 +69,17 @@ export class Component extends React.Component {
   onUriChange = uri => this.setState({ uri });
 
   onSubmit = async () => {
-    await this.props.onClientChange(this.state.uri);
+    const { client, onClientChange, onCitizenChange } = this.props;
+    await onClientChange(this.state.uri);
+    const reply = await client.query(
+      { query: gql`query { citizen { citizenId fullname } }` },
+    );
+    onCitizenChange(_.map(reply.data.citizen, item => ([item.citizenId, item.fullname])));
     this.props.navigator.replacePreviousAndPop({ id: 'menu' });
   }
 
   render() {
+    const { citizen } = this.props;
     const { uri } = this.state;
 
     return (
@@ -99,7 +107,7 @@ export class Component extends React.Component {
             <Item style={sh.legend} label="核可名單">
               <TextButton style={sh.textbutton} size={size.font.note}>更新核可名單</TextButton>
             </Item>
-            <Item label="總數量" style={sh.item}><Text>0筆</Text></Item>
+            <Item label="總數量" style={sh.item}><Text>{citizen.length}筆</Text></Item>
           </View>
           <View style={sh.margin}>
             <Item style={sh.legend} label="登錄狀態">
