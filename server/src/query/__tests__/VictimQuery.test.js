@@ -1,12 +1,12 @@
 import { graphql } from 'graphql';
 import { query } from 'knex';
 import faker from 'faker';
-import { generate, prefix } from 'taiwanid';
+import { generate, numberify } from 'taiwanid';
 import { toGlobalId } from 'graphql-tower';
 import Schema from '../../Schema';
 
 const victims = [generate(), generate(), generate()].map(victimId => ({
-  id: `${prefix[victimId[0]]}${victimId.substr(1)}`,
+  id: numberify(victimId),
   victimId,
   fullname: faker.random.word(),
 }));

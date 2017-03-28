@@ -1,12 +1,12 @@
 import faker from 'faker';
 import { graphql } from 'graphql';
-import { generate, prefix } from 'taiwanid';
+import { generate, numberify } from 'taiwanid';
 import { query } from 'knex';
 import Schema from '../../Schema';
 
 const victimId = generate();
 const fullname = faker.random.word();
-const id = `${prefix[victimId[0]]}${victimId.substr(1)}`;
+const id = numberify(victimId);
 
 const QL = `
   mutation($input: CheckinVictimMutationInput!) {

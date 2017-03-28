@@ -1,11 +1,10 @@
-import _ from 'lodash';
 import faker from 'faker';
 import { Kind } from 'graphql';
-import { prefix, generate } from 'taiwanid';
+import { numberify, generate } from 'taiwanid';
 import GraphQLVictimId from '../GraphQLVictimId';
 
 const victimId = generate();
-const victimNum = _.parseInt(`${prefix[victimId[0]]}${victimId.substr(1)}`);
+const victimNum = numberify(victimId);
 
 describe('GraphQLVictimId Type', () => {
   it('serialize', async () => {
