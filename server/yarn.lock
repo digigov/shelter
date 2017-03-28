@@ -843,6 +843,10 @@ bluebird@^3.4.3, bluebird@^3.4.6:
   version "3.4.6"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.6.tgz#01da8d821d87813d158967e743d5fe6c62cf8c0f"
 
+bluebird@^3.4.7:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
+
 bookshelf:
   version "0.10.2"
   resolved "https://registry.yarnpkg.com/bookshelf/-/bookshelf-0.10.2.tgz#f3fb9adec7535c15699745224df1de479b6bd17f"
@@ -855,16 +859,18 @@ bookshelf:
     inherits "~2.0.1"
     lodash "^4.13.1"
 
-bookshelf-archive@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/bookshelf-archive/-/bookshelf-archive-1.0.2.tgz#779e23de267bf00b882770c0ce31fc6acece958a"
+bookshelf-archive@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/bookshelf-archive/-/bookshelf-archive-1.0.3.tgz#570463222829e5c3e85e68af3bcf182e67744045"
   dependencies:
     lodash "^4.17.4"
 
-bookshelf-paranoia@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/bookshelf-paranoia/-/bookshelf-paranoia-0.9.0.tgz#cae7fac3656b554623c9f382865d6adde8c63b1b"
+bookshelf-paranoia@^0.10.4:
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/bookshelf-paranoia/-/bookshelf-paranoia-0.10.4.tgz#481f031158c647898593b78e2a1007383463c813"
   dependencies:
+    bluebird "^3.4.7"
+    lodash.isempty "^4.4.0"
     lodash.merge "^4.3.5"
     lodash.result "^4.3.0"
 
@@ -2878,6 +2884,10 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
 
+lodash.isempty@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/lodash.isempty/-/lodash.isempty-4.4.0.tgz#6f86cbedd8be4ec987be9aaf33c9684db1b31e7e"
+
 lodash.keys@^3.0.0:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/lodash.keys/-/lodash.keys-3.1.2.tgz#4dbc0472b156be50a0b286855d1bd0b0c656098a"
@@ -2910,13 +2920,13 @@ lodash.result@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.result/-/lodash.result-4.5.2.tgz#cb45b27fb914eaa8d8ee6f0ce7b2870b87cb70aa"
 
-lodash@^4.0.0, lodash@^4.17.4, lodash@^4.3.0, lodash@^4.6.0, lodash@^4.6.1:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
-
-lodash@^4.13.1, lodash@^4.15.0, lodash@^4.2.0:
+lodash@^4.0.0, lodash@^4.13.1, lodash@^4.15.0, lodash@^4.2.0:
   version "4.16.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.4.tgz#01ce306b9bad1319f2a5528674f88297aeb70127"
+
+lodash@^4.17.4, lodash@^4.3.0, lodash@^4.6.0, lodash@^4.6.1:
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
 longest@^1.0.1:
   version "1.0.1"

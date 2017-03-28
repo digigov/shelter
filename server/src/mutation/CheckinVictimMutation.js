@@ -17,14 +17,14 @@ export default mutation({
   resolve: async (payload, { input }) => {
     const { victimId, fullname, phoneNumber } = input;
 
-    const model = await new Victim({ id: victimId });
+    const victim = new Victim({ id: victimId });
 
-    const victim = await model.fetch() || await model.save({}, { method: 'insert' });
+    if (!await victim.fetch()) await victim.save({}, { method: 'insert' });
 
     if (fullname) victim.set({ fullname });
     if (phoneNumber) victim.set({ phoneNumber });
 
-    await model.save();
+    await victim.save();
 
     return { isNew: true };
   },

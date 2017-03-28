@@ -15,13 +15,13 @@ export default mutation({
   resolve: async (payload, { input }) => {
     const { citizenId, fullname } = input;
 
-    const model = await new Citizen({ id: citizenId });
+    const citizen = new Citizen({ id: citizenId });
 
-    const victim = await model.fetch() || await model.save({}, { method: 'insert' });
+    if (!await citizen.fetch()) await citizen.save({}, { method: 'insert' });
 
-    if (fullname) victim.set({ fullname });
+    if (fullname) citizen.set({ fullname });
 
-    await model.save();
+    await citizen.save();
 
     return { isNew: true };
   },
