@@ -1,6 +1,6 @@
 {
-	"name": "victim",
-	"version": "2.2.0",
+	"name": "victim-mobile",
+	"version": "2.2.5",
 	"private": true,
 	"scripts": {
 		"build-icon": "node src/component/Icon/build.js; svg2ttf src/component/Icon/CustomIcons.svg src/component/Icon/CustomIcons.ttf",
@@ -8,15 +8,18 @@
 		"test": "eslint ./src; jest"
 	},
 	"dependencies": {
+		"apollo-client": "^1.0.0-rc.6",
 		"babel-eslint": "^7.1.1",
 		"lodash": "^4.17.4",
 		"react": "~15.4.0",
+		"react-apollo": "^1.0.0-rc.3",
 		"react-native": "0.41.2",
 		"react-native-camera": "^0.6.0",
 		"react-native-code-push": "^1.17.0-beta",
 		"react-native-google-analytics-bridge": "^5.0.1",
 		"svg2ttf": "^4.0.2",
-		"svgicons2svgfont": "^5.0.0"
+		"svgicons2svgfont": "^5.0.0",
+		"url-parse": "^1.1.8"
 	},
 	"devDependencies": {
 		"babel-jest": "19.0.0",

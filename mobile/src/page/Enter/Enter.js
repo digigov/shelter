@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Navigator, StyleSheet, BackAndroid } from 'react-native';
 import _ from 'lodash';
 import CodePush from 'react-native-code-push';
@@ -7,6 +7,7 @@ import color from '../../assist/color';
 import Menu from '../Menu/Menu';
 import Panel from '../Panel/Panel';
 import Signin from '../SignIn/SignIn';
+import Settings from '../Settings/Settings';
 
 const sh = StyleSheet.create({
   viewport: {
@@ -20,14 +21,20 @@ export default class Enter extends Component {
 
   static displayName = 'Enter';
 
+  static propTypes = {
+    onClientChange: PropTypes.func.isRequired,
+  }
+
   static pages = {
     menu: Menu,
     panel: Panel,
     signin: Signin,
+    settings: Settings,
   }
 
   static defaultRoute = {
     signin: { sceneConfigs: Navigator.SceneConfigs.FloatFromBottom },
+    settings: { sceneConfigs: Navigator.SceneConfigs.FloatFromBottom },
   }
 
   componentDidMount() {
@@ -53,9 +60,10 @@ export default class Enter extends Component {
   navigator = null;
 
   renderScene = (route, navigator) => {
+    const { onClientChange } = this.props;
     const Page = Enter.pages[route.id];
 
-    return (<Page route={route} navigator={navigator} />);
+    return (<Page route={route} navigator={navigator} onClientChange={onClientChange} />);
   }
 
   render() {

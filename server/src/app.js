@@ -1,9 +1,10 @@
+import 'babel-polyfill';
 import express from 'express';
 import expressGraphQL from 'express-graphql';
 import moment from 'moment-timezone';
-import Schema from './src/Schema';
+import Schema from './Schema';
 
-const NODE_PORT = process.env.NODE_PORT || 8080;
+const PORT = process.env.NODE_PORT || process.env.PORT || 8080;
 
 moment.tz.setDefault('Asia/Taipei');
 
@@ -22,6 +23,6 @@ server.use('/', expressGraphQL({
   },
 }));
 
-server.listen(NODE_PORT, () => console.log(
-  `GraphQL Server is now running on http://localhost:${NODE_PORT}`
+server.listen(PORT, () => console.log(
+  `GraphQL Server is now running on http://localhost:${PORT}`
 ));

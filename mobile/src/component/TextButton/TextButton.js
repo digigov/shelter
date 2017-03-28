@@ -11,15 +11,14 @@ const sh = StyleSheet.create({
   },
   text: {
     color: color.secondary,
-    fontSize: size.font.label,
   },
 });
 
-function Component({ children, style, onPress, ...props }) {
+function Component({ children, style, size: fontSize, onPress, ...props }) {
   return (
     <TouchableOpacity onPress={onPress} disabled={!onPress}>
       <View style={[sh.viewport, style]}>
-        <Text {...props} style={sh.text} >{children}</Text>
+        <Text {...props} style={[sh.text, { fontSize }]} >{children}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -30,12 +29,14 @@ Component.displayName = 'TextButton';
 Component.propTypes = {
   children: PropTypes.string.isRequired,
   style: View.propTypes.style,
+  size: PropTypes.number,
   onPress: PropTypes.func,
 };
 
 Component.defaultProps = {
   style: null,
   onPress: null,
+  size: size.font.label,
 };
 
 export default Component;

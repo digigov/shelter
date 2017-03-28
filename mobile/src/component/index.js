@@ -2,6 +2,7 @@
  * @providesModule component
  */
 
+import Apollo from './Apollo/Apollo';
 import BackButton from './BackButton/BackButton';
 import Icon from './Icon/Icon';
 import IconButton from './IconButton/IconButton';
@@ -17,6 +18,7 @@ import Keyboard from './Keyboard/Keyboard';
 import Scanner from './Scanner/Scanner';
 
 export {
+  Apollo,
   BackButton,
   Icon,
   IconButton,

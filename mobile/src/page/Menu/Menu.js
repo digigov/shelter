@@ -1,5 +1,7 @@
-import React, { PropTypes, Component } from 'react';
-import { StyleSheet, ScrollView, View, Text } from 'react-native';
+import _ from 'lodash';
+import React, { PropTypes } from 'react';
+import { gql, withApollo } from 'react-apollo';
+import { StyleSheet, ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import { Margin, Item, Title } from '../../component/';
 import { generate } from '../../help/VictimId/VictimId';
 import color from '../../assist/color';
@@ -42,12 +44,22 @@ const sh = StyleSheet.create({
   },
 });
 
-export default class Menu extends Component {
+export class Component extends React.Component {
 
   static displayName = 'Menu';
 
   static propTypes = {
     navigator: PropTypes.shape().isRequired,
+    client: PropTypes.shape().isRequired,
+  }
+
+  state = {
+    title: '離線演練模式',
+  };
+
+  componentDidMount() {
+    const { client } = this.props;
+    if (client.uri) this.fetchQuery();
   }
 
   onSignInPress = action => this.props.navigator.push({ id: 'panel', action });
@@ -56,12 +68,29 @@ export default class Menu extends Component {
     { id: 'signin', action: '登錄災民', victimId: generate() },
   );
 
+  onTitlePress = () => this.props.navigator.push({ id: 'settings' });
+
+  fetchQuery = async () => {
+    const { client } = this.props;
+    const reply = await client.query({
+      query: gql`query { event { title } }`,
+    });
+
+    const title = _.get(reply, 'data.event.title', '離線演練模式');
+
+    this.setState({ title });
+  }
+
   render() {
+    const { title } = this.state;
+
     return (
       <View style={sh.viewport}>
         <View style={sh.checkin}>
           <Margin>
-            <Title style={sh.title} color={color.background}>臺北市社會局</Title>
+            <TouchableOpacity onPress={this.onTitlePress}>
+              <Title style={sh.title} color={color.background}>{title}</Title>
+            </TouchableOpacity>
             <View style={sh.header} />
             <Item
               label="登錄災民資料"
@@ -93,3 +122,5 @@ export default class Menu extends Component {
     );
   }
 }
+
+export default withApollo(Component);

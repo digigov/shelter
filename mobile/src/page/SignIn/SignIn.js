@@ -1,12 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, ScrollView, KeyboardAvoidingView, Alert } from 'react-native';
-import { IconButton, Title, Label, Margin, NextButton, Input, Textarea } from '../../component';
+import { StyleSheet, ScrollView, KeyboardAvoidingView, View, Alert } from 'react-native';
+import { IconButton, Title, Label, NextButton, Input, Textarea } from '../../component';
 import size from '../../assist/size';
 
 const sh = StyleSheet.create({
   viewport: {
     flex: 1,
     paddingTop: size.statusBar,
+  },
+  margin: {
+    marginHorizontal: size.margin,
   },
   header: {
     flexDirection: 'row',
@@ -64,23 +67,23 @@ export default class Panel extends Component {
     if (action === '登錄災民') {
       return (
         <ScrollView style={sh.inputBox}>
-          <Margin style={sh.inputBox}>
+          <View style={[sh.inputBox, sh.margin]}>
             <Title>{victimId}</Title>
             <Label>姓名</Label>
             <Input autoFocus value={fullname} onChange={this.onFullnameChange} />
             <Label>聯絡電話</Label>
             <Input keyboardType="phone-pad" value={phoneNumber} onChange={this.onPhoneNumberChange} />
-          </Margin>
+          </View>
         </ScrollView>
       );
     }
 
     return (
-      <Margin style={sh.inputBox}>
+      <View style={[sh.margin, sh.inputBox]}>
         <Title>{victimId}</Title>
         <Label>細節補充（選填）</Label>
         <Textarea autoFocus value={detail} onChange={this.onDetailChange} />
-      </Margin>
+      </View>
     );
   }
 
@@ -88,15 +91,15 @@ export default class Panel extends Component {
     const { route: { action } } = this.props;
 
     return (
-      <KeyboardAvoidingView behavior="padding" style={sh.viewport}>
-        <Margin style={sh.header}>
+      <KeyboardAvoidingView behavior="height" style={sh.viewport}>
+        <View style={[sh.header, sh.margin]}>
           <Label>{action}</Label>
           <IconButton name="clear" onPress={this.onBack} />
-        </Margin>
+        </View>
         {this.renderInput()}
-        <Margin>
+        <View style={sh.margin}>
           <NextButton onPress={this.onSubmit}>送出</NextButton>
-        </Margin>
+        </View>
       </KeyboardAvoidingView>
     );
   }

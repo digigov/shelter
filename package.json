@@ -1,0 +1,23 @@
+{
+  "name": "victim",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "cd server; npm run start",
+    "postinstall": "cd server; yarn install"
+  },
+  "engines": {
+    "node": "^6.9",
+    "yarn": "^0.21"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/g0v/victim.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/g0v/victim/issues"
+  },
+  "homepage": "https://github.com/g0v/victim#readme"
+}

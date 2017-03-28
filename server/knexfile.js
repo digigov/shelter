@@ -1,11 +1,9 @@
 module.exports = {
-  client: 'postgres',
-  connection: {
+  client: 'pg',
+  connection: process.env.DATABASE_URL || {
     host: '127.0.0.1',
-    port: 5432,
     user: 'postgres',
-    password: 'password',
+    password: null,
     database: 'victim',
   },
-  debug: true,
 };

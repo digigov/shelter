@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import { StyleSheet, Alert, View, InteractionManager } from 'react-native';
+import { Alert, View, InteractionManager, AsyncStorage } from 'react-native';
 import CodePush from 'react-native-code-push';
 import Analytics from './help/Analytics/Analytics';
+import { Apollo } from './component';
 import Enter from './page/Enter/Enter';
-import color from './assist/color';
-
-const sh = StyleSheet.create({
-  viewport: {
-    flex: 1,
-    backgroundColor: color.primary,
-  },
-});
 
 export default class extends Component {
+
+  state = {
+    uri: null,
+  };
 
   componentWillMount() {
     InteractionManager.runAfterInteractions(() => {
@@ -25,17 +22,33 @@ export default class extends Component {
               { text: '稍後', onPress: () => {} },
               { text: '立即重啟', onPress: () => CodePush.restartApp() },
             ],
-          )
+          );
         }
       });
     });
   }
 
+  async componentDidMount() {
+    const uri = await AsyncStorage.getItem('@g0v.victim:uri');
+    this.onClientChange(uri || '');
+  }
+
+  onClientChange = async (uri) => {
+    this.setState({ uri });
+    await AsyncStorage.setItem('@g0v.victim:uri', uri);
+  }
+
   render() {
+    const { uri } = this.state;
+
+    if (uri === null) {
+      return (<View />);
+    }
+
     return (
-      <View style={sh.viewport}>
-        <Enter />
-      </View>
+      <Apollo uri={uri}>
+        <Enter onClientChange={this.onClientChange} />
+      </Apollo>
     );
   }
 }
