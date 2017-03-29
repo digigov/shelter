@@ -92,7 +92,7 @@ android {
         applicationId "g0v.victim"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 12
+        versionCode 13
         versionName "2.3.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"

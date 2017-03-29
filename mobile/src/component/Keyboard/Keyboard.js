@@ -1,11 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, Alert, Modal } from 'react-native';
+import { makeup } from 'taiwanid';
 import map from 'lodash/map';
 import range from 'lodash/range';
 import keyBy from 'lodash/keyBy';
 import mapValues from 'lodash/mapValues';
 import chunk from 'lodash/chunk';
-import { verify, prefix } from '../../help/VictimId/VictimId';
+import { verify } from '../../help/VictimId/VictimId';
 import Scanner from '../Scanner/Scanner';
 import Icon from '../Icon/Icon';
 import IconButton from '../IconButton/IconButton';
@@ -94,19 +95,22 @@ export default class extends Component {
     const { input: prevInput } = this.state;
 
     let input = '';
-    if (keyValue === 'break') {
+    let prefixKeyboard = [];
+
+    if (keyValue === '0' && prevInput.length === 0) {
+      prefixKeyboard = map(['A', 'B', 'C', 'D'], char => this.prefixKeyboard[char]);
+    } else if (keyValue === 'break') {
       input = prevInput.substr(0, prevInput.length - 1);
     } else if (keyValue === 'scan') {
       this.setState({ isShowScan: true });
-    } else if (/[A-Z]/gi.test(keyValue)) {
+    } else if (prevInput.length >= 9) {
       onChange(`${keyValue}${prevInput}`);
+    } else if (prevInput.length < 8) {
+      input = prevInput + keyValue;
     } else {
       input = prevInput + keyValue;
+      prefixKeyboard = map(makeup(input), char => this.prefixKeyboard[char]);
     }
-
-    if (input.length > 9) return;
-
-    const prefixKeyboard = map(prefix(input), char => this.prefixKeyboard[char]);
 
     if (prefixKeyboard.length % 3 > 0) {
       range(3, prefixKeyboard.length % 3).forEach(
@@ -165,11 +169,11 @@ export default class extends Component {
       <View style={sh.viewport}>
         <View style={sh.input}>
           <Text style={sh.inputText}>{input}</Text>
-          {!input && <Text style={sh.preholder}>災民證 或 身分證</Text>}
-          {!input && <Text style={sh.tip}>請輸入證件字號後九位數字</Text>}
+          {!input && <Text style={sh.preholder}>災民證 / 身分證 / 居留證</Text>}
+          {!input && <Text style={sh.tip}>請輸入證件字號後九位數字，居留證請先按 0</Text>}
         </View>
         <View style={sh.keyboard}>
-          {isPrefix && prefixKeyboard.length ?
+          {isPrefix || prefixKeyboard.length ?
             map(chunk(prefixKeyboard, 3), (buttons, idx) => (
               <View style={sh.buttonGroup} key={idx}>{buttons}</View>
             ))
@@ -180,7 +184,7 @@ export default class extends Component {
           }
           <View style={sh.buttonGroup} key="break">
             {this.renderButton('scan')}
-            {isPrefix && prefixKeyboard.length ?
+            {isPrefix || prefixKeyboard.length ?
               <View style={sh.button} />
             :
               this.renderButton('0')

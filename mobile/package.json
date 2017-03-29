@@ -1,6 +1,6 @@
 {
 	"name": "victim-mobile",
-	"version": "2.3.0",
+	"version": "2.3.1",
 	"private": true,
 	"scripts": {
 		"build-icon": "node src/component/Icon/build.js; svg2ttf src/component/Icon/CustomIcons.svg src/component/Icon/CustomIcons.ttf",
@@ -19,6 +19,7 @@
 		"react-native-google-analytics-bridge": "^5.0.1",
 		"svg2ttf": "^4.0.2",
 		"svgicons2svgfont": "^5.0.0",
+		"taiwanid": "^1.4.0",
 		"url-parse": "^1.1.8"
 	},
 	"devDependencies": {
