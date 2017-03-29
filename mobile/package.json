@@ -1,6 +1,6 @@
 {
 	"name": "victim-mobile",
-	"version": "2.2.5",
+	"version": "2.2.6",
 	"private": true,
 	"scripts": {
 		"build-icon": "node src/component/Icon/build.js; svg2ttf src/component/Icon/CustomIcons.svg src/component/Icon/CustomIcons.ttf",

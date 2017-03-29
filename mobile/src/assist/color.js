@@ -13,4 +13,6 @@ export default {
   backgroundAssist: '#EEEEEE',
   border: '#DDDDDD',
   mask: 'rgba(0, 0, 0, 0.6)',
+  safety: '#27AE60',
+  warning: '#D35400',
 };

@@ -43,7 +43,6 @@ export default class extends Component {
   }
 
   onCitizenChange = async (citizen) => {
-    console.log(111, citizen);
     this.setState({ citizen });
     await AsyncStorage.setItem('@g0v.victim:citizen', JSON.stringify(citizen));
   }

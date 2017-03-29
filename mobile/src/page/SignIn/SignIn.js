@@ -1,6 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import { StyleSheet, ScrollView, KeyboardAvoidingView, View, Alert } from 'react-native';
+import _ from 'lodash';
+import React, { PropTypes } from 'react';
+import { gql, withApollo } from 'react-apollo';
+import { StyleSheet, ScrollView, KeyboardAvoidingView, View, Alert, Text } from 'react-native';
 import { IconButton, Title, Label, NextButton, Input, Textarea } from '../../component';
+import color from '../../assist/color';
 import size from '../../assist/size';
 
 const sh = StyleSheet.create({
@@ -20,30 +23,68 @@ const sh = StyleSheet.create({
   inputBox: {
     flex: 1,
   },
+  warning: {
+    color: color.warning,
+  },
+  name: {
+    marginTop: 20,
+  },
 });
 
-export default class Panel extends Component {
+export class Component extends React.Component {
 
   static displayName = 'Panel';
 
   static propTypes = {
     navigator: PropTypes.shape().isRequired,
+    client: PropTypes.shape().isRequired,
     route: PropTypes.shape({
       action: PropTypes.string,
       victimId: PropTypes.string,
     }).isRequired,
+    citizen: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
   }
 
   state = {
     fullname: '',
     phoneNumber: '',
     detail: '',
+    isCitizen: false,
+  }
+
+  componentWillMount() {
+    const { citizen, route: { victimId } } = this.props;
+    const reply = citizen.length ? _.find(citizen, item => (item[0] === victimId)) : false;
+
+    this.setState({
+      isCitizen: citizen.length ? !!reply : true,
+      fullname: reply ? reply[1] : '',
+    });
   }
 
   onBack = () => this.props.navigator.pop();
 
-  onSubmit = () => {
-    const { route: { victimId } } = this.props;
+  onSubmit = async () => {
+    const { client, route: { victimId } } = this.props;
+    const { fullname, phoneNumber } = this.state;
+
+    if (client.uri) {
+      await client.mutate({
+        mutation: gql`
+          mutation ($input: CheckinVictimMutationInput!) {
+            checkinVictim (input: $input) {
+              isNew
+            }
+          }`,
+        variables: {
+          input: {
+            victimId,
+            fullname: fullname || null,
+            phoneNumber: phoneNumber || null,
+          },
+        },
+      });
+    }
 
     Alert.alert(
       '儲存完成', victimId,
@@ -62,14 +103,15 @@ export default class Panel extends Component {
 
   renderInput = () => {
     const { route: { action, victimId } } = this.props;
-    const { fullname, phoneNumber, detail } = this.state;
+    const { fullname, phoneNumber, detail, isCitizen } = this.state;
 
     if (action === '登錄災民') {
       return (
         <ScrollView style={sh.inputBox}>
           <View style={[sh.inputBox, sh.margin]}>
-            <Title>{victimId}</Title>
-            <Label>姓名</Label>
+            <Title color={isCitizen === false ? color.warning : color.safety}>{victimId}</Title>
+            {isCitizen === false && <Text style={sh.warning}>注意！不是核可名單</Text>}
+            <Label style={sh.name}>姓名</Label>
             <Input autoFocus value={fullname} onChange={this.onFullnameChange} />
             <Label>聯絡電話</Label>
             <Input keyboardType="phone-pad" value={phoneNumber} onChange={this.onPhoneNumberChange} />
@@ -104,3 +146,5 @@ export default class Panel extends Component {
     );
   }
 }
+
+export default withApollo(Component);
