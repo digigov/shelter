@@ -5,6 +5,7 @@ import CitizenQuery from './query/CitizenQuery';
 import EventNode from './query/EventNode';
 import CheckinVictimMutation from './mutation/CheckinVictimMutation';
 import AddCitizenMutation from './mutation/AddCitizenMutation';
+import TakeActionMutation from './mutation/TakeActionMutation';
 
 const Query = new GraphQLObjectType({
   name: 'Query',
@@ -19,6 +20,7 @@ const Query = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
+    takeAction: TakeActionMutation,
     checkinVictim: CheckinVictimMutation,
     addCitizen: AddCitizenMutation,
   },

@@ -65,25 +65,35 @@ export class Component extends React.Component {
   onBack = () => this.props.navigator.pop();
 
   onSubmit = async () => {
-    const { client, route: { victimId } } = this.props;
-    const { fullname, phoneNumber } = this.state;
+    const { client, route: { action, victimId } } = this.props;
+    const { fullname, phoneNumber, detail } = this.state;
 
     if (client.uri) {
-      await client.mutate({
-        mutation: gql`
-          mutation ($input: CheckinVictimMutationInput!) {
-            checkinVictim (input: $input) {
-              isNew
-            }
-          }`,
-        variables: {
-          input: {
-            victimId,
-            fullname: fullname || null,
-            phoneNumber: phoneNumber || null,
+      if (action === '登錄災民') {
+        await client.mutate({
+          mutation: gql`
+            mutation ($input: CheckinVictimMutationInput!) {
+              checkinVictim (input: $input) { isNew }
+            }`,
+          variables: {
+            input: {
+              victimId,
+              fullname: fullname || null,
+              phoneNumber: phoneNumber || null,
+            },
           },
-        },
-      });
+        });
+      } else {
+        await client.mutate({
+          mutation: gql`
+            mutation ($input: TakeActionMutationInput!) {
+              takeAction (input: $input) { isNew }
+            }`,
+          variables: {
+            input: { victimId, action, detail: detail || null },
+          },
+        });
+      }
     }
 
     Alert.alert(
