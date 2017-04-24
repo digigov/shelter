@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Alert, View, InteractionManager, AsyncStorage } from 'react-native';
+import { View, InteractionManager, AsyncStorage } from 'react-native';
 import CodePush from 'react-native-code-push';
 import Analytics from './help/Analytics/Analytics';
 import { Apollo } from './component';
@@ -17,14 +17,7 @@ export default class extends Component {
     InteractionManager.runAfterInteractions(() => {
       CodePush.sync({}, (status) => {
         if (status === CodePush.SyncStatus.UPDATE_INSTALLED) {
-          Alert.alert(
-            '更新數據已就緒',
-            '是否立即重啟更新？',
-            [
-              { text: '稍後', onPress: () => {} },
-              { text: '立即重啟', onPress: () => CodePush.restartApp() },
-            ],
-          );
+          CodePush.restartApp();
         }
       });
     });
