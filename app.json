@@ -1,0 +1,25 @@
+{
+  "name": "Shelter",
+  "description": "A barebones Node.js app for Shelter",
+  "repository": "https://github.com/g0v/shelter",
+  "keywords": ["node", "shelter", "taiwan"],
+  "env": {
+    "TITLE": {
+      "description": "顯示於 APP 最上方的此次事件名稱",
+      "value": "連線演練模式"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "9.5"
+      }
+    }
+  ]
+}
