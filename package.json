@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "cd server; npm run start",
-    "postinstall": "cd server; yarn install"
+    "postinstall": "cd server; yarn install",
+    "heroku-postbuild": "cd server; npm run build"
   },
   "engines": {
     "node": "^6.9",

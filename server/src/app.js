@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import path from 'path';
 import express from 'express';
 import expressGraphQL from 'express-graphql';
 import moment from 'moment-timezone';
@@ -10,7 +11,7 @@ moment.tz.setDefault('Asia/Taipei');
 
 const server = express();
 
-server.use('/', expressGraphQL({
+server.use('/graphql', expressGraphQL({
   schema: Schema,
   pretty: true,
   graphiql: process.env.NODE_ENV === 'development',
@@ -22,6 +23,12 @@ server.use('/', expressGraphQL({
     };
   },
 }));
+
+server.use(express.static(path.resolve(__dirname, './../build')));
+
+server.use('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './../build/index.html'));
+});
 
 server.listen(PORT, () => console.log(
   `GraphQL Server is now running on http://localhost:${PORT}`
